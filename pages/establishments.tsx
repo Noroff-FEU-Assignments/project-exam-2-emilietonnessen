@@ -1,11 +1,17 @@
 import React from 'react'
+import Layout from '../components/Layout'
 
 const establishments = () => {
     return (
-        <div>
-            
-        </div>
-    )
+        <Layout page="establishments">
+            <div className="filter">
+                Filter
+            </div>
+            <div className="establishment-results">
+                Results
+            </div>
+        </Layout>
+    );
 }
 
-export default establishments
+export default establishments;

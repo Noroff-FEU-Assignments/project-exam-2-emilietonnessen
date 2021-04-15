@@ -1,6 +1,9 @@
 .footer {
-    background-color: orangered;
+    background-color: $color-black;
+    color: $color-white;
   
     text-align: center;
-    font-size: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

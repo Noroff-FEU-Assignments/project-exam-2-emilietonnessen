@@ -4,15 +4,16 @@ import Navigation from "./Navigation"
 
 interface LayoutProps {
     children: React.ReactNode;
+    page: string;
 }
 
-const Layout: React.FC<LayoutProps> = ({children}) => {
+const Layout: React.FC<LayoutProps> = ({children, page}) => {
     return (
         <div className="layout">
             <div className="wrapper">
-                <Navigation />
+                <Navigation active={page}/>
                 
-                <Main>
+                <Main page={page}>
                     {children}
                 </Main>
             </div>

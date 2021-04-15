@@ -1,0 +1,26 @@
+.contact {
+    background-color: transparent;
+    position: relative;
+}
+
+.contact-background {
+    position: absolute;
+    
+    top: 0;
+    left: 0;
+    z-index: 1;
+
+    width: 100%;
+    min-height: 100%;
+    //background-color: red;
+    background-image: url('/assets/contact.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    clip-path: polygon(0 0, 100% 0, 100% 50%, 30% 100%, 0 100%);
+}
+
+.contact-info {
+    z-index: 10;
+    background-color: transparent;
+}

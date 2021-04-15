@@ -1,3 +1,20 @@
+@import url("https://use.typekit.net/qtm0ysq.css");
+
 body {
-    font-size: 1.6rem;
+    font-size: $font-size-default;
+    font-family: $font-family-body;
+    line-height: 1.6;
+    font-style: normal;
+    font-weight: 300;
+}
+
+.paragraph {
+    &:not(:last-child) {
+        margin-bottom: 2.5rem;
+    }
+}
+
+.headline {
+    font-family: $font-family-heading;
+    line-height: 1;
 }
