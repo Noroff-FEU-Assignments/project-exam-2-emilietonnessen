@@ -20,26 +20,43 @@ const Navigation: React.FC<NavigationProps> = ({active}) => {
 
             <Search />
 
-            <ul className="menu">
+            <input type="checkbox" className="menu__checkbox" id="navi-toggle" />
+            <label htmlFor="navi-toggle" className="menu__button">
+                <span className="menu__icon">&nbsp;</span>
+            </label>
+            <div className="menu__background">&nbsp;</div>
 
-                <li className="menu__item">
-                    <Link href="/establishments">
-                        <a className={active.toLowerCase() == 'establishments' ? "menu__link active" : "menu__link"}>
-                            Establishments
-                        </a>
-                    </Link>
-                </li>
+            <nav className="menu">
+                <ul className="menu__list">
+
+                    <li className="menu__item menu__item--home">
+                        <Link href="/">
+                            <a className={active.toLowerCase() == 'home' ? "menu__link active menu__link--home" : "menu__link menu__link--home"}>
+                                Home
+                            </a>
+                        </Link>
+                    </li>
+                    
+                    <li className="menu__item">
+                        <Link href="/establishments">
+                            <a className={active.toLowerCase() == 'establishments' ? "menu__link active" : "menu__link"}>
+                                Establishments
+                            </a>
+                        </Link>
+                    </li>
 
 
-                <li className={active.toLowerCase() == 'contact' ? "menu__item active" : "menu__item"}>
-                    <Link href="/contact">
-                        <a className="menu__link">
-                            Contact
-                        </a>
-                    </Link>
-                </li>
+                    <li className="menu__item">
+                        <Link href="/contact">
+                            <a className={active.toLowerCase() == 'contact' ? "menu__link active" : "menu__link"}>
+                                Contact
+                            </a>
+                        </Link>
+                    </li>
 
-            </ul> 
+                </ul> 
+            </nav>
+            
              
         </nav>
     );
