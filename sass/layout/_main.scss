@@ -1,29 +1,5 @@
 .main {
     display: grid;
     grid-template-columns: 1fr;
-
-    & > * {
-        background-color: #eee;
-    }
 }
 
-.home {
-    grid-template-rows: 50vh 60rem 70rem 85rem 100rem;
-    row-gap: 10rem;
-}
-
-.establishments {
-    grid-template-rows: 3rem 1fr;
-    row-gap: 10rem;
-    padding: 5rem 0;
-}
-
-.establishment {
-    grid-template-rows: 3rem 1fr;
-    row-gap: 10rem;
-    padding: 5rem 0;
-}
-
-.contact {
-    grid-template-rows: 1fr;
-}
