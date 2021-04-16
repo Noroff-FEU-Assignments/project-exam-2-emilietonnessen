@@ -23,3 +23,10 @@
         @media only screen and (min-width: $lap-lg) { @content; }
     }
 }
+
+@mixin centerElement {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+} 
