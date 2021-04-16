@@ -269,7 +269,7 @@
 
     // Functionality
     &__checkbox:checked ~ &__background {
-        transform: scale(50);
+        transform: scale(52);
     }
 
     &__checkbox:checked ~ & {
@@ -301,16 +301,12 @@
 }
 
 .active {
-    background-color: $color-white;
-    //transform: skewX(-15deg);
-    color: $color-primary;
-    background-size: 226%;
-
-    //background-image: linear-gradient(120deg, transparent 0%, transparent 50%, $color-white 50%);
+    background-color: $color-primary;
+    color: $color-white;
     transition: all .4s;
 
-
-    & > * {
-        transform: skewX(10deg);
+    @include respond(mobile-lg) {
+        background-color: $color-white;
+        color: $color-primary;
     }
 }
