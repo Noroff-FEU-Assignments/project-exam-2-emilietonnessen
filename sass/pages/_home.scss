@@ -1,19 +1,37 @@
+
+
+
 .hero {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+
     background-color: #eee;
 }
 
 .category {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+
     background-color: #eee;
 }
 
 .review {
+    grid-column: 1 / 4;
+    grid-row: 3 / 4;
+
     background-color: #eee;
-}   
+}
 
 .featured {
+    grid-column: 2 / 3;
+    grid-row: 4 / 5;
+
     background-color: #eee;
 }
 
 .gallery {
+    grid-column: 1 / 4;
+    grid-row: 5 / 6;
+
     background-color: #eee;
-}   
+}
