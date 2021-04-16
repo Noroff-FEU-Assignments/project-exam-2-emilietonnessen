@@ -1,5 +1,5 @@
 import SearchBar from './SearchBar';
-import SearchResults from './SearchResult';
+import SearchResult from './SearchResult';
 
 const Search = () => {
     return (
@@ -7,7 +7,7 @@ const Search = () => {
             <SearchBar />
             
             <div className="search-results">
-                <SearchResults />
+                <SearchResult />
             </div>
         </div>
     );
