@@ -16,11 +16,11 @@
     }
 
     @if $breakpoint == lap {
-        @media only screen and (min-width: $lap) { @content; }
+        @media only screen and (max-width: $lap) { @content; }
     }
 
     @if $breakpoint == lap-lg {
-        @media only screen and (min-width: $lap-lg) { @content; }
+        @media only screen and (max-width: $lap-lg) { @content; }
     }
 }
 
