@@ -1,23 +1,28 @@
+import Category from "../components/Category";
+import Featured from "../components/Featured";
+import Hero from "../components/Hero";
 import Layout from "../components/Layout";
+import Review from "../components/Review";
+import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
+import { ESTABLISHMENTS_URL } from "../constants/api";
 
-const home = () => {
+interface HomeProps {
+    establishments?: any;
+    props?: any;
+}
+
+const home: React.FC<HomeProps> = ({establishments}) => {
+    console.log(establishments);
+
     return (
         <Layout page="home">
-            <header className="hero">
-                Hero/Banner 
-            </header>
+            <Hero />
             
-            <section className="category">
-                Categories
-            </section>
+            <Category />
             
-            <section className="review">
-                Review
-            </section>
+            <Review />
 
-            <section className="featured">
-                Featured
-            </section> 
+            <Featured />
 
             <section className="gallery">
                 Gallery
@@ -26,4 +31,35 @@ const home = () => {
     );
 }
 
-export default home;
+export default home; 
+
+
+
+
+export async function getStaticProps() {
+    let establishments: any = [];
+    
+    const client = new ApolloClient({
+        uri: ESTABLISHMENTS_URL,
+        cache: new InMemoryCache
+    });
+
+    const { data } = await client.query({
+        query: gql`
+            query  {
+                establishments {
+                    id
+                    name
+                }
+                
+                
+            }
+        `
+    });
+
+    return { 
+        props: {
+            establishments: data.establishment,
+        },
+	};
+} 
