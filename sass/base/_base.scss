@@ -10,6 +10,7 @@ body,
 /* width */
 ::-webkit-scrollbar {
     width: 1rem;
+    height: 1rem;
 
     @include respond(mobile) {
         width: .5rem;
