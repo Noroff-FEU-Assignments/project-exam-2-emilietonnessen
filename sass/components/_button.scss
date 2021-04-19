@@ -1,0 +1,67 @@
+.btn {
+
+    &,
+    & a,
+    & a:link,
+    & a:visited {
+        color: inherit;
+        text-decoration: none;
+        border-radius: 0;
+        border: 0;
+        outline: 0;
+        background-color: transparent;
+        font-family: inherit;
+        cursor: pointer;
+        transition: all .3s;
+        box-shadow: $boxshadow-default;
+        display: block;
+    }
+
+    &--primary {
+        background-color: $color-primary;
+        color: $color-white;
+        box-shadow: $boxshadow-default;
+
+        &:hover,
+        &:focus {
+            background-color: $color-primary;
+            box-shadow: $boxshadow-hover;
+            transform: translateY(-.5rem);
+        }
+
+        &:active {
+            transform: translateY(.5rem); 
+            box-shadow: $boxshadow-active;
+        }
+    }
+
+    
+    &--cta a {
+        font-size: 3rem;
+        font-weight: 300;
+        letter-spacing: 2px;
+        padding: 1rem 5rem;
+    } 
+
+    &--lg a {
+        font-size: 2.5rem;
+        font-weight: 300;
+        letter-spacing: 2px;
+        padding: 1rem 3rem;
+    } 
+
+    &--md a {
+        font-size: 2rem;
+        font-weight: 300;
+        letter-spacing: 2px;
+        padding: 1rem 2rem;
+    } 
+
+    &--sm a {
+        font-size: 1.6rem;
+        font-weight: 300;
+        letter-spacing: 2px;
+        padding: 1rem 1.5rem;
+    } 
+    
+}
