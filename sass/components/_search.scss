@@ -17,7 +17,6 @@
     }
 
     &__input {
-        background-color: $color-grey-light-1;
         border: none;
         outline: none;
         border-radius: 2rem;
@@ -27,11 +26,6 @@
         font-size: 1.4rem;
         color: $color-black;
         transition: all .3s;
-
-        @include respond(mobile-lg) {
-            padding: .7rem 1.4rem;
-            font-size: 1.3rem;
-        }
 
         &::placeholder {
             font-family: inherit;
@@ -44,12 +38,25 @@
             transform: scale(1.1);
         }
 
+        &--white {
+            background-color: rgba($color-white, .9);
+        }
+
+        &--grey {
+            background-color: $color-grey-light-1;
+        }
+
         @include respond(lap) {
             width: 100%;
         }
 
         @include respond(tab-land) {
             width: 110%;
+        }
+
+        @include respond(mobile-lg) {
+            padding: .7rem 1.4rem;
+            font-size: 1.3rem;
         }
     }
 
