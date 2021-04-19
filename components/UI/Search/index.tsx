@@ -1,10 +1,14 @@
 import SearchBar from './SearchBar';
 import SearchResult from './SearchResult';
 
-const Search = () => {
+interface SearchProps {
+    theme: 'white' | 'grey';
+}
+
+const Search: React.FC<SearchProps> = ({theme}) => {
     return (
         <div className="search">
-            <SearchBar />
+            <SearchBar theme={theme} />
             
             <div className="search-results">
                 <SearchResult />
