@@ -18,7 +18,7 @@ const Navigation: React.FC<NavigationProps> = ({active}) => {
                 </Link>
             </div>
 
-            <Search />
+            <Search theme="grey" />  
 
             <input type="checkbox" className="menu__checkbox" id="navi-toggle" />
             <label htmlFor="navi-toggle" className="menu__button">
