@@ -1,49 +1,62 @@
-import Category from "../components/Category";
-import Featured from "../components/Featured";
-import Hero from "../components/Hero";
-import Layout from "../components/Layout";
-import Review from "../components/Review";
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
-import { ESTABLISHMENTS_URL } from "../constants/api";
+import { GRAPHQL_URL } from "../constants/api";
+import Layout from "../components/Layout";
+import Hero from "../components/Hero";
+import Category from "../components/Category";
+import Review from "../components/Review";
 import EstablishmentCard from "../components/EstablishmentCard";
+import Gallery from '../components/Gallery';
+
 
 interface HomeProps {
-    establishments?: any;
-    props?: any;
+    establishments: [{
+        id: number;
+        slug: string;
+        featured: boolean;
+        reviews: number;
+        name: string;
+        lowestPrice: number;
+        stars: number;
+        thumbnail: {
+            url: string;
+        }
+    }];
+}
+
+interface Establishments {
+    id: number;
+    slug: string;
+    featured: boolean;
+    reviews: number;
+    name: string;
+    lowestPrice: number;
+    stars: number;
+    thumbnail: {
+        url: string;
+    };
 }
 
 const home: React.FC<HomeProps> = ({establishments}) => {
-    console.log(establishments);
-    //console.log(establishments[0].gallery[0].url);
-    //const testing = establishments[0].gallery[0].url;
+    // Filter out the featured establishments
+    const filteredEstablishments: Establishments[] = establishments.filter(est => {
+        return JSON.stringify(est.featured).match('true');
+    }) 
 
-    /* const testing = establishments.gallery.map(test => {
-        console.log(test);
-    }) */
-
-    const imageArray = establishments[i].gallery[0].url;
-
-    //imageArray.splice('1', 0);
-
-    console.log(imageArray);
-
-    const establishmentCards = establishments.map(est => {
-        //console.log(est.gallery);
+    // Creating the filtered establishments into cards
+    const featuredEstablishments: JSX.Element[] = filteredEstablishments.map(est => {
         return (
             <EstablishmentCard 
                 key={est.id}
                 slug={est.slug}
                 name={est.name}
                 reviews={est.reviews}
+                price={est.lowestPrice}
                 stars={est.stars}
-                price={1234}
-                link="test"
-                //link={est.gallery.splice(1, 2).map(img => img.url)}
+                image={est.thumbnail.url}
             />
         );
     });
-
-
+    
     return (
         <Layout page="home">
             <Hero />
@@ -53,12 +66,10 @@ const home: React.FC<HomeProps> = ({establishments}) => {
             <Review />
 
             <section className="featured">
-                {establishmentCards}
+                {featuredEstablishments}
             </section>
 
-            <section className="gallery">
-                
-            </section>
+            <Gallery />
         </Layout>
     );
 }
@@ -67,13 +78,13 @@ export default home;
 
 
 
-
+// API Call with GraphQL and Apollo Client
 export async function getStaticProps() {
-    let establishments: any = [];
+    let establishments: Establishments[] = [];
     
     // Creating a new Apollo Client
     const client = new ApolloClient({
-        uri: ESTABLISHMENTS_URL,
+        uri: GRAPHQL_URL,
         cache: new InMemoryCache
     });
 
@@ -87,10 +98,9 @@ export async function getStaticProps() {
                     name
                     stars
                     featured
-                    gallery {
-                        id
-                        url
-                    }
+                    reviews
+                    lowestPrice
+                    thumbnail {url}
                 }                   
             }
         `
