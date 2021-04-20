@@ -100,9 +100,9 @@
 }
 
 .establishments {
-    grid-template-rows: 3rem 1fr;
+    grid-template-rows: max-content 1fr;
     row-gap: 10rem;
-    padding: 5rem 0;
+    padding: 10rem 0;
 }
 
 .establishment {
