@@ -11,7 +11,6 @@ interface SearchProps {
  
 const Search: React.FC<SearchProps> = ({theme}) => {
     
-
     const [establishments, setEstablishments] = useState([]);
     const [searchValue, setSearchValue] = useState('');
     const [searchIcon, setSearchIcon] = useState();
@@ -34,6 +33,10 @@ const Search: React.FC<SearchProps> = ({theme}) => {
         setSearchValue(event.target.value);
     }
 
+    const clearSearchHandler = (event: any) => {
+        setSearchValue(event.target.value);
+    }
+
     return (
         <>
             {console.log('Establishments', establishments)}
@@ -41,10 +44,10 @@ const Search: React.FC<SearchProps> = ({theme}) => {
 
                 <SearchBar 
                     theme={theme}
-                    /* search={searchHandler}
+                    search={searchHandler}
                     value={searchValue}
-                    clearSearch={this.clearSearchHandler}
-                    iconType={this.state.searchIcon} */
+                    clearSearch={clearSearchHandler}
+                    iconType={searchIcon}
                 />
                 
                 <div className="search-results">
