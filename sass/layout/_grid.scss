@@ -89,7 +89,7 @@
 }
 
 .home {
-    grid-template-rows: 50vh max-content 70rem 85rem 100rem;
+    grid-template-rows: 50vh max-content 70rem repeat(2, max-content);
     row-gap: 20rem;
     justify-self: center;
     justify-content: center;
