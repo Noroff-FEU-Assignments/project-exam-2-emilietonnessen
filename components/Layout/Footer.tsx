@@ -1,11 +1,18 @@
-import React from 'react'
+const Footer: React.FC = () => {
+    const currentDate: Date = new Date();
+    const currentYear: number = currentDate.getFullYear();
 
-const Footer = () => {
     return (
         <footer className="footer">
-            Footer
+            <div className="footer__box">
+                {currentYear} &copy; Holidaze. All rights reserved.
+                <span>&bull;</span>
+                <a href="#" className="footer__link">Privacy</a>
+                <span>&bull;</span> 
+                <a href="#" className="footer__link">Terms</a>
+            </div>
         </footer>
-    )
+    );
 }
 
-export default Footer
+export default Footer;
