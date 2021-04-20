@@ -1,19 +1,51 @@
 import SearchBar from './SearchBar';
 import SearchResult from './SearchResult';
+import { ESTABLISHMENTS_URL } from '../../../constants/api';
+import { useState, useEffect } from 'react'
+
 
 interface SearchProps {
     theme: 'white' | 'grey';
 }
 
 const Search: React.FC<SearchProps> = ({theme}) => {
+    const [establishments, setEstablishments] = useState([]);
+    const [searchValue, setSearchValue] = useState();
+
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const response = await fetch(ESTABLISHMENTS_URL);
+                const json = await response.json();
+                console.log('JSON', json);
+                setEstablishments(json);
+                
+            } catch (error) {
+                console.log(error)
+            }
+        }; fetchData();
+    }, []);
+
+    
+
     return (
-        <div className="search">
-            <SearchBar theme={theme} />
-            
-            <div className="search-results">
-                <SearchResult />
+        <>
+            {console.log('Establishments', establishments);}
+            <div className="search">
+
+                <SearchBar 
+                    theme={theme}
+                    search={this.searchHandler}
+                    value={searchValue}
+                    clearSearch={this.clearSearchHandler}
+                    iconType={this.state.searchIcon}
+                />
+                
+                <div className="search-results">
+                    <SearchResult />
+                </div>
             </div>
-        </div>
+        </>
     );
 }
 
