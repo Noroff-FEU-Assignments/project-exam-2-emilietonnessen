@@ -39,7 +39,7 @@ const Navigation: React.FC<NavigationProps> = ({active}) => {
                     
                     <li className="menu__item">
                         <Link href="/establishments">
-                            <a className={active.toLowerCase() == 'establishments' ? "menu__link active" : "menu__link"}>
+                            <a className={active.toLowerCase() == 'establishments' && 'establishment' ? "menu__link active" : "menu__link"}>
                                 Establishments
                             </a>
                         </Link>

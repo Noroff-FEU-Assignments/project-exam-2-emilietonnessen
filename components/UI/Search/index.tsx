@@ -20,7 +20,7 @@ const Search: React.FC<SearchProps> = ({theme}) => {
             try {
                 const response = await fetch(ESTABLISHMENTS_URL);
                 const json = await response.json();
-                console.log('JSON', json);
+                //console.log('JSON', json);
                 setEstablishments(json);
                 
             } catch (error) {
@@ -39,7 +39,7 @@ const Search: React.FC<SearchProps> = ({theme}) => {
 
     return (
         <>
-            {console.log('Establishments', establishments)}
+            {/* {console.log('Establishments', establishments)} */}
             <div className="search">
 
                 <SearchBar 
