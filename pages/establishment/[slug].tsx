@@ -1,7 +1,7 @@
 import { GetStaticProps, GetStaticPaths } from 'next';
 import { ESTABLISHMENTS_URL } from "../../constants/api";
 import Layout from '../../components/Layout';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import Image from 'next/image';
 import Details from '../../components/Details';
 import Rooms from '../../components/Rooms';
@@ -121,20 +121,64 @@ export const getStaticPaths = async () => {
 }
 
 export const getStaticProps: GetStaticProps = async ({params}) => {
-    const slug = params.slug;
-	const url = ESTABLISHMENTS_URL + '?slug=' + slug;
-	let establishment = null;
+	let slug: string | string[] | undefined;
+    
+	if (params) {
+		slug = params.slug;
+	}
 
-	try {
-		const response = await axios.get(url);
-		establishment = response.data;
-	} catch (error) {
-		console.log('[Error getStaticProps]', error); 
-	} 
+	let estGraphQL: Establishment[] = [];
+
+	const client = new ApolloClient({
+        uri: GRAPHQL_URL,
+        cache: new InMemoryCache
+    });
+
+	const { data } = await client.query({
+        query: gql`
+            query  {
+                establishments (where: {slug: "${slug}"}) {
+                    id
+                    slug
+                    name
+                    stars
+					rating
+                    featured
+                    reviews
+                    lowestPrice
+					description
+					email
+					phone
+					category
+					amenities
+					address {
+						coordinates
+						street
+						zipcode
+						city
+					}
+					gallery {
+						id
+						alternativeText
+						url
+						width
+						height
+					}
+                    
+                }                   
+            }
+        `
+    });
+
+	estGraphQL = data.establishments;
+
+	
+
+	// GraphLQ Testing
 
 	return {
 		props: { 
-            est: establishment[0] 
+            est: estGraphQL[0]
         },
 	};
 } 
