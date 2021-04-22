@@ -102,7 +102,7 @@ const establishmentDetails: React.FC<EstablishmentDetailsProps> = ({est}) => {
 				<div className="establishment-header__box">
 					<div className="establishment-header__address">
 						<Image src="/assets/icons/address-primary.svg" alt="star" layout="intrinsic" width={15} height={15} />
-						address
+						{est.address.street}
 					</div>
 
 					<div className="establishment-header__rating-box">
