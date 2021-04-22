@@ -6,6 +6,8 @@ import Image from 'next/image';
 import Details from '../../components/Details';
 import Rooms from '../../components/Rooms';
 import EstablishmentReviews from '../../components/EstablishmentReviews';
+import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
+import { GRAPHQL_URL } from "../../constants/api";
 
 interface Address {
 	coordinates: string;
@@ -168,6 +170,9 @@ export const getStaticPaths = async () => {
 		console.log('[Error getStaticPaths]', error);
 	}
 }
+
+
+
 
 export const getStaticProps: GetStaticProps = async ({params}) => {
 	let slug: string | string[] | undefined;
