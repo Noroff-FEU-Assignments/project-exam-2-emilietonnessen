@@ -150,10 +150,11 @@ export default establishmentDetails;
 
 export const getStaticPaths = async () => {
 	try {
-		const response = await axios.get(ESTABLISHMENTS_URL);
-        const establishments = response.data;
-		const paths = establishments.map((est) => ({
-			params: { 
+		const response: AxiosResponse<any> = await axios.get(ESTABLISHMENTS_URL);
+        const establishments: any[] = response.data;
+
+		const paths: {params: {slug: string}}[]  = establishments.map((est) => ({
+			params:  { 
 				slug: est.slug,
 			},
 		}));
