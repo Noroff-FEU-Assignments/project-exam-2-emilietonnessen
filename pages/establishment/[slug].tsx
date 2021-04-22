@@ -52,7 +52,14 @@ interface EstablishmentDetailsProps {
 	};
 }
 
-	const gallery = est.gallery.map(img => {
+const establishmentDetails: React.FC<EstablishmentDetailsProps> = ({est}) => {
+	
+	//console.log(typeof(est));
+	console.log('[EST]', est);
+
+	const gallery = est.gallery;
+
+	const formattedGallery: JSX.Element[] = gallery.map(img => {
 		return (
 			<div className="establishment-gallery__box" key={img.id}>
 				<Image 
@@ -65,7 +72,7 @@ interface EstablishmentDetailsProps {
 				/>
 			</div>
 		)
-	});
+	}); 
 
 	const n: number = est.stars;
     const calculatedStars: JSX.Element[] = [...Array(n)].map((e, i) => (
@@ -80,7 +87,7 @@ interface EstablishmentDetailsProps {
         <Layout page="establishment">
 			{/* Gallery: */}
             <section className="establishment-gallery">
-				{gallery}
+				{formattedGallery} 
 			</section>
 
 			{/* Header: */}
