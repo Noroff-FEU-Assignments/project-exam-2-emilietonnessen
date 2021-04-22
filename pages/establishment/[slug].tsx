@@ -7,9 +7,50 @@ import Details from '../../components/Details';
 import Rooms from '../../components/Rooms';
 import EstablishmentReviews from '../../components/EstablishmentReviews';
 
-const establishmentDetails = ({est}) => {
-	// est = establishment
-	console.log(est);
+interface Address {
+	coordinates: string;
+	street: string;
+}
+
+interface Gallery {
+	id: number;
+	alternativeText: string;
+	url: string;
+	width: string;
+	height: string;
+}
+
+interface Establishment {
+	id: number;
+        slug: string;
+        name: string;
+        stars: number;
+		rating: number;
+        featured: boolean;
+        reviews: string;
+        lowestPrice: string;
+		description: string;
+		amenities: string;
+		address: Address;
+		gallery: Gallery[];
+}
+
+interface EstablishmentDetailsProps {
+	est: {
+		id: number;
+        slug: string;
+        name: string;
+        stars: number;
+		rating: number;
+        featured: boolean;
+        reviews: string;
+        lowestPrice: string;
+		description: string;
+		amenities: string;
+		address: Address;
+		gallery: Gallery[];
+	};
+}
 
 	const gallery = est.gallery.map(img => {
 		return (
