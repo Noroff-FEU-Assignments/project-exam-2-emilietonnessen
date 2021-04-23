@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import React from 'react'
-import Button from './UI/Button'
+import { ModalButton } from './UI/Button'
 
 const Rooms = () => {
     return (
@@ -24,9 +24,9 @@ const Rooms = () => {
 				</div>
 
 				<div className="room__button">
-					<Button link="" theme="primary" size="md">
+					<ModalButton theme="primary" size="md">
 						book
-					</Button>
+					</ModalButton>
 				</div>
 				
 			</div>
@@ -52,9 +52,9 @@ const Rooms = () => {
 				</div>
 
 				<div className="room__button">
-					<Button link="" theme="primary" size="md">
+					<ModalButton theme="primary" size="md">
 						book
-					</Button>
+					</ModalButton>
 				</div>
 				
 			</div>
@@ -79,9 +79,9 @@ const Rooms = () => {
 				</div>
 
 				<div className="room__button">
-					<Button link="" theme="primary" size="md">
+					<ModalButton theme="primary" size="md">
 						book
-					</Button>
+					</ModalButton>
 				</div>
 				
 			</div>
