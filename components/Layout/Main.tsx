@@ -5,9 +5,9 @@ interface MainProps {
 
 const Main: React.FC<MainProps> = ({children, page}) => {
     return (
-        <div className={'main ' + page}>
+        <main className={'main ' + page} id="main">
             {children}
-        </div>
+        </main>
     );
 }
 
