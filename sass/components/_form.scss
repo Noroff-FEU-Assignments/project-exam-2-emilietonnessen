@@ -1,0 +1,33 @@
+.form {
+    &__group {
+
+    }
+
+    &__label {
+        display: block;
+        font-size: 1.2rem;
+        line-height: 1;
+        margin-bottom: .5rem;
+        font-weight: 400;
+    }
+
+    &__input,
+    &__textarea {
+        width: 100%;
+        background-color: $color-grey-light-1;
+        border: none;
+        outline: none;
+        padding: 1rem;
+        font-family: $font-family-body;
+
+        &::placeholder {
+            color: rgba($color-grey-dark-1, .7);
+            font-family: $font-family-body;
+            font-size: 1.4rem;
+        }
+    }
+
+    &__textarea {
+        height: 20rem;
+    }
+}
