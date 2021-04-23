@@ -1,0 +1,17 @@
+.booking {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding: 10rem 0;
+
+    &__title {
+        font-family: $font-family-heading;
+        font-weight: 400;
+        font-size: 4rem;
+        margin-bottom: 3rem;
+        letter-spacing: 3px;
+    }
+
+}
