@@ -2,12 +2,15 @@ import * as yup from "yup";
 import { Asserts } from 'yup';
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup.d";
+import { useState } from "react";
 
 import * as regex from '../constants/regex';
-import { SubmitButton } from './UI/Button';
+import useAxios from "../hooks/useAxios.js";
 import Input from "./UI/Form/Input";
 import Select from "./UI/Form/Select";
 import Textarea from "./UI/Form/Textarea";
+import { ENQUIRY_URL } from "../constants/api";
+import { SubmitButton } from './UI/Button';
 
 
 // TypeScript for Yup
@@ -61,7 +64,26 @@ const BookingForm: React.FC<BookingFormProps> = ({establishment}) => {
     });
 
     // Handle the Submit
+    async function onSubmit(data: any) {
+        setSubmitting(true);
+		setServerError(null);
+        
+        // Adds the current Establishment to the Enquiry Data
         data.establishment = establishment;
+		
+        console.log(data);
+
+        
+
+		try {
+			const response = await http.post(ENQUIRY_URL, data);
+			console.log("response", response.data);
+		} catch (error) {
+			console.log("error", error);
+			setServerError(error.toString());
+		} finally {
+			setSubmitting(false);
+		}
     }
 
     return (
