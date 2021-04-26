@@ -13,7 +13,7 @@ interface Schema extends Asserts<typeof schema> {}
 const schema = yup.object().shape({
     room:
         yup.string()
-        .required('Please Select a room'),
+        .required('Please Select a room option'),
     firstName: 
         yup.string()
         .required('Please enter your name')
@@ -51,7 +51,7 @@ interface BookingEnquiryProps {
 
 const BookingEnquiry: React.FC<BookingEnquiryProps> = ({email, phone, street, zipcode, city }) => {
     // Validation stuff
-    const { register, handleSubmit, errors } = useForm({
+    const { register, handleSubmit, watch, errors } = useForm({
         resolver: yupResolver(schema)
     });
 
@@ -62,7 +62,7 @@ const BookingEnquiry: React.FC<BookingEnquiryProps> = ({email, phone, street, zi
     }
 
     console.log('[Errors]', errors);
-    //console.log('[resolver]', useForm);
+    console.log('[Watch FirstName]', watch("firstName"));
 
 
     return (
@@ -110,14 +110,36 @@ const BookingEnquiry: React.FC<BookingEnquiryProps> = ({email, phone, street, zi
                     </div>
 
                     {/* First Name */}
-                    <Input
+                    {/* <Input
                         name="firstName"
                         label="First Name"
                         type="text"
                         placeholder="Nora"
                         register={register} >
                         {errors.firstName && <span className="form__error">{errors.firstName.message}</span>}
-                    </Input>
+                    </Input> */}
+
+                    <div className={"form__group " + `booking-form__group--firstName`}>
+                        <label 
+                            htmlFor="firstName" 
+                            className="form__label"
+                        >
+                            First Name
+                        </label>
+
+                        <input 
+                                
+                            autoComplete="nope"
+                            ref={register}
+                            name="firstName" 
+                            type="text" 
+                            className="form__input "
+                            id="name"
+                            placeholder="Nora"
+                        />
+                        
+                        {errors.firstName && <span className="form__error">{errors.firstName.message}</span>}
+                    </div>
 
                     
 
