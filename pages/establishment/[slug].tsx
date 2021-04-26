@@ -10,6 +10,7 @@ import Details from '../../components/Details';
 import Rooms from '../../components/Rooms';
 import EstablishmentReviews from '../../components/EstablishmentReviews';
 import BookingEnquiry from '../../components/BookingEnquiry';
+import Head from 'next/head';
 
 interface Address {
 	coordinates: string;
@@ -98,12 +99,13 @@ const establishmentDetails: React.FC<EstablishmentDetailsProps> = ({est}) => {
 	const coordinates: string = est.address.coordinates;
 	const filteredCoordinates: string = coordinates.replace(/ /g,'');
 
-	// Calculate a random room number left between 1 and 10
-	const roomsLeft: number = Math.floor((Math.random() * 10) + 1);
-
     return (
 		<>
+			<Head>
+				<script src="https://kit.fontawesome.com/0011017bbe.js" crossOrigin="anonymous"></script>
+			</Head>
 			<Layout page="establishment">
+
 				{/* Gallery: */}
 				<section className="establishment-gallery">
 					{formattedGallery} 

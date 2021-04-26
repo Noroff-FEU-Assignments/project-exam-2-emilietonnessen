@@ -1,5 +1,6 @@
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
 import { GRAPHQL_URL } from "../constants/api";
+import Head from 'next/head'
 import Layout from "../components/Layout";
 import Hero from "../components/Hero";
 import Category from "../components/Category";
@@ -60,6 +61,9 @@ const home: React.FC<HomeProps> = ({establishments}) => {
     
     return (
         <Layout page="home">
+            <Head>
+                <script src="https://kit.fontawesome.com/0011017bbe.js" crossOrigin="anonymous"></script>
+            </Head>
             <Hero />
             
             <Category />
