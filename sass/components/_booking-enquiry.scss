@@ -53,12 +53,14 @@
 
     display: grid;
     grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(8, max-content);
     column-gap: 2rem;
     row-gap: 2rem;
 
 
     &__title {
         grid-column: 1 / 3;
+        grid-row: 1 / 2;
 
         font-size: 4rem;
         font-family: $font-family-heading;
@@ -68,49 +70,51 @@
     }
 
     &__group {
-        &--1 {
+        &--room {
             grid-column: 1 / 3;
             grid-row: 2 / 3;
         }
 
-        &--2 {
+        &--firstName {
             grid-column: 1 / 2;
             grid-row: 3 / 4;
         }
 
-        &--3 {
+        &--lastName {
             grid-column: 2 / 3;
             grid-row: 3 / 4;
         }
 
-        &--4 {
+        &--email {
             grid-column: 1 / 3;
             grid-row: 4 / 5;
         }
 
-        &--5 {
+        &--phone {
             grid-column: 1 / 3;
             grid-row: 5 / 6;
         }
 
-        &--6 {
+        &--startDate {
             grid-column: 1 / 2;
             grid-row: 6 / 7;
         }
 
-        &--7 {
+        &--endDate {
             grid-column: 2 / 3;
             grid-row: 6 / 7;
         }
 
-        &--8 {
+        &--message {
             grid-column: 1 / 3;
             grid-row: 7 / 8;
         }
-    }
 
-    &__submit {
-        grid-column: 1 / 3;
-        margin-top: 3rem;
+        &--submit {
+            grid-column: 1 / 3;
+            grid-row: 8 / 9;
+
+            margin-top: 3rem;
+        }
     }
 }
