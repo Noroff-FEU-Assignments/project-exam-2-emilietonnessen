@@ -7,8 +7,6 @@ interface DetailsProps {
 }
 
 const Details: React.FC<DetailsProps> = ({description, coordinates, amenities}) => {
-    console.log(amenities);
-
     const arrayAmenities = amenities.split('\n');
 
     const finalAmenities: JSX.Element[] = arrayAmenities.map(am => {
@@ -33,10 +31,6 @@ const Details: React.FC<DetailsProps> = ({description, coordinates, amenities}) 
             <div className="details__map">
                 <iframe
                     className="details__iframe"
-                    width="100%"
-                    height="max-content"
-                    frameBorder="0"
-                    scrolling="no"
                     src={`https://maps.google.com/maps?q=${coordinates}&hl=en-US&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;&output=embed`}>
                 </iframe>
             </div>
