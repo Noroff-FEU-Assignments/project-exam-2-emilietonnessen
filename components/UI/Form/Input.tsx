@@ -21,7 +21,7 @@ const Input: React.FC<InputProps> = ({name, label, type, placeholder, register, 
             <input 
                     
                 autoComplete="nope"
-                {...register}
+                ref={register}
                 name={name} 
                 type={type} 
                 className="form__input "
