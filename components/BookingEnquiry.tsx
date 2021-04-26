@@ -1,7 +1,7 @@
 import * as yup from "yup";
 import { Asserts } from 'yup';
 import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
+import { yupResolver } from "@hookform/resolvers/yup.d";
 
 import * as regex from '../constants/regex';
 import Button from './UI/Button';
@@ -51,12 +51,12 @@ interface BookingEnquiryProps {
 
 const BookingEnquiry: React.FC<BookingEnquiryProps> = ({email, phone, street, zipcode, city }) => {
     // Validation stuff
-    const { register, handleSubmit, watch, formState: { errors } } = useForm({
+    const { register, handleSubmit, errors } = useForm({
         resolver: yupResolver(schema)
     });
 
     const onSubmit: () => void = () => {
-        console.log('[Watch]', watch("exampleRequired"));
+        console.log('submitted');
 
         //alert('Your Message was sent!');
     }
@@ -114,7 +114,7 @@ const BookingEnquiry: React.FC<BookingEnquiryProps> = ({email, phone, street, zi
                         label="First Name"
                         type="text"
                         placeholder="Nora"
-                        register={{...register("exampleRequired")}} 
+                        register={register} 
                     >
                         {errors.exampleRequired && <span>This field is required</span>}
                     </Input>
