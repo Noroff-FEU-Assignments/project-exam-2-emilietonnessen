@@ -46,17 +46,22 @@ const schema = yup.object().shape({
         .min(10, 'Please write a message with at least 10 letters')
 });
 
+interface BookingFormProps {
+    establishment: string;
+}
 
+const BookingForm: React.FC<BookingFormProps> = ({establishment}) => {
+    const [submitting, setSubmitting] = useState(false);
+	const [serverError, setServerError] = useState(null);
+	const http = useAxios();
 
-const BookingForm: React.FC = () => {
     // Putting React Hook Form and Yup validation together with a resolver
     const { register, handleSubmit, watch, errors } = useForm({
         resolver: yupResolver(schema)
     });
 
     // Handle the Submit
-    function onSubmit() {
-        console.log("submitted");
+        data.establishment = establishment;
     }
 
     return (

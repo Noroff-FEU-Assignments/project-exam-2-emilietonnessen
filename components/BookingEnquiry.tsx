@@ -8,9 +8,10 @@ interface BookingEnquiryProps {
     street: string;
     zipcode: number;
     city: string;
+    establishment: string;
 }
 
-const BookingEnquiry: React.FC<BookingEnquiryProps> = ({email, phone, street, zipcode, city }) => (
+const BookingEnquiry: React.FC<BookingEnquiryProps> = ({email, phone, street, zipcode, city, establishment }) => (
     <Modal link="#main">
         <div className="booking-enquiry">
 
@@ -18,7 +19,7 @@ const BookingEnquiry: React.FC<BookingEnquiryProps> = ({email, phone, street, zi
             <BookingInfo street={street} email={email} phone={phone} zipcode={zipcode} city={city} />
                 
             {/* Right Side: Booking Form */}
-            <BookingForm />
+            <BookingForm establishment={establishment} />
             
         </div>
     </Modal>

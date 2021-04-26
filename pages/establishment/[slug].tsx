@@ -68,6 +68,7 @@ const establishmentDetails: React.FC<EstablishmentDetailsProps> = ({est}) => {
 	
 	//console log the establishment endpoints
 	//console.log('[EST]', est);
+	console.log('[Establishment Name]', est.name);
 
 	// Format the gallery into a JSX element
 	const gallery = est.gallery;
@@ -157,7 +158,8 @@ const establishmentDetails: React.FC<EstablishmentDetailsProps> = ({est}) => {
 				phone={est.phone}
 				street={est.address.street}
 				city={est.address.city}
-				zipcode={est.address.zipcode} />
+				zipcode={est.address.zipcode}
+				establishment={est.name} />
 		</>
     );
 }
