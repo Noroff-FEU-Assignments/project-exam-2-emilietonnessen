@@ -1,37 +1,42 @@
 interface InputProps {
-    register: any;
+    register: () => void;
     name: string;
     label: string;
     type: string;
-    placeholder: string; 
-    children?: React.ReactNode;
+    placeholder?: string; 
+    error: any;
 }
 
+const Input: React.FC<InputProps> = ({name, label, type, placeholder, register, error}) => {
+    let cssError = '';
 
-const Input: React.FC<InputProps> = ({name, label, type, placeholder, register, children}) => {
+    if (error === undefined) {
+        cssError = ''
+    } else {
+        cssError = 'form__input--error';
+    }
+
     return (
         <div className={"form__group " + `booking-form__group--${name}`}>
             <label 
                 htmlFor={name} 
-                className="form__label"
-            >
+                className="form__label" >
                 {label}
             </label>
 
             <input 
-                    
                 autoComplete="nope"
                 ref={register}
                 name={name} 
                 type={type} 
-                className="form__input "
+                className={"form__input " + cssError}
                 id={name}
-                placeholder={placeholder}
-             />
-            
-            {children}
+                placeholder={placeholder} />
+                
+            {error}
         </div>
-    );
-}
+    )
+};
+
 
 export default Input;
