@@ -1,5 +1,45 @@
+import * as yup from "yup";
+import { Asserts } from 'yup';
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+import * as regex from '../constants/regex';
 import Button from './UI/Button';
 import Modal from './UI/Modal';
+import Input from "./UI/Form/Input";
+
+interface schema extends Asserts<typeof schema> {}
+
+const schema = yup.object().shape({
+    room:
+        yup.string()
+        .required('Please Select a room'),
+    firstName: 
+        yup.string()
+        .required('Please enter your name')
+        .min(3, 'Please enter 3 or more letters'),
+    lastName: 
+        yup.string()
+        .required('Please enter your name')
+        .min(4, 'Please enter 4 or more letters'),
+    email:
+        yup.string()
+        .required('Please enter a Email address')
+        .matches(regex.email, 'Please enter a valid email address'),
+    phone:
+        yup.string()
+        .required('Please enter a phone number'),
+    startDate:
+        yup.string()
+        .required('Enter a start date'),
+    endDate:
+        yup.string()
+        .required('Enter a start date'),
+    message:
+        yup.string()
+        .required('Please write a message')
+        .min(10, 'Please write a message with at least 10 letters')
+});
 
 interface BookingEnquiryProps {
     email: string;
@@ -10,6 +50,20 @@ interface BookingEnquiryProps {
 }
 
 const BookingEnquiry: React.FC<BookingEnquiryProps> = ({email, phone, street, zipcode, city }) => {
+    // Validation stuff
+    const { register, handleSubmit, watch, formState: { errors } } = useForm({
+        resolver: yupResolver(schema)
+    });
+
+    const onSubmit: () => void = () => {
+        console.log('[Watch]', watch("exampleRequired"));
+
+        //alert('Your Message was sent!');
+    }
+
+    console.log('[Errors]', errors);
+
+
     return (
         <Modal link="#main">
             <div className="booking-enquiry">
@@ -38,58 +92,87 @@ const BookingEnquiry: React.FC<BookingEnquiryProps> = ({email, phone, street, zi
                 </section>
                 
                 {/* Right Side: Booking Form */}
-                <form action="" className="booking-form">
+                {/* Note: Remember to remove "autoComplete="nope""- this is just temporarily to watch the form behave correctly without any drop downs in the way. */}
+                <form className="booking-form" autoComplete="nope" onSubmit={handleSubmit(onSubmit)}>
+
                     <h3 className="booking-form__title">Book now!</h3>
 
                     {/* Choose a room: */}
-                    <div className="form__group booking-form__group--1">
-                        <label htmlFor="name" className="form__label">Choose a room</label>
-                        <input type="text" className="form__input" placeholder="Choose a room" />
+                    <div className="form__group booking-form__group--room">
+                        <label htmlFor="room" className="form__label">Choose a room</label>
+                        <select name="room" id="room" className="form__input" placeholder="Choose a Room">
+                            <option value="" disabled hidden></option>
+                            <option value="standard">Standard Room</option>
+                            <option value="superior">Superior Room</option>
+                            <option value="family">Family Room</option>
+                        </select>
                     </div>
 
                     {/* First Name */}
-                    <div className="form__group booking-form__group--2">
-                        <label htmlFor="name" className="form__label">First Name</label>
-                        <input type="text" className="form__input" placeholder="Kari" />
-                    </div>
+                    <Input
+                        name="firstName"
+                        label="First Name"
+                        type="text"
+                        placeholder="Nora"
+                        register={{...register("exampleRequired")}} 
+                    >
+                        {errors.exampleRequired && <span>This field is required</span>}
+                    </Input>
+
+                    
 
                     {/* Last Name */}
-                    <div className="form__group booking-form__group--3">
-                        <label htmlFor="name" className="form__label">Last Name</label>
-                        <input type="text" className="form__input" placeholder="Nordmann" />
-                    </div>
+                    <Input
+                        name="lastName"
+                        label="Last Name"
+                        type="text"
+                        placeholder="Nordmann"
+                        register={register} 
+                    >
+                        
+                    </Input>
+
 
                     {/* Email: */}
-                    <div className="form__group booking-form__group--4">
-                        <label htmlFor="name" className="form__label">Email</label>
-                        <input type="text" className="form__input" placeholder="kari@nordmann.no" />
-                    </div>
+                    <Input
+                        name="email"
+                        label="Email"
+                        type="text"
+                        placeholder="nora@nordmann.no"
+                        register={register} 
+                    ></Input>
+
 
                     {/* Phone Number: */}
-                    <div className="form__group booking-form__group--5">
-                        <label htmlFor="name" className="form__label">Phone Number</label>
-                        <input type="text" className="form__input" placeholder="+47 123 45 678" />
-                    </div>
+                    <Input
+                        name="phone"
+                        label="Phone Number"
+                        type="text"
+                        placeholder="123 45 678"
+                        register={register} 
+                    
+                    ></Input>
+
 
                     {/* Start Date: */}
-                    <div className="form__group booking-form__group--6">
-                        <label htmlFor="name" className="form__label">Start Date:</label>
-                        <input type="date" name="" id="" className="form__input"/>
+                    <div className="form__group booking-form__group--startDate">
+                        <label htmlFor="startDate" className="form__label">Start Date:</label>
+                        <input type="date" name="startDate" id="startDate" className="form__input"/>
                     </div>
 
                     {/* End Date: */}
-                    <div className="form__group booking-form__group--7">
-                        <label htmlFor="name" className="form__label">End Date:</label>
-                        <input type="date" name="" id="" className="form__input"/>
+                    <div className="form__group booking-form__group--endDate">
+                        <label htmlFor="end-date" className="form__label">End Date:</label>
+                        <input type="date" name="end-date" id="end-date" className="form__input"/>
                     </div>
 
                     {/* Message: */}
-                    <div className="form__group booking-form__group--8">
-                        <label htmlFor="name" className="form__label">Message</label>
-                        <textarea className="form__textarea" placeholder="What can I do for you?"  />
+                    <div className="form__group booking-form__group--message">
+                        <label htmlFor="message" className="form__label">Message</label>
+                        <textarea name="message" id="message" className="form__textarea" placeholder="What can we do for you?" autoComplete="nope" />
                     </div>
 
-                    <div className="booking-form__submit">
+                    <div className="booking-form__submit booking-form__group--submit">
                         <Button link="" theme="primary" size="md">
                             book
                         </Button>
