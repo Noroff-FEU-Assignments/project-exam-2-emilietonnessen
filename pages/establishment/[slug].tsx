@@ -66,7 +66,7 @@ interface EstablishmentDetailsProps {
 const establishmentDetails: React.FC<EstablishmentDetailsProps> = ({est}) => {
 	
 	//console log the establishment endpoints
-	console.log('[EST]', est);
+	//console.log('[EST]', est);
 
 	// Format the gallery into a JSX element
 	const gallery = est.gallery;
@@ -141,8 +141,8 @@ const establishmentDetails: React.FC<EstablishmentDetailsProps> = ({est}) => {
 
 				{/* Booking */}
 				<section className="establishment-booking booking" id="booking">
-					<h3 className="booking__title">Good news we have {roomsLeft} rooms left!</h3>
-					<ModalButton theme="primary" size="cta">
+					<h3 className="booking__title">Good news we have 3 rooms left!</h3>
+					<ModalButton theme="primary" size="cta" type="submit">
 						book now
 					</ModalButton>
 				</section>
