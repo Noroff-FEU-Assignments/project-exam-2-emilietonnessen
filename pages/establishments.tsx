@@ -35,6 +35,7 @@ interface Establishments {
 const establishments: React.FC<EstablishmentsProps> = ({establishments}) => {
 
     const EstablishmentCards: JSX.Element[] = establishments.map(est => {
+        console.log(est.slug);
         return (
             <EstablishmentCard 
                 key={est.id}

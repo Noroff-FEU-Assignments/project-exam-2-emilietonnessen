@@ -21,7 +21,7 @@ const EstablishmentCard: React.FC<EstablishmentCardProps> = ({image, name, revie
 
     return (
         <Link href={`/establishment/${slug}`}>
-            <a >
+            <a>
                 <div className="establishment-card">
                     <div className="establishment-card__img">
                         <Image src={image} alt={name} layout="responsive" width={600} height={450} /> 

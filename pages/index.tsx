@@ -44,6 +44,7 @@ const home: React.FC<HomeProps> = ({establishments}) => {
 
     // Creating the filtered establishments into cards
     const featuredEstablishments: JSX.Element[] = filteredEstablishments.map(est => {
+        console.log(est.slug);
         return (
             <EstablishmentCard 
                 key={est.id}

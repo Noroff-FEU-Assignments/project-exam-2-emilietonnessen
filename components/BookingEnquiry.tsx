@@ -4,11 +4,11 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup.d";
 
 import * as regex from '../constants/regex';
-import Button from './UI/Button';
+import { ModalButton } from './UI/Button';
 import Modal from './UI/Modal';
 import Input from "./UI/Form/Input";
 
-interface schema extends Asserts<typeof schema> {}
+interface Schema extends Asserts<typeof schema> {}
 
 const schema = yup.object().shape({
     room:
@@ -62,6 +62,7 @@ const BookingEnquiry: React.FC<BookingEnquiryProps> = ({email, phone, street, zi
     }
 
     console.log('[Errors]', errors);
+    //console.log('[resolver]', useForm);
 
 
     return (
@@ -93,7 +94,7 @@ const BookingEnquiry: React.FC<BookingEnquiryProps> = ({email, phone, street, zi
                 
                 {/* Right Side: Booking Form */}
                 {/* Note: Remember to remove "autoComplete="nope""- this is just temporarily to watch the form behave correctly without any drop downs in the way. */}
-                <form className="booking-form" autoComplete="nope" onSubmit={handleSubmit(onSubmit)}>
+                <form className="booking-form" onSubmit={handleSubmit(onSubmit)}>
 
                     <h3 className="booking-form__title">Book now!</h3>
 
@@ -101,7 +102,7 @@ const BookingEnquiry: React.FC<BookingEnquiryProps> = ({email, phone, street, zi
                     <div className="form__group booking-form__group--room">
                         <label htmlFor="room" className="form__label">Choose a room</label>
                         <select name="room" id="room" className="form__input" placeholder="Choose a Room">
-                            <option value="" disabled hidden></option>
+                            <option value=" " hidden></option>
                             <option value="standard">Standard Room</option>
                             <option value="superior">Superior Room</option>
                             <option value="family">Family Room</option>
@@ -114,9 +115,8 @@ const BookingEnquiry: React.FC<BookingEnquiryProps> = ({email, phone, street, zi
                         label="First Name"
                         type="text"
                         placeholder="Nora"
-                        register={register} 
-                    >
-                        {errors.exampleRequired && <span>This field is required</span>}
+                        register={register} >
+                        {errors.firstName && <span className="form__error">{errors.firstName.message}</span>}
                     </Input>
 
                     
@@ -129,7 +129,7 @@ const BookingEnquiry: React.FC<BookingEnquiryProps> = ({email, phone, street, zi
                         placeholder="Nordmann"
                         register={register} 
                     >
-                        
+                        {errors.lastName && <span className="form__error">{errors.lastName.message}</span>}
                     </Input>
 
 
@@ -140,7 +140,9 @@ const BookingEnquiry: React.FC<BookingEnquiryProps> = ({email, phone, street, zi
                         type="text"
                         placeholder="nora@nordmann.no"
                         register={register} 
-                    ></Input>
+                    >
+                        {errors.email && <span className="form__error">{errors.email.message}</span>}
+                    </Input>
 
 
                     {/* Phone Number: */}
@@ -151,7 +153,9 @@ const BookingEnquiry: React.FC<BookingEnquiryProps> = ({email, phone, street, zi
                         placeholder="123 45 678"
                         register={register} 
                     
-                    ></Input>
+                    >
+                        {errors.phone && <span className="form__error">{errors.phone.message}</span>}
+                    </Input>
 
 
                     {/* Start Date: */}
@@ -172,11 +176,11 @@ const BookingEnquiry: React.FC<BookingEnquiryProps> = ({email, phone, street, zi
                         <textarea name="message" id="message" className="form__textarea" placeholder="What can we do for you?" autoComplete="nope" />
                     </div>
 
-                    <div className="booking-form__submit booking-form__group--submit">
-                        <Button link="" theme="primary" size="md">
+                    {/* <div className="booking-form__submit booking-form__group--submit"> */}
+                        <ModalButton type="submit" theme="primary" size="md">
                             book
-                        </Button>
-                    </div>
+                        </ModalButton>
+                    {/* </div> */}
                     
                     
                 </form>
