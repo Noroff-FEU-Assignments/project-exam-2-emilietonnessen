@@ -4,8 +4,11 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup.d";
 
 import * as regex from '../constants/regex';
-import { ModalButton } from './UI/Button';
+import { SubmitButton } from './UI/Button';
 import Input from "./UI/Form/Input";
+import Select from "./UI/Form/Select";
+import Textarea from "./UI/Form/Textarea";
+
 
 // TypeScript for Yup
 interface Schema extends Asserts<typeof schema> {}
@@ -13,28 +16,30 @@ interface Schema extends Asserts<typeof schema> {}
 const schema = yup.object().shape({
     room:
         yup.string()
-        .required('Please Select a room option'),
+        .required('Please select a room option'),
     firstName: 
         yup.string()
-        .required('Please enter your name')
-        .min(3, 'Please enter 3 or more letters'),
+        .required('Please enter your first name')
+        .min(2, 'Please enter 2 or more letters'), // There exist names with only two letters.
     lastName: 
         yup.string()
-        .required('Please enter your name')
-        .min(4, 'Please enter 4 or more letters'),
+        .required('Please enter your last name')
+        .min(3, 'Please enter 3 or more letters'),
     email:
         yup.string()
         .required('Please enter a Email address')
         .matches(regex.email, 'Please enter a valid email address'),
     phone:
-        yup.string()
-        .required('Please enter a phone number'),
+        yup.number() 
+        .typeError('Please enter your phone number')
+        .required('Please enter your phone number')
+        .min(10000000, 'Please enter at least 8 numbers'),
     startDate:
         yup.string()
         .required('Enter a start date'),
     endDate:
         yup.string()
-        .required('Enter a start date'),
+        .required('Enter an end date'),
     message:
         yup.string()
         .required('Please write a message')
@@ -44,111 +49,107 @@ const schema = yup.object().shape({
 
 
 const BookingForm: React.FC = () => {
-    // Validation stuff
+    // Putting React Hook Form and Yup validation together with a resolver
     const { register, handleSubmit, watch, errors } = useForm({
         resolver: yupResolver(schema)
     });
 
-    const onSubmit = () => {
+    // Handle the Submit
+    function onSubmit() {
         console.log("submitted");
-    };
-
-    console.log('[Errors]', errors);
-    console.log('[Watch FirstName]', watch("firstName"));
+    }
 
     return (
         <form className="booking-form" onSubmit={handleSubmit(onSubmit)}>
 
+            {/* Title: */}
             <h3 className="booking-form__title">Book now!</h3>
 
-                    {/* Choose a room: */}
-                    <div className="form__group booking-form__group--room">
-                        <label htmlFor="room" className="form__label">Choose a room</label>
-                        <select name="room" id="room" className="form__input" placeholder="Choose a Room">
-                            <option value=" " hidden></option>
-                            <option value="standard">Standard Room</option>
-                            <option value="superior">Superior Room</option>
-                            <option value="family">Family Room</option>
-                        </select>
-                    </div>
+            {/* Choose a room: */}
+            <Select 
+                name="room" 
+                label="Choose a room" 
+                register={register} 
+                error={errors.room && <span className="form__error"><i className="fas fa-exclamation-circle"></i> {errors.room.message}</span>} >
+                <option value="standard">Standard Room</option>
+                <option value="superior">Superior Room</option>
+                <option value="family">Family Room</option>
+            </Select>
 
-                    {/* First Name */}
-                    <Input
-                        name="firstName"
-                        label="First Name"
-                        type="text"
-                        placeholder="Nora"
-                        register={register} >
-                        {errors.firstName && <span className="form__error">{errors.firstName.message}</span>}
-                    </Input> 
-
-
-
+            {/* First Name */}
+            <Input
+                name="firstName"
+                label="First Name"
+                type="text"
+                placeholder="Nora"
+                register={register} 
+                error={errors.firstName && <span className="form__error"><i className="fas fa-exclamation-circle"></i> {errors.firstName.message}</span>} />
                     
 
-                    {/* Last Name */}
-                    <Input
-                        name="lastName"
-                        label="Last Name"
-                        type="text"
-                        placeholder="Nordmann"
-                        register={register} 
-                    >
-                        {errors.lastName && <span className="form__error">{errors.lastName.message}</span>}
-                    </Input>
-
-
-                    {/* Email: */}
-                    <Input
-                        name="email"
-                        label="Email"
-                        type="text"
-                        placeholder="nora@nordmann.no"
-                        register={register} 
-                    >
-                        {errors.email && <span className="form__error">{errors.email.message}</span>}
-                    </Input>
-
-
-                    {/* Phone Number: */}
-                    <Input
-                        name="phone"
-                        label="Phone Number"
-                        type="text"
-                        placeholder="123 45 678"
-                        register={register} 
+            {/* Last Name */}
+            <Input
+                name="lastName"
+                label="Last Name"
+                type="text"
+                placeholder="Nordmann"
+                register={register} 
+                error={errors.lastName && <span className="form__error"> <i className="fas fa-exclamation-circle"></i>{errors.lastName.message}</span>} />
                     
-                    >
-                        {errors.phone && <span className="form__error">{errors.phone.message}</span>}
-                    </Input>
 
-
-                    {/* Start Date: */}
-                    <div className="form__group booking-form__group--startDate">
-                        <label htmlFor="startDate" className="form__label">Start Date:</label>
-                        <input type="date" name="startDate" id="startDate" className="form__input" ref={register}/>
-                    </div>
-
-                    {/* End Date: */}
-                    <div className="form__group booking-form__group--endDate">
-                        <label htmlFor="end-date" className="form__label">End Date:</label>
-                        <input type="date" name="end-date" id="end-date" className="form__input" ref={register}/>
-                    </div>
-
-                    {/* Message: */}
-                    <div className="form__group booking-form__group--message">
-                        <label htmlFor="message" className="form__label">Message</label>
-                        <textarea name="message" id="message" className="form__textarea" placeholder="What can we do for you?" autoComplete="nope" ref={register}/>
-                    </div>
-
+            {/* Email: */}
+            <Input
+                name="email"
+                label="Email"
+                type="text"
+                placeholder="nora@nordmann.no"
+                register={register} 
+                error={errors.email && <span className="form__error"><i className="fas fa-exclamation-circle"></i> {errors.email.message}</span>} />
                     
-                    <ModalButton type="submit" theme="primary" size="md">
-                        book
-                    </ModalButton>
+
+            {/* Phone Number: */}
+            <Input
+                name="phone"
+                label="Phone Number"
+                type="text"
+                placeholder="123 45 678"
+                register={register} 
+                error={errors.phone && <span className="form__error"><i className="fas fa-exclamation-circle"></i> {errors.phone.message}</span>} />
+                        
                     
+            {/* Start Date: */}
+            <Input 
+                name="startDate"
+                label="Start Date"
+                type="date"
+                register={register} 
+                error={errors.startDate && <span className="form__error"><i className="fas fa-exclamation-circle"></i> {errors.startDate.message}</span>} />
+                   
+
+            {/* End Date: */}
+            <Input 
+                name="endDate"
+                label="End Date"
+                type="date"
+                register={register} 
+                error={errors.endDate && <span className="form__error"><i className="fas fa-exclamation-circle"></i> {errors.endDate.message}</span>} />
                     
-                    
-                </form>
+
+            {/* Message: */}
+            <Textarea 
+                name="message"
+                label="Message"
+                placeholder="What can we do for you?"
+                register={register}
+                error={errors.message && <span className="form__error"><i className="fas fa-exclamation-circle"></i> {errors.message.message}</span>} />
+
+
+            {/* Submit: */}
+            <div className="form__group booking-form__group--submit">
+                <SubmitButton theme="primary" size="md">
+                    book
+                </SubmitButton> 
+            </div>
+        </form>
     );
 }
 
