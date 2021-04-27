@@ -143,12 +143,7 @@ const establishmentDetails: React.FC<EstablishmentDetailsProps> = ({est}) => {
 				</section>
 
 				{/* Booking */}
-				<section className="establishment-booking booking" id="booking">
-					<h3 className="booking__title">Good news we have 3 rooms left!</h3>
-					<ModalButton theme="primary" size="cta" type="submit">
-						book now
-					</ModalButton>
-				</section>
+				<EstablishmentCTA />
 				
 			</Layout>
 
