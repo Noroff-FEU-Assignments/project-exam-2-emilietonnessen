@@ -1,5 +1,5 @@
-import Button from "./UI/Button";
-import Search from "./UI/Search";
+import Button from "../UI/Button";
+import Search from "../UI/Search";
 
 const Hero: React.FC = () => {
     return (

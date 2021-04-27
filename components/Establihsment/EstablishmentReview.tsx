@@ -1,6 +1,6 @@
 import Image from "next/image"
 
-const EstablishmentReviews = () => {
+const EstablishmentReview = () => {
     return (
         <div className="establishment-details__reviews">
 			<div className="review-card review-card-2">
@@ -38,4 +38,4 @@ const EstablishmentReviews = () => {
     );
 }
 
-export default EstablishmentReviews;
+export default EstablishmentReview;

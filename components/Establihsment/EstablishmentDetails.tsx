@@ -6,7 +6,7 @@ interface DetailsProps {
     amenities: string;
 }
 
-const Details: React.FC<DetailsProps> = ({description, coordinates, amenities}) => {
+const EstablishmentDetails: React.FC<DetailsProps> = ({description, coordinates, amenities}) => {
     const arrayAmenities = amenities.split('\n');
 
     const finalAmenities: JSX.Element[] = arrayAmenities.map(am => {
@@ -55,4 +55,4 @@ const Details: React.FC<DetailsProps> = ({description, coordinates, amenities}) 
     );
 }
 
-export default Details;
+export default EstablishmentDetails;

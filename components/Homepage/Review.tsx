@@ -1,6 +1,5 @@
-import Image from 'next/image'
-import React from 'react'
-import Button from './UI/Button'
+import Image from 'next/image';
+import Button from '../UI/Button';
 
 const Review: React.FC = () => {
     return (

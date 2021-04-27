@@ -1,8 +1,8 @@
-import Modal from './UI/Modal';
+import Modal from '../UI/Modal';
 import BookingInfo from "./BookingInfo";
 import BookingForm from "./BookingForm";
 
-interface BookingEnquiryProps {
+interface BookingProps {
     email: string;
     phone: number;
     street: string;
@@ -11,8 +11,8 @@ interface BookingEnquiryProps {
     establishment: string;
 }
 
-const BookingEnquiry: React.FC<BookingEnquiryProps> = ({email, phone, street, zipcode, city, establishment }) => (
-    <Modal link="#main">
+const Booking: React.FC<BookingProps> = ({email, phone, street, zipcode, city, establishment }) => (
+    <Modal link="#main" id="booking" name="booking">
         <div className="booking-enquiry">
 
             {/* Left Side: Booking Information */}
@@ -26,4 +26,4 @@ const BookingEnquiry: React.FC<BookingEnquiryProps> = ({email, phone, street, zi
 );
 
 
-export default BookingEnquiry;
+export default Booking;
