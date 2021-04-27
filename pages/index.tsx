@@ -2,11 +2,11 @@ import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
 import { GRAPHQL_URL } from "../constants/api";
 import Head from 'next/head'
 import Layout from "../components/Layout";
-import Hero from "../components/Hero";
-import Category from "../components/Category";
-import Review from "../components/Review";
-import EstablishmentCard from "../components/EstablishmentCard";
-import Gallery from '../components/Gallery';
+import Hero from "../components/Homepage/Hero";
+import Category from "../components/Homepage/Category";
+import Review from "../components/Homepage/Review";
+import EstablishmentCard from "../components/Establihsment/EstablishmentCard";
+import Gallery from '../components/Homepage/Gallery';
 import { META_HOME, TITLE_HOME } from '../constants/meta';
 
 
@@ -46,7 +46,6 @@ const home: React.FC<HomeProps> = ({establishments}) => {
 
     // Creating the filtered establishments into cards
     const featuredEstablishments: JSX.Element[] = filteredEstablishments.map(est => {
-        console.log(est.slug);
         return (
             <EstablishmentCard 
                 key={est.id}
