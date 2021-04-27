@@ -1,13 +1,14 @@
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
+
 import { GRAPHQL_URL } from "../constants/api";
-import Head from 'next/head'
+import { META_HOME, TITLE_HOME } from '../constants/meta';
 import Layout from "../components/Layout";
 import Hero from "../components/Homepage/Hero";
 import Category from "../components/Homepage/Category";
 import Review from "../components/Homepage/Review";
 import EstablishmentCard from "../components/Establihsment/EstablishmentCard";
 import Gallery from '../components/Homepage/Gallery';
-import { META_HOME, TITLE_HOME } from '../constants/meta';
+
 
 
 interface HomeProps {
