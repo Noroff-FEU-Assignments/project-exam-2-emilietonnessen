@@ -7,6 +7,7 @@ import Category from "../components/Category";
 import Review from "../components/Review";
 import EstablishmentCard from "../components/EstablishmentCard";
 import Gallery from '../components/Gallery';
+import { META_HOME, TITLE_HOME } from '../constants/meta';
 
 
 interface HomeProps {
@@ -60,10 +61,8 @@ const home: React.FC<HomeProps> = ({establishments}) => {
     });
     
     return (
-        <Layout page="home">
-            <Head>
-                <script src="https://kit.fontawesome.com/0011017bbe.js" crossOrigin="anonymous"></script>
-            </Head>
+        <Layout page="home" title={TITLE_HOME} description={META_HOME}>
+
             <Hero />
             
             <Category />

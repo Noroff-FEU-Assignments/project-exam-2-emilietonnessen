@@ -102,10 +102,7 @@ const establishmentDetails: React.FC<EstablishmentDetailsProps> = ({est}) => {
 
     return (
 		<>
-			<Head>
-				<script src="https://kit.fontawesome.com/0011017bbe.js" crossOrigin="anonymous"></script>
-			</Head>
-			<Layout page="establishment">
+			<Layout page="establishment" title={`${est.name} | Holidaze`} description={est.description}>
 
 				{/* Gallery: */}
 				<section className="establishment-gallery">

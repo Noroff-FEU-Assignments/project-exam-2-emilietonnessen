@@ -2,6 +2,7 @@ import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
 import { GRAPHQL_URL } from "../constants/api";
 import Layout from '../components/Layout';
 import EstablishmentCard from "../components/EstablishmentCard";
+import { META_ESTABLISHMENTS, TITLE_ESTABLISHMENTS } from '../constants/meta';
 
 
 interface EstablishmentsProps {
@@ -51,7 +52,9 @@ const establishments: React.FC<EstablishmentsProps> = ({establishments}) => {
 
 
     return (
-        <Layout page="establishments">
+        <>
+
+        <Layout page="establishments" title={TITLE_ESTABLISHMENTS} description={META_ESTABLISHMENTS}>
             <div className="filter">
                 <button className="filter__btn">
                     hotels
