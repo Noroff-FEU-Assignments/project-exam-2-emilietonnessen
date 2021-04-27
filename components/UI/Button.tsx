@@ -7,13 +7,11 @@ interface ButtonProps {
     size: string;
 }
 
-
-
 const Button: React.FC<ButtonProps> = ({link, children, theme, size}) => {
     return (
-        <button className={'btn ' + `btn--${theme} ` + `btn--${size}`}>
+        <button className={'btn ' + `btn--${theme} `}>
             <Link href={link}>
-                <a>
+                <a className={`btn--${size}`}>
                     {children}
                 </a>
             </Link>
@@ -33,8 +31,8 @@ interface ModalButtonProps {
 
 export const ModalButton: React.FC<ModalButtonProps> = ({children, theme, size, type}) => {
     return (
-        <button className={'btn ' + `btn--${theme} ` + `btn--${size}`} type={type}>
-            <a href="#modal">
+        <button className={'btn ' + `btn--${theme}`} type={type}>
+            <a href="#modal" className={`btn--${size}`}>
                 {children}
             </a>
         </button>
