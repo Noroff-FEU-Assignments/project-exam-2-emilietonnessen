@@ -84,10 +84,10 @@
 
 
 .search-results {
-    display: none;
+    //display: none;
 
     position: absolute;
-    z-index: 100;
+    z-index: 1000;
     top: 5rem;
 
     width: 100%;

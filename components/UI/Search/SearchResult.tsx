@@ -1,37 +1,28 @@
 import Image from "next/image";
 import { Star } from '../Icons';
 
-const SearchResult = () => {
-    return (
-        <>
-            <div className="search-result">
-                <Image src="/assets/establishments/bayside-1.jpg" alt="button" width="150" height="100"  />
-                <div className="search-result__box">
-                    <h6 className="search-result__hotel-name">Bayside</h6>
-                    <div className="search-result__stars">
-                        <Star />
-                        <Star />
-                        <Star />
-                        <Star />
-                        <Star />
-                    </div>
-                </div>
-            </div>
+interface SearchResultProps {
+    name: string;
+    thumbnail: string;
+    stars: number;
+}
 
-            <div className="search-result">
-                <Image src="/assets/establishments/bluelanterninn-1.jpg" alt="button" width="150" height="100"  />
+const SearchResult: React.FC<SearchResultProps> = ({ name, thumbnail, stars }) => {
+
+    // Calculate the amount of stars that shall be displayed
+	const n: number = stars;
+    const calculatedStars: JSX.Element[] = [...Array(n)].map((e, i) => <Star key={i} />);
+
+    return (
+        <div className="search-result">
+            <Image src={thumbnail} alt="button" width="150" height="100"  />
                 <div className="search-result__box">
-                    <h6 className="search-result__hotel-name">Blue Lantern Inn</h6>
-                    <div className="search-result__stars">
-                        <Star />
-                        <Star />
-                        <Star />
-                        <Star />
-                        <Star />
-                    </div>
+                <h6 className="search-result__hotel-name">{name}</h6>
+                <div className="search-result__stars">
+                    {calculatedStars}
                 </div>
             </div>
-        </>
+        </div>
     );
 }
  

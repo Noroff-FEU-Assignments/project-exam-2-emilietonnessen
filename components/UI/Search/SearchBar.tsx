@@ -9,6 +9,7 @@ interface SearchBarProps {
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({theme, search, value, clearSearch, iconType}) => {
+    
     return (
         <div className="search__bar">
             <input 
@@ -22,7 +23,6 @@ const SearchBar: React.FC<SearchBarProps> = ({theme, search, value, clearSearch,
                 className="search__button"
                 onClick={clearSearch} >
                 <Image src="/assets/search.svg" alt="button" width="16" height="16"  />
-                
             </button>
         </div>
     );
