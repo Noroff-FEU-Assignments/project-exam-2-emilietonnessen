@@ -1,7 +1,7 @@
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
 import { GRAPHQL_URL } from "../constants/api";
 import Layout from '../components/Layout';
-import EstablishmentCard from "../components/EstablishmentCard";
+import EstablishmentCard from "../components/Establihsment/EstablishmentCard";
 import { META_ESTABLISHMENTS, TITLE_ESTABLISHMENTS } from '../constants/meta';
 
 
@@ -36,7 +36,6 @@ interface Establishments {
 const establishments: React.FC<EstablishmentsProps> = ({establishments}) => {
 
     const EstablishmentCards: JSX.Element[] = establishments.map(est => {
-        console.log(est.slug);
         return (
             <EstablishmentCard 
                 key={est.id}
@@ -73,6 +72,7 @@ const establishments: React.FC<EstablishmentsProps> = ({establishments}) => {
                 {EstablishmentCards}
             </div>
         </Layout>
+        </>
     );
 }
 
