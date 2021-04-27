@@ -24,15 +24,16 @@ export default Button;
 
 interface ModalButtonProps {
     children: React.ReactNode;
-    theme: 'primary' | 'secondary';
-    size: string;
+    theme: 'primary' | 'light-grey' | 'dark-grey';
+    size: 'cta' | 'lg' | 'md' | 'sm';
     type?: "button" | "submit" | "reset" | undefined;
+    name: string;
 }
 
-export const ModalButton: React.FC<ModalButtonProps> = ({children, theme, size, type}) => {
+export const ModalButton: React.FC<ModalButtonProps> = ({children, theme, size, type, name}) => {
     return (
         <button className={'btn ' + `btn--${theme}`} type={type}>
-            <a href="#modal" className={`btn--${size}`}>
+            <a href={`#${name}`} className={`btn--${size}`} data-target="#modal-booking">
                 {children}
             </a>
         </button>
