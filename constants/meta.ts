@@ -6,3 +6,11 @@ export const META_ESTABLISHMENTS: string = "Unique and breathtaking Hotels, Beds
 
 export const TITLE_CONTACT: string = "Contact | Holidaze";
 export const META_CONTACT: string = "Trust and safety. Contact Holidaze for more information and help. We are here for you!";
+
+
+
+export const TITLE_LOGIN: string = "Admin Login | Holidaze";
+export const META_LOGIN: string = "Login to see the admin dashboard where you can see new and old contact messages and enquiries. Add, edit, and delete establishments.  ";
+
+export const TITLE_ADMIN: string = "Admin Dashboard | Holidaze";
+export const META_ADMIN: string = "Keep a clear and precise overview over all contact messages and enquiries. Add, edit, and delete establishments. ";
