@@ -13,8 +13,6 @@ const Search: React.FC<SearchProps> = ({theme}) => {
     const [establishments, setEstablishments] = useState([]);
     const [searchValue, setSearchValue] = useState('');
     const [searchIcon, setSearchIcon] = useState();
-    const [searchLength, setSearchLength] = useState();
-    //const [searchDisplay, setSearchDisplay] = useState(false);
 
     useEffect(() => {
         async function fetchData() {
@@ -54,32 +52,26 @@ const Search: React.FC<SearchProps> = ({theme}) => {
         searchDisplay = false;
     }
 
-
     // Map through search Results
     const filteredSearchResults = est.map(est => (
-        <SearchResult key={est.id} name={est.name} thumbnail={est.thumbnail.url} stars={est.stars} />
+        <SearchResult key={est.id} name={est.name} thumbnail={est.thumbnail.url} stars={est.stars} slug={est.slug} />
     ));
     
-
-    console.log(filteredSearchResults);
     return (
-        <>
-            
-            <div className="search" >
+        <div className="search" >
 
-                <SearchBar 
-                    theme={theme}
-                    search={searchHandler}
-                    value={searchValue}
-                    clearSearch={clearSearchHandler}
-                    iconType={searchIcon}
-                />
+            <SearchBar 
+                theme={theme}
+                search={searchHandler}
+                value={searchValue}
+                clearSearch={clearSearchHandler}
+                iconType={searchIcon} />
                 
-                <div className={!searchDisplay ? 'search-results u-display-none' : 'search-results u-display-block'} >
-                    {filteredSearchResults}
-                </div>
+            <div className={!searchDisplay ? 'search-results u-display-none' : 'search-results u-display-block'} >
+                {filteredSearchResults}
             </div>
-        </>
+        </div>
+        
     );
 }
 
