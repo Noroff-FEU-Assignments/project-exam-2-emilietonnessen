@@ -3,26 +3,17 @@ import { GRAPHQL_URL } from "../constants/api";
 import Layout from '../components/Layout';
 import EstablishmentCard from "../components/Establihsment/EstablishmentCard";
 import { META_ESTABLISHMENTS, TITLE_ESTABLISHMENTS } from '../constants/meta';
+import { useEffect, useState } from 'react';
 
 
 interface EstablishmentsProps {
-    establishments: [{
-        id: number;
-        slug: string;
-        featured: boolean;
-        reviews: number;
-        name: string;
-        lowestPrice: number;
-        stars: number;
-        thumbnail: {
-            url: string;
-        }
-    }];
+    est: Establishments[];
 }
 
 interface Establishments {
     id: number;
     slug: string;
+    category: string;
     featured: boolean;
     reviews: number;
     name: string;
@@ -33,9 +24,63 @@ interface Establishments {
     };
 }
 
-const establishments: React.FC<EstablishmentsProps> = ({establishments}) => {
+const establishments: React.FC<EstablishmentsProps> = ({est}) => {
+    
+    const hotel = 'hotel';
+    const bnb = 'bedandbreakfast';
+    const guesthouse = "guesthouse";
+    const explore = "explore";
 
-    const EstablishmentCards: JSX.Element[] = establishments.map(est => {
+    const [establishments, setEstablishments] = useState<Establishments[]>([]);
+    const [active, setActive] = useState(explore);
+
+    // Set the Establishment to show all as default:   
+    useEffect(() => {
+        setEstablishments(est);
+    }, []);
+
+    
+    let filterEstablishments: Establishments[] = establishments;
+    
+    const hotelFilterHandler = () => {
+        filterEstablishments = est.filter(est => {
+            return est.category.toLowerCase().match(hotel);
+        });
+
+        //console.log('[Hotels]', filterEstablishments);
+        setEstablishments(filterEstablishments);
+        setActive(hotel);
+    }
+
+    const guesthouseFilterHandler = () => {
+        filterEstablishments = est.filter(est => {
+            return est.category.toLowerCase().match(guesthouse);
+        });
+
+        //console.log('[Guesthouses]', filterEstablishments);
+        setEstablishments(filterEstablishments);
+        setActive(guesthouse);
+    }
+
+    const bnbFilterHandler = () => {
+        filterEstablishments = est.filter(est => {
+            return est.category.toLowerCase().match(bnb);
+        });
+
+        //console.log('[B&B]', filterEstablishments);
+        setEstablishments(filterEstablishments);
+        setActive(bnb);
+    }
+
+    const exploreAllFilterHandler = () => {
+        filterEstablishments = est;
+
+        //console.log('[Explore All]', filterEstablishments);
+        setEstablishments(filterEstablishments);
+        setActive(explore);
+    }
+    
+    const filteredResult: JSX.Element[] = establishments.map(est => {
         return (
             <EstablishmentCard 
                 key={est.id}
@@ -49,30 +94,65 @@ const establishments: React.FC<EstablishmentsProps> = ({establishments}) => {
         );
     });
 
+    let activeHotels = false;
+    let activeBnBs = false;
+    let activeGuesthouses = false;
+    let activeExplore = false;
+
+    if (active === hotel) {
+        activeHotels = true;
+    } else {
+        activeHotels = false;
+    }
+    
+    if (active === bnb) {
+        activeBnBs = true;
+    } else {
+        activeBnBs = false;
+    }
+    
+    if (active === guesthouse) {
+        activeGuesthouses = true;
+    } else {
+        activeGuesthouses = false;
+    }
+
+    if (active === explore) {
+        activeExplore = true;
+    } else {
+        activeExplore = false;
+    }
+
 
     return (
-        <>
-
         <Layout page="establishments" title={TITLE_ESTABLISHMENTS} description={META_ESTABLISHMENTS}>
+
+
+
+            {/* Filter */}
             <div className="filter">
-                <button className="filter__btn">
+                <button className={activeHotels ? "filter__btn filter__btn--active" : "filter__btn" } onClick={hotelFilterHandler}>
                     hotels
                 </button>
-                <button className="filter__btn">
+                <button className={activeBnBs ? "filter__btn filter__btn--active" : "filter__btn" } onClick={bnbFilterHandler}>
                     bed & breakfast
                 </button>
-                <button className="filter__btn">
+                <button className={activeGuesthouses ? "filter__btn filter__btn--active" : "filter__btn" } onClick={guesthouseFilterHandler}>
                     guesthouses
                 </button>
-                <button className="filter__btn filter__btn--active">
-                    explore all &#9747;
+                <button className={activeExplore ? "filter__btn filter__btn--active" : "filter__btn" } onClick={exploreAllFilterHandler}>
+                    explore all
                 </button>
             </div>
+
+            {/* Establishments */}
             <div className="establishment-results">
-                {EstablishmentCards}
+                {filteredResult}
             </div>
+
+
+
         </Layout>
-        </>
     );
 }
 
@@ -96,6 +176,7 @@ export async function getStaticProps() {
                 establishments {
                     id
                     slug
+                    category
                     name
                     stars
                     featured
@@ -112,7 +193,7 @@ export async function getStaticProps() {
 
     return { 
         props: {
-            establishments: establishments,
+            est: establishments,
         },
 	};
 } 
