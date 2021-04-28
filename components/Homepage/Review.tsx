@@ -15,7 +15,7 @@ const Review: React.FC = () => {
                     <h5 className="review__tag">Happy Customers</h5>
                     <h3 className="review__title">"The best decision of our lives"</h3>
                     <p className="paragraph review__paragraph">
-                        This is a gorgeous place to stay, fantastic location, and views to die for! Great amenities and very clean, would defently go back soon.
+                        This is a gorgeous place to stay, fantastic location, and views to die for! Great amenities and very clean, would definitely go back soon.
                     </p>
                     <Button link="/establishments" theme="primary" size="lg">
                         book now
