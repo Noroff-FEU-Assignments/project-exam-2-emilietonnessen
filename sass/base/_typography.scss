@@ -18,3 +18,9 @@ body {
     font-family: $font-family-heading;
     line-height: 1;
 }
+
+.logo {
+    &__h1 {
+        font-family: $font-family-heading;
+    }
+}
