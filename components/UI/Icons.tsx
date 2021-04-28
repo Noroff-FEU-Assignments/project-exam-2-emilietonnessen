@@ -44,3 +44,12 @@ interface EnvelopeProps {
 export const Envelope: React.FC<EnvelopeProps> = ({color}) => (
     <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="envelope" className="svg-inline--fa fa-envelope fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill={color} d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"></path></svg>
 )
+
+
+interface LogoProps {
+    color: string;
+}
+
+export const Logo: React.FC<LogoProps> = ({color}) => (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1600"><defs><style>.cls-1 </style></defs><g id="Layer_3" data-name="Layer 3"><g id="Icon"><polygon fill={color} className="cls-1" points="1457.35 1381.08 1424.47 1381.08 1424.47 732.3 932.1 239.93 439.72 732.3 439.72 1218.69 406.84 1218.69 406.84 718.68 932.1 193.42 1457.35 718.68 1457.35 1381.08"/><polygon fill={color} className="cls-1" points="1193.16 1406.58 1160.28 1406.58 1160.28 732.3 667.9 239.93 175.53 732.3 175.53 1360.78 945.01 1360.78 945.01 790.86 684.35 790.86 684.35 1218.69 651.46 1218.69 651.46 757.97 977.89 757.97 977.89 1393.67 142.65 1393.67 142.65 718.68 667.9 193.42 1193.16 718.68 1193.16 1406.58"/></g></g></svg>
+)
