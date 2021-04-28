@@ -1,9 +1,9 @@
 .gallery {
-    padding: 3rem;
+    padding: 1.5rem;
     display: grid;
     grid-template-columns: repeat(8, 1fr);
     grid-template-rows: repeat(7, 5vw);
-    gap: 3rem;
+    gap: 1.5rem;
 
     @include respond(tab-land) {
         padding: .8rem;
