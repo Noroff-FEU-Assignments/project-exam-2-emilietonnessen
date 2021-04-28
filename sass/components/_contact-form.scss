@@ -1,0 +1,15 @@
+.contact-form {
+    background-color: $color-white;
+    padding: 3rem;
+    border-radius: 2rem;
+    box-shadow: $boxshadow-default;
+    width: 40rem;
+
+    display: flex;
+    flex-direction: column;
+    row-gap: 2rem;
+
+    & .btn {
+        align-self: flex-start;
+    }
+}
