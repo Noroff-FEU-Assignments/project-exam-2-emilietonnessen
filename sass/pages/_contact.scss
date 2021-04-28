@@ -4,11 +4,12 @@
 }
 
 .contact-background {
+    grid-column: 2 / 3;
     position: absolute;
     
     top: 0;
     left: 0;
-    z-index: 1;
+    z-index: 1; 
 
     width: 100%;
     min-height: 100%;
@@ -20,7 +21,40 @@
     clip-path: polygon(0 0, 100% 0, 100% 50%, 30% 100%, 0 100%);
 }
 
+.contact-container {
+    grid-column: 2 / 3;
+    
+    z-index: 100;
+    height: calc(100% - 20rem);
+    width: 100rem;
+    position: absolute;
+    top: 50%;
+    lefT: 50%;
+    transform: translate(-50%, -50%);
+    
+
+    /* display: grid;
+    grid-template-columns: repeat(2, max-content);
+    grid-template-rows: repeat(5, 1fr);
+    column-gap: 20rem;
+    justify-content: center; */
+
+}
+
 .contact-info {
-    z-index: 10;
-    background-color: transparent;
+    grid-column: 1 / 2;
+    grid-row: 1 / 3;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.contact-form {
+    grid-column: 2 / 3;
+    grid-row: 2 / 6;
+
+    position: absolute;
+    bottom: 0;
+    right: 0;
 }

@@ -115,4 +115,6 @@
 
 .contact {
     grid-template-rows: 1fr;
+    grid-template-columns: minmax(7rem, 1fr) minmax(100rem, 170rem) minmax(7rem, 1fr);
+    grid-template-rows: 1fr;
 }
