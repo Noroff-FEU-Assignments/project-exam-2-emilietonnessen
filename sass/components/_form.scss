@@ -33,6 +33,11 @@
         font-size: 1.4rem;
     }
 
+    &__fieldset {
+        border: none;
+        outline: none;
+    }
+
     &__input--error,
     &__textarea--error {
         border-bottom: 1px solid $color-error;
@@ -41,6 +46,15 @@
 
         &::placeholder {
             color: rgba($color-error, .75);
+        }
+    }
+
+    &__feedback {
+        &--error {
+            transition: all .3s;
+            background-color: rgba($color-error, .5);
+            border: 1px solid $color-error;
+            padding: 1.5rem
         }
     }
 }
