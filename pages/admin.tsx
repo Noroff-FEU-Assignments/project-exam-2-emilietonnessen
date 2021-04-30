@@ -28,26 +28,9 @@ const admin: React.FC = () => {
         }
     }, []);
 
-const admin = () => {
     return (
         <AdminLayout title={TITLE_ADMIN} description={META_ADMIN} page="admin">
-
-            <section className="booking-notifications">
-                Booking Enquiries 
-            </section>
-        
-            <section className="contact-notifications">
-                Contact Messages
-            </section>
-            
-            <section className="edit-establishments">
-                Edit Establishments 
-            </section>
-            
-            <section className="add-establishments">
-                Add Establishments
-            </section>
-            
+            <AdminDashboard />
         </AdminLayout>
     );
 }
