@@ -1,6 +1,11 @@
 import { useState } from "react";
 
 export default function useLocalStorage(key, initialValue) {
+
+	if (typeof window === "undefined") { 
+		return "I am on the server" 
+	}
+
 	const [storedValue, setStoredValue] = useState(() => {
 		try {
 			const item = window.localStorage.getItem(key);
