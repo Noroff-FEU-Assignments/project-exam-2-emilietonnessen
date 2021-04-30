@@ -1,7 +1,7 @@
-import { useContext } from "react";
-import { BASE_URL } from '../constants/api';
 import axios from "axios";
-import AuthContext from "../context/AuthContext.js";
+import { useContext } from "react";
+import { BASE_URL } from "../constants/api";
+import AuthContext from "../context/AuthContext";
 
 const url = BASE_URL;
 
@@ -13,8 +13,8 @@ export default function useAxios() {
 	});
 
 	apiClient.interceptors.request.use(function (config) {
-		//const token = auth.token;
-		//config.headers.Authorization = token ? `Bearer ${token}` : "";
+		const token = auth.jwt;
+		config.headers.Authorization = token ? `Bearer ${token}` : "";
 		return config;
 	});
 
