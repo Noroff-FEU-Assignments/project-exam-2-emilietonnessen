@@ -1,6 +1,6 @@
 import AdminNavigation from './AdminNavigation';
 import Main from './Main';
-import OuterLayout from './OuterLayout';
+import NextHead from './NextHead';
 
 interface AdminLayoutProps {
     title: string;
@@ -10,12 +10,17 @@ interface AdminLayoutProps {
 }
 
 const AdminLayout: React.FC<AdminLayoutProps> = ({ title, description, children, page }) => (
-    <OuterLayout title={title} description={description}>
-        <AdminNavigation />
-        <Main page={page}>
-            {children}
-        </Main>
-    </OuterLayout>
+    <>
+        <NextHead title={title} description={description}/>
+        
+        <div className="layout">
+            <div className="wrapper">
+                <AdminNavigation />
+                        
+                <Main page={page}>{children}</Main>
+            </div>
+        </div>
+    </>
 )
 
 export default AdminLayout;
