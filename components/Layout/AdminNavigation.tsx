@@ -1,8 +1,20 @@
+import { NextRouter, useRouter } from "next/router";
+
 const AdminNavigation: React.FC = () => {
+
+    const router: NextRouter = useRouter();
+
+    const logoutHandler = () => {
+        localStorage.clear();
+        router.push("/login");
+    }
+
     return (
-        <nav className="navigation-admin">
-            Admin Navigation
-        </nav>
+        <div className="navigation admin-navigation">
+            <button className="btn btn--dark-grey btn--sm" onClick={logoutHandler}>
+                logout
+            </button>
+        </div>
     );
 }
 
