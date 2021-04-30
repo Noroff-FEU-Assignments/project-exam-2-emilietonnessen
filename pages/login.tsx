@@ -16,7 +16,7 @@ import { Logo } from '../components/UI/Icons';
 import { ModalError, ModalSuccess } from '../components/UI/Modal';
 import AuthContext, { AuthProvider } from "../context/AuthContext";
 import { BASE_URL } from '../constants/api';
-import LoginLayout from '../components/Layout/LoginLayout';
+import OuterLayout from '../components/Layout/OuterLayout';
 
 const url: string = BASE_URL + "auth/local";
 
@@ -62,7 +62,7 @@ const login = () => {
 			setAuth("Set Auth Working");
             
             
-			//router.push("/admin");
+			router.push("/admin");
             console.log('5: Data went through')
 		} catch (error) {
 			console.log("6: [Error]", error);
@@ -77,7 +77,7 @@ const login = () => {
     console.log("[Auth]", auth);
 
     return (
-        <LoginLayout title={TITLE_LOGIN} description={META_LOGIN}>
+        <OuterLayout title={TITLE_LOGIN} description={META_LOGIN}>
 
             <div className="login" id="login">
                 <form onSubmit={handleSubmit(onSubmit)}>
@@ -135,7 +135,7 @@ const login = () => {
             </div>
 
             <ModalError link="#login" errorMessage="Please try again!" errorTitle="An error occured" />
-        </LoginLayout>
+        </OuterLayout>
         
         
     );
