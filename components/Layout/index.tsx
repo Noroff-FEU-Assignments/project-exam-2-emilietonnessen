@@ -1,5 +1,4 @@
 import { Provider } from "react-redux";
-import { AuthProvider } from "../../context/AuthContext";
 
 import { store } from '../../store/redux';
 import Footer from "./Footer"
@@ -15,7 +14,6 @@ interface LayoutProps {
 }
 
 const Layout: React.FC<LayoutProps> = ({children, page, title, description }) =>  (
-    <AuthProvider>
         <Provider store={store}>
 
             <NextHead title={title} description={description} />
@@ -31,7 +29,6 @@ const Layout: React.FC<LayoutProps> = ({children, page, title, description }) =>
             </div>
             
         </Provider>
-    </AuthProvider>
 );
 
 export default Layout;
