@@ -8,6 +8,8 @@ import Category from "../components/Homepage/Category";
 import Review from "../components/Homepage/Review";
 import EstablishmentCard from "../components/Establihsment/EstablishmentCard";
 import Gallery from '../components/Homepage/Gallery';
+import { useContext } from 'react';
+import AuthContext from '../context/AuthContext';
 
 
 
@@ -40,6 +42,8 @@ interface Establishments {
 }
 
 const home: React.FC<HomeProps> = ({establishments}) => {
+    const [auth, setAuth] = useContext(AuthContext);
+    console.log(auth);
     // Filter out the featured establishments
     const filteredEstablishments: Establishments[] = establishments.filter(est => {
         return JSON.stringify(est.featured).match('true');

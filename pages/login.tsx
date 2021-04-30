@@ -49,32 +49,17 @@ const login = () => {
         setSubmitting(true);
         setLoginError(null);
 
-        console.log("1: onSubmit activated");
-        console.log("2: [Data]", data);
-
-        
         try {
-            console.log("3: Trying to get a response from the URL");
 			const response = await axios.post(url, data);
-
-			console.log("4: [Response Data]", response.data);
-            console.log("[JWT Token]", response.data.jwt)
-			setAuth("Set Auth Working");
-            
-            
+			setAuth(response.data);
 			router.push("/admin");
-            console.log('5: Data went through')
 		} catch (error) {
-			console.log("6: [Error]", error);
+			console.log("[onSubmit Error]", error);
 			setLoginError(error.toString());
 		} finally {
 			setSubmitting(false);
 		}
     }
-
-    setAuth("test")
-
-    console.log("[Auth]", auth);
 
     return (
         <OuterLayout title={TITLE_LOGIN} description={META_LOGIN}>
