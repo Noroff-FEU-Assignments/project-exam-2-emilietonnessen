@@ -120,5 +120,6 @@
 }
 
 .admin {
-    grid-template-rows: repeat(4, max-content);
+    grid-template-columns: minmax(7rem, 1fr) minmax(100rem, 170rem) minmax(7rem, 1fr);
+    //grid-template-rows: repeat(4, max-content);
 }
