@@ -3,19 +3,20 @@ import * as yup from "yup";
 import { Asserts } from 'yup';
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup.d";
-import { useState } from "react";
+import { useRouter, NextRouter } from 'next/router';
+import { useState, useContext } from "react";
+import axios from "axios";
 
-import Layout from '../components/Layout';
+
+
 import {SubmitButton} from '../components/UI/Button';
 import Input from '../components/UI/Form/Input';
 import { TITLE_LOGIN, META_LOGIN } from '../constants/meta';
 import { Logo } from '../components/UI/Icons';
 import { ModalError, ModalSuccess } from '../components/UI/Modal';
-import { useRouter, NextRouter } from 'next/router';
-import { useContext } from "react";
 import AuthContext, { AuthProvider } from "../context/AuthContext";
-import axios from "axios";
 import { BASE_URL } from '../constants/api';
+import LoginLayout from '../components/Layout/LoginLayout';
 
 const url: string = BASE_URL + "auth/local";
 
@@ -36,7 +37,7 @@ const login = () => {
     
     const router: NextRouter = useRouter();
 
-    const { register, handleSubmit, watch, errors } = useForm({
+    const { register, handleSubmit, errors } = useForm({
         resolver: yupResolver(schema)
     });
 
@@ -46,6 +47,7 @@ const login = () => {
 
     const onSubmit: (data: {}) => Promise<void>  = async (data) => {
         setSubmitting(true);
+        setLoginError(null);
 
         console.log("1: onSubmit activated");
         console.log("2: [Data]", data);
@@ -56,7 +58,8 @@ const login = () => {
 			const response = await axios.post(url, data);
 
 			console.log("4: [Response Data]", response.data);
-			setAuth("Set Auth");
+            console.log("[JWT Token]", response.data.jwt)
+			setAuth("Set Auth Working");
             
             
 			//router.push("/admin");
@@ -69,17 +72,12 @@ const login = () => {
 		}
     }
 
+    setAuth("test")
+
     console.log("[Auth]", auth);
 
     return (
-        <>
-        <AuthProvider>
-            <Head>
-                <script src="https://kit.fontawesome.com/0011017bbe.js" crossOrigin="anonymous"></script>
-                <link rel="icon" href="/favicon.ico"  type="image/gif" sizes="16x16"></link>
-                <meta name="description" content={META_LOGIN} />
-                <title>{TITLE_LOGIN}</title>
-            </Head>
+        <LoginLayout title={TITLE_LOGIN} description={META_LOGIN}>
 
             <div className="login" id="login">
                 <form onSubmit={handleSubmit(onSubmit)}>
@@ -137,9 +135,9 @@ const login = () => {
             </div>
 
             <ModalError link="#login" errorMessage="Please try again!" errorTitle="An error occured" />
-        </AuthProvider>
+        </LoginLayout>
         
-        </>
+        
     );
 }
 
