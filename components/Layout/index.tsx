@@ -1,5 +1,6 @@
 import Head from "next/head";
 import { Provider } from "react-redux";
+import { AuthProvider } from "../../context/AuthContext";
 
 import { store } from '../../store/redux';
 import Footer from "./Footer"
@@ -14,25 +15,28 @@ interface LayoutProps {
 }
 
 const Layout: React.FC<LayoutProps> = ({children, page, title, description }) =>  (
-    <Provider store={store}>
+    <AuthProvider>
+        <Provider store={store}>
 
-        <Head>
-            <script src="https://kit.fontawesome.com/0011017bbe.js" crossOrigin="anonymous"></script>
-            <link rel="icon" href="/favicon.ico"  type="image/gif" sizes="16x16"></link>
-				<meta name="description" content={description} />
-				<title>{title}</title>
-        </Head>
+            <Head>
+                <script src="https://kit.fontawesome.com/0011017bbe.js" crossOrigin="anonymous"></script>
+                <link rel="icon" href="/favicon.ico"  type="image/gif" sizes="16x16"></link>
+                    <meta name="description" content={description} />
+                    <title>{title}</title>
+            </Head>
 
-        <div className="layout">
-            <div className="wrapper">
-                <Navigation active={page}/>
+            <div className="layout">
+                <div className="wrapper">
+                    <Navigation active={page}/>
+                        
+                    <Main page={page}>{children}</Main>
+                </div>
                     
-                <Main page={page}>{children}</Main>
+                <Footer />
             </div>
-                
-            <Footer />
-        </div>
-    </Provider>
+        </Provider>
+    </AuthProvider>
+    
 );
 
 export default Layout;
