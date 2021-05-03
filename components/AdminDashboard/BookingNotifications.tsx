@@ -35,7 +35,7 @@ const BookingNotifications: React.FC = () => {
         }; fetchData(); 
     }, []);
 
-    console.log("[Enquiries]", enquiries);
+    //console.log("[Enquiries]", enquiries);
 
     const bookingEnquiries: JSX.Element[]= enquiries.map(enq => {
         return (

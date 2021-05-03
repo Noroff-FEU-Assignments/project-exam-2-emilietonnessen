@@ -4,8 +4,9 @@ interface SelectProps {
     label: string;
     register: () => void;
     error: any;
+    onChange?: any;
 }
-const Select: React.FC<SelectProps> = ({name, children, label, register, error}) => {
+const Select: React.FC<SelectProps> = ({name, children, label, register, error, onChange }) => {
     let cssError = '';
 
     if (error === undefined) {
@@ -23,6 +24,7 @@ const Select: React.FC<SelectProps> = ({name, children, label, register, error})
             </label>
 
             <select 
+                onChange={onChange}
                 name={name} 
                 id={name} 
                 className={"form__input " + cssError }
