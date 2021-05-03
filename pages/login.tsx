@@ -81,6 +81,7 @@ const login = () => {
 
                             {/* Display an error */}
                             {loginError && <div className="form__feedback--error">{loginError}</div>}
+                            
                             <Input
                                 register={register}
                                 name="identifier"

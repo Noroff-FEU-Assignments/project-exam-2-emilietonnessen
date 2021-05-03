@@ -141,30 +141,32 @@ const EditEstablishment = () => {
     }
 
     let selectedEstablishment;
+    let est;
 
-    if (selected != undefined) {
-        let search: string = selected;
-        console.log("[Search]", search);
-        
-        
-        if (search.length > 0) {
-            
+    if (establishments.length > 0) {
+        est = establishments;
 
-            //console.log("not null or undefined");
-            if( search != null) {
+        if (selected) {
+            let search: string = selected;
+            console.log("[Search]", search);
+                
+                
+            if (search.length > 0) {
 
-                search = selected;
-                console.log("[Search]", search);
+                if(search != null && establishments.length > 0) {
+                    search = selected;
 
-                selectedEstablishment = establishments.filter(est => {
-                    //console.log(est.name);
-                    return est.name.match(search);
-                }); 
+                    selectedEstablishment = est.filter(est => {
+                        console.log("[est.name]", est.name);
+                        console.log("[Search]", search);
+                        return est.name.match(search);
+                    }); 
+                }
             }
-            
         }
-    
     }
+
+    
     
 
     
