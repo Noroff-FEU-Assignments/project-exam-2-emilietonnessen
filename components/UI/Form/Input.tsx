@@ -5,9 +5,10 @@ interface InputProps {
     type: string;
     placeholder?: string; 
     error: any;
+    defaultValue?: any
 }
 
-const Input: React.FC<InputProps> = ({name, label, type, placeholder, register, error}) => {
+const Input: React.FC<InputProps> = ({name, label, type, placeholder, register, error, defaultValue}) => {
     let cssError = '';
 
     if (error === undefined) {
@@ -31,7 +32,8 @@ const Input: React.FC<InputProps> = ({name, label, type, placeholder, register, 
                 type={type} 
                 className={"form__input " + cssError}
                 id={name}
-                placeholder={placeholder} />
+                placeholder={placeholder}
+                defaultValue={defaultValue} />
                 
             {error}
         </div>

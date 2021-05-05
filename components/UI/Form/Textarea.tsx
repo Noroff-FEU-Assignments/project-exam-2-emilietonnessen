@@ -4,9 +4,10 @@ interface TextareaProps {
     label: string;
     placeholder: string; 
     error: any;
+    defaultValue?: any;
 }
 
-const Textarea: React.FC<TextareaProps> = ({name, label, placeholder, register, error}) => {
+const Textarea: React.FC<TextareaProps> = ({name, label, placeholder, register, error, defaultValue}) => {
     let cssError = '';
 
     if (error === undefined) {
@@ -16,24 +17,25 @@ const Textarea: React.FC<TextareaProps> = ({name, label, placeholder, register, 
     }
 
     return (
-    <div className={"form__group " + `booking-form__group--${name}`}>
-        <label 
-            htmlFor={name} 
-            className="form__label" >
-                {label}
-        </label>
+        <div className={"form__group " + `booking-form__group--${name}`}>
+            <label 
+                htmlFor={name} 
+                className="form__label" >
+                    {label}
+            </label>
 
-        <textarea 
-            autoComplete="nope"
-            ref={register}
-            name={name} 
-            className={"form__textarea " + cssError}
-            id={name}
-            placeholder={placeholder} />
-            
-        {error}
-    </div>
-    )
+            <textarea 
+                autoComplete="nope"
+                ref={register}
+                name={name} 
+                className={"form__textarea " + cssError}
+                id={name}
+                placeholder={placeholder}
+                defaultValue={defaultValue} />
+                
+            {error}
+        </div>
+    );
 };
 
 export default Textarea;

@@ -120,22 +120,25 @@ const EditEstablishment = () => {
 
         est = establishments;
         search = selected;
-        console.log("[Search]", search);
+        //console.log("[Search]", search);
 
+        if (est != null) {
+            selectedEstablishment = est.filter(est => {
+                return est.name.match(search);
+            }); 
 
-        search = selected;
+            selectedEstablishment = selectedEstablishment[0];
+        }
 
-        selectedEstablishment = est.filter(est => {
-            return est.name.match(search);
-        }); 
+        //search = selected;
 
-        selectedEstablishment = selectedEstablishment[0];
+        
     }
 
 
 
     //console.log(selectedEstablishment);
-    console.log("[Selected Establishment]:", selectedEstablishment);
+    //console.log("[Selected Establishment]:", selectedEstablishment);
 
 
     return (
@@ -155,7 +158,7 @@ const EditEstablishment = () => {
                 </Select>
 
                 {/* Based on the information we get from the select - Fill in the form details of that particular establishment */}
-                <EstablishmentForm />
+                <EstablishmentForm selectedEstablishment={selectedEstablishment} />
 
             </Accordion>        
         </section>

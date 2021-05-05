@@ -4,6 +4,10 @@
     grid-template-rows: repeat(10, max-content);
     gap: 2rem;
     padding-top: 2rem;
+    border: none;
+    outline: none;
+    position: relative;
+    box-sizing: border-box;
 }
 
 .booking-form__group {
@@ -80,11 +84,28 @@
     &--estaDescription {
         grid-column:  3 / 5;
         grid-row: 5 / 9;
+        box-sizing: border-box;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+
+        & > textarea {
+            height: 100%;
+        }
     }
 
     &--estaAmenities {
         grid-column: 5 / 7;
-        grid-row: 2 / -1;
+        grid-row: 2 / 9;
+        box-sizing: border-box;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+
+        & > textarea {
+            height: 100%;
+            
+        }
     }
 
     &--estaAdvanced {

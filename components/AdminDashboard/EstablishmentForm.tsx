@@ -67,81 +67,103 @@ const schema = yup.object().shape({
         .min(10, 'Please write a message with at least 10 letters'),
 });
 
-const EstablishmentForm = () => {
-     const [establishments, setEstablishments] = useState<Establishments[]>([]);
-    const [selected, setSelected]: any = useState();
+interface EstablishmentFormProps {
+    selectedEstablishment: any;
+}
 
-    const [submitting, setSubmitting] = useState(false);
-	const [serverError, setServerError] = useState(null);
+const EstablishmentForm: React.FC<EstablishmentFormProps> = ({ selectedEstablishment }) => {
+
+    // Checking the props endpoints
+    console.log("[selectedEstablishment]", selectedEstablishment);
+
+
+    // State
+	const [updated, setUpdated] = useState(false);
+	const [updatingPost, setUpdatingPost] = useState(false);
+	const [updateError, setUpdateError] = useState(null);
+
+
+    
+
 	const http = useAxios();
+    let url = "";
+
+    if (selectedEstablishment) url = ESTABLISHMENTS_URL + "/" + selectedEstablishment.id;
+    
+    //console.log("[url]", url);
 
     // Put together React Hook Form and Yup validation.
     const { register, handleSubmit, errors } = useForm({
         resolver: yupResolver(schema)
     });
 
+    
+
+
     // OnSubmit
     async function onSubmit(data: any) {
-        setSubmitting(true);
-		setServerError(null);
-        
-        // Adds the current Establishment to the Enquiry Data
-        //data.establishment = establishment;
+        setUpdatingPost(true);
+		setUpdateError(null);
+		setUpdated(false);
 		
         console.log(data);
 
 		try {
-			const response = await http.post(ESTABLISHMENTS_URL, data);
+			const response = await http.put(url, data);
 
             // Console log the data saved in the api
-			console.log("[ESTABLISHMENTS]", response.data);
-
-            // Close Booking Modal and open Feedback Modal
-            window.location.href="#feedback-success"
-            
+			console.log("[Response Data]", response.data);
+            setUpdated(true);
 
 
 		} catch (error) {
 			console.log("[Error]", error);
-			setServerError(error.toString());
-
-            // Move to feedback Error
-            window.location.href="#feedback-error"
+			setUpdateError(error.toString());
 		} finally {
-			setSubmitting(false);
+			setUpdatingPost(false);
 		}
     }
 
+    //if (fetchingPost) return <div>Loading...</div>;
+
+	
+
 
     return (
-        <form className="establishment-form" onSubmit={onSubmit}>
+        <form  onSubmit={onSubmit}>
+            {updated && <div className="success">The post was updated</div>}
 
-                    {/* Image 1: */}
-                    <Input 
-                        register={register}
-                        name="estaImageOne"
-                        label="image Name 1"
-                        type="text"
-                        error={errors.image && <span className="form__error"><i className="fas fa-exclamation-circle"></i> {errors.image.message}</span>}
-                        placeholder="image Name" />
+			{updateError && <div>{updateError}</div>}
+
+            <fieldset disabled={updatingPost} className="establishment-form">
+
+                {/* Image 1: */}
+                <Input 
+                    register={register}
+                    name="estaImageOne"
+                    label="Image 1"
+                    type="text"
+                    error={errors.image && <span className="form__error"><i className="fas fa-exclamation-circle"></i> {errors.image.message}</span>}
+                    placeholder="image url"
+                    />
 
                     {/* Image 2: */}
                     <Input 
                         register={register}
                         name="estaImageTwo"
-                        label="image Name 2"
+                        label="Image 2"
                         type="text"
                         error={errors.image && <span className="form__error"><i className="fas fa-exclamation-circle"></i> {errors.image.message}</span>}
-                        placeholder="image Name" />
+                        placeholder="image url" />
 
                     {/* Image 3: */}
                     <Input 
                         register={register}
                         name="estaImageThree"
-                        label="image Name 3"
+                        label="Image 3"
                         type="text"
                         error={errors.image && <span className="form__error"><i className="fas fa-exclamation-circle"></i> {errors.image.message}</span>}
-                        placeholder="image Name" />
+                        placeholder="image url" />
 
                     {/* Hotel Name: */}
                     <Input 
@@ -150,16 +172,21 @@ const EstablishmentForm = () => {
                         label="Establishment Name"
                         type="text"
                         error={errors.establishment && <span className="form__error"><i className="fas fa-exclamation-circle"></i> {errors.establishment.message}</span>}
-                        placeholder="Establishment Name" />
+                        placeholder="Establishment Name"
+                        defaultValue={selectedEstablishment ? selectedEstablishment.name : ""} />
 
                     {/* Category: */}
-                    <Input 
-                        register={register}
-                        name="estaCategory"
+                    <Select 
+                        name="estaCategory" 
                         label="Choose a Category"
-                        type="text"
-                        error={errors.establishment && <span className="form__error"><i className="fas fa-exclamation-circle"></i> {errors.establishment.message}</span>}
-                        placeholder="Hotel" />
+                        register={register} 
+                        error={errors.category && <span className="form__error"><i className="fas fa-exclamation-circle"></i> {errors.category.message}</span>}
+                        defaultValue={selectedEstablishment ? selectedEstablishment.category : ""}  >
+                              
+                        <option value="Hotel">Hotel</option>
+                        <option value="BedAndBreakfast">Bed & Breakfast</option>
+                        <option value="Guesthouse">Guesthouse</option>
+                    </Select>
 
                     {/* Email: */}
                     <Input
@@ -168,7 +195,9 @@ const EstablishmentForm = () => {
                         label="Email"
                         type="text"
                         error={errors.email && <span className="form__error"><i className="fas fa-exclamation-circle"></i> {errors.email.message}</span>}
-                        placeholder="establishment@support.no" />
+                        placeholder="establishment@support.no"
+                        defaultValue={selectedEstablishment ? selectedEstablishment.email : ""}
+                         />
 
                     {/* Phone */}
                     <Input
@@ -177,7 +206,8 @@ const EstablishmentForm = () => {
                         label="Phone"
                         type="text"
                         error={errors.phone && <span className="form__error"><i className="fas fa-exclamation-circle"></i> {errors.phone.message}</span>}
-                        placeholder="123 45 678" />
+                        placeholder="123 45 678"
+                        defaultValue={selectedEstablishment ? selectedEstablishment.phone : ""} />
 
                     {/* Coordinates */}
                     <Input
@@ -186,7 +216,8 @@ const EstablishmentForm = () => {
                         label="coordinates"
                         type="text"
                         error={errors.coordinates && <span className="form__error"><i className="fas fa-exclamation-circle"></i> {errors.coordinates.message}</span>}
-                        placeholder="establishment@support.no" />
+                        placeholder="establishment@support.no"
+                        defaultValue={selectedEstablishment ? selectedEstablishment.address.coordinates : ""} />
 
 
                     {/* Street name */}
@@ -196,7 +227,8 @@ const EstablishmentForm = () => {
                         label="street"
                         type="text"
                         error={errors.street && <span className="form__error"><i className="fas fa-exclamation-circle"></i> {errors.street.message}</span>}
-                        placeholder="Street Name 12" />
+                        placeholder="Street Name 12"
+                        defaultValue={selectedEstablishment ? selectedEstablishment.address.street : ""} />
 
                     {/* City */}
                     <Input
@@ -205,7 +237,8 @@ const EstablishmentForm = () => {
                         label="city"
                         type="text"
                         error={errors.city && <span className="form__error"><i className="fas fa-exclamation-circle"></i> {errors.city.message}</span>}
-                        placeholder="City" />
+                        placeholder="City"
+                        defaultValue={selectedEstablishment ? selectedEstablishment.address.city : ""} />
 
                     {/* Zip Code */}
                     <Input
@@ -214,7 +247,8 @@ const EstablishmentForm = () => {
                         label="zipCode"
                         type="text"
                         error={errors.zipCode && <span className="form__error"><i className="fas fa-exclamation-circle"></i> {errors.zipCode.message}</span>}
-                        placeholder="1234" />
+                        placeholder="1234"
+                        defaultValue={selectedEstablishment ? selectedEstablishment.address.zipcode : ""} />
 
                     {/* Average User Rating */}
                     <Input
@@ -223,7 +257,8 @@ const EstablishmentForm = () => {
                         label="rating"
                         type="text"
                         error={errors.rating && <span className="form__error"><i className="fas fa-exclamation-circle"></i> {errors.rating.message}</span>}
-                        placeholder="7.9" />
+                        placeholder="7.9"
+                        defaultValue={selectedEstablishment ? selectedEstablishment.rating : ""} />
 
                     {/* Stars */}
                     <Input
@@ -232,7 +267,8 @@ const EstablishmentForm = () => {
                         label="stars"
                         type="text"
                         error={errors.stars && <span className="form__error"><i className="fas fa-exclamation-circle"></i> {errors.stars.message}</span>}
-                        placeholder="7.9" />
+                        placeholder="4"
+                        defaultValue={selectedEstablishment ? selectedEstablishment.stars : ""} />
 
                     {/* Featured */}
                     <Input
@@ -241,7 +277,8 @@ const EstablishmentForm = () => {
                         label="featured"
                         type="text"
                         error={errors.featured && <span className="form__error"><i className="fas fa-exclamation-circle"></i> {errors.featured.message}</span>}
-                        placeholder="true" />
+                        placeholder="true"
+                        defaultValue={selectedEstablishment ? JSON.stringify(selectedEstablishment.featured) : ""} />
 
                     {/* Description */}
                     <Textarea
@@ -250,15 +287,17 @@ const EstablishmentForm = () => {
                         label="description"
                         placeholder="Establishment Description"
                         error={errors.description && <span className="form__error"><i className="fas fa-exclamation-circle"></i> {errors.description.message}</span>}
+                        defaultValue={selectedEstablishment ? selectedEstablishment.description : ""}
                     />
 
-                    {/* List of Features */}
+                    {/* List of Amenities */}
                     <Textarea
                         register={register}
                         name="estaAmenities"
-                        label="amenities"
+                        label="Amenities"
                         placeholder="Establishment amenities"
                         error={errors.amenities && <span className="form__error"><i className="fas fa-exclamation-circle"></i> {errors.amenities.message}</span>}
+                        defaultValue={selectedEstablishment ? selectedEstablishment.amenities : ""}
                     />
 
                     <div className="booking-form__group--estaAdvanced">
@@ -271,9 +310,16 @@ const EstablishmentForm = () => {
                 <div className="booking-form__group--estaSubmit">
                     {/* Submit Button */}
                     <SubmitButton theme="primary" size="sm">
-                        save establishment
+                        update establishment
                     </SubmitButton>
                 </div>
+
+
+
+
+            </fieldset>
+
+                    
 
 
                     
