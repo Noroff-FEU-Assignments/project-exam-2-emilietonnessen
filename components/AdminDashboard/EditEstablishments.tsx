@@ -1,7 +1,7 @@
 import * as yup from "yup";
 import { Asserts } from 'yup';
 import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup.d";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect, useState } from "react";
 
 import * as regex from '../../constants/regex';
@@ -9,6 +9,8 @@ import useAxios from "../../hooks/useAxios.js";
 import { ESTABLISHMENTS_URL } from "../../constants/api";
 import Accordion from "../UI/Accordion";
 import Select from "../UI/Form/Select";
+import Input from "../UI/Form/Input";
+import EstablishmentForm from "./EstablishmentForm";
 
 interface Address {
     city: string;
@@ -29,7 +31,7 @@ interface Gallery {
 
 
 
-interface Establishments {
+export interface Establishments {
     address: Address;
     amenities: string;
     category: string;
@@ -99,88 +101,38 @@ const EditEstablishment = () => {
 
     //console.log("[Establishments]", establishments);
 
-    // OnSubmit
-    async function onSubmit(data: any) {
-        setSubmitting(true);
-		setServerError(null);
-        
-        // Adds the current Establishment to the Enquiry Data
-        //data.establishment = establishment;
-		
-        console.log(data);
-
-		try {
-			const response = await http.post(ESTABLISHMENTS_URL, data);
-
-            // Console log the data saved in the api
-			console.log("[ESTABLISHMENTS]", response.data);
-
-            // Close Booking Modal and open Feedback Modal
-            window.location.href="#feedback-success"
-            
-
-
-		} catch (error) {
-			console.log("[Error]", error);
-			setServerError(error.toString());
-
-            // Move to feedback Error
-            window.location.href="#feedback-error"
-		} finally {
-			setSubmitting(false);
-		}
-    }
+    
 
     const establishmentOptions = establishments.map(est => (
         <option key={est.id} value={est.name}>{est.name}</option>
     ));
  
 
-    const changeHandler = (event) => {
+    const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSelected(event.target.value);
     }
 
     let selectedEstablishment;
     let est;
+    let search = "";
 
-    if (establishments.length > 0) {
+    if(search != null && establishments.length > 0) {
+
         est = establishments;
+        search = selected;
+        console.log("[Search]", search);
 
-        if (selected) {
-            let search: string = selected;
-            console.log("[Search]", search);
-                
-                
-            if (search.length > 0) {
 
-                if(search != null && establishments.length > 0) {
-                    search = selected;
+        search = selected;
 
-                    selectedEstablishment = est.filter(est => {
-                        console.log("[est.name]", est.name);
-                        console.log("[Search]", search);
-                        return est.name.match(search);
-                    }); 
-                }
-            }
-        }
+        selectedEstablishment = est.filter(est => {
+            return est.name.match(search);
+        }); 
+
+        selectedEstablishment = selectedEstablishment[0];
     }
 
-    
-    
 
-    
-
-    /* if (selected) {
-        search = selected.trim().toLowerCase();
-    } */
-    
-    
-    
-
-   /*  const selectedEstablishment = establishments.map(est => {
-        console.log(est)
-    }) */
 
     //console.log(selectedEstablishment);
     console.log("[Selected Establishment]:", selectedEstablishment);
@@ -203,6 +155,7 @@ const EditEstablishment = () => {
                 </Select>
 
                 {/* Based on the information we get from the select - Fill in the form details of that particular establishment */}
+                <EstablishmentForm />
 
             </Accordion>        
         </section>
