@@ -5,10 +5,11 @@ interface InputProps {
     type: string;
     placeholder?: string; 
     error: any;
-    defaultValue?: any
+    defaultValue?: any;
+    cssClass?: string;
 }
 
-const Input: React.FC<InputProps> = ({name, label, type, placeholder, register, error, defaultValue}) => {
+const Input: React.FC<InputProps> = ({name, label, type, placeholder, register, error, defaultValue, cssClass}) => {
     let cssError = '';
 
     if (error === undefined) {
@@ -18,7 +19,7 @@ const Input: React.FC<InputProps> = ({name, label, type, placeholder, register, 
     }
 
     return (
-        <div className={"form__group " + `booking-form__group--${name}`}>
+        <div className={"form__group " + `booking-form__group--${name} ` + cssClass}>
             <label 
                 htmlFor={name} 
                 className="form__label" >

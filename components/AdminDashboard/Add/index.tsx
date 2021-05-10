@@ -1,4 +1,4 @@
-import Accordion from '../UI/Accordion';
+import Accordion from '../../UI/Accordion';
 
 const AddEstablishments: React.FC = () => {
     return (

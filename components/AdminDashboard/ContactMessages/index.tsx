@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import Accordion from "../UI/Accordion";
+import Accordion from "../../UI/Accordion";
 import { AxiosInstance } from "axios";
-import useAxios from "../../hooks/useAxios";
+import useAxios from "../../../hooks/useAxios";
 import ContactCard from "./ContactCard";
 
 interface ContactMessages {

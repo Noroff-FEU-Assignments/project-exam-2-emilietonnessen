@@ -20,8 +20,16 @@
 
 // Error
 .feedback {
+
+    // Error
     &--error {
         min-width: 50rem;
+        background-color: rgba($color-error, .3);
+        border: 1px solid $color-error;
+        margin: 2rem 0;
+        padding: 1rem 2rem;
+        display: inline-block;
+        transition: all .2s;
     }
 
     &__title {
@@ -37,5 +45,14 @@
         &:hover {
             border-bottom: 1px solid transparent;
         }
+    }
+
+    // Success
+    &--success {
+        background-color: rgba($color-success, .3);
+        border: 1px solid $color-success;
+        margin: 2rem 0;
+        padding: 1rem 2rem;
+        display: inline-block;
     }
 }

@@ -8,21 +8,11 @@ interface SelectProps {
     error: any;
     onChange?: any;
     defaultValue?: any;
+    cssClass?: string;
 }
-const Select: React.FC<SelectProps> = ({name, children, label, register, error, onChange, defaultValue }) => {
+const Select: React.FC<SelectProps> = ({ name, children, label, register, error, onChange, defaultValue, cssClass }) => {
     
-    //const [value, setValue]: any = useState();
     let value= defaultValue;
-    //console.log("[Default value]", defaultValue);
-
-    /* useEffect(() => {
-        if (defaultValue != undefined) {
-            setValue(defaultValue)
-            //console.log("[Value]", value);
-        } 
-        
-    }, []) */
-
     let cssError = '';
 
     if (error === undefined) {
@@ -32,16 +22,13 @@ const Select: React.FC<SelectProps> = ({name, children, label, register, error, 
     }
 
     const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-        
         value = event.target.value;
         console.log("[Target]", event.target.value);
         console.log("[new value]", value);
     }
 
-    console.log("[Value]", value);
-
     return (
-        <div className={`form__group booking-form__group--${name}`}>
+        <div className={`form__group booking-form__group--${name} ` + cssClass}>
             <label 
                 htmlFor={name} 
                 className="form__label">
@@ -59,7 +46,7 @@ const Select: React.FC<SelectProps> = ({name, children, label, register, error, 
                 value={value}
                  >
                 
-                {/* <option value="" hidden></option> */}
+                <option value="" hidden></option>
                 {children}
             </select>
 
