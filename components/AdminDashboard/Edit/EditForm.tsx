@@ -17,20 +17,18 @@ import Error from "../../UI/Form/Error";
 interface Schema extends Asserts<typeof schema> {}
 
 const schema = yup.object().shape({
-    /* establishment: 
+    establishment: 
         yup.string()
-        .required('Please choose an establishment to edit'), */
-
-    /* thumbnail: yup.object().shape({
-        url: yup.string().required("use url"),
+        .required('Please choose an establishment'),
+    thumbnail: yup.object().shape({
+        url: yup.string().required("Please enter an image url"),
     }),
     imageOne: yup.object().shape({
-        url: yup.string().required("use url"),
+        url: yup.string().required("Please enter an image url"),
     }),
     imageTwo: yup.object().shape({
-        url: yup.string().required("use url"),
-    }), */
-
+        url: yup.string().required("Please enter an image url"),
+    }),
     name: 
         yup.string()
         .required('Please enter the name of the establishment'),
@@ -39,38 +37,43 @@ const schema = yup.object().shape({
         .required('Please choose a category'),
     email:
         yup.string()
-        .required('Please enter a Email address')
+        .required('Please enter an email address')
         .matches(regex.email, 'Please enter a valid email address'),
     phone:
         yup.string()
-        .required('Please enter a phone number'),
+        .required('Please enter a phone number')
+        .min(8, "Please enter a valid phone number")
+        .max(8, "Please enter a valid phone number"),
     coordinates:
         yup.string()
         .required('Please enter coordinates'),
     street:
         yup.string()
-        .required('Please write a street'),
+        .required('Please enter a street name'),
     city:
         yup.string()
-        .required('Please write a city'),
+        .required('Please enter a city'),
     zipCode:
         yup.string()
-        .required('Please write a zip code'),
+        .required('Please enter a zip code'),
     rating:
         yup.number()
-        .required('Please write the average user rating'),
+        .required('Please enter the average user rating')
+        .typeError("Please enter a number"),
     stars:
         yup.number()
-        .required('Please write the amount of stars'),
+        .required('Please enter the amount of stars')
+        .typeError("Please enter a number"),
     featured:
         yup.boolean()
-        .required('Please chose of the establishment should be featured'),
+        .required('Please chose of the establishment should be featured')
+        .typeError("Please enter a boolean value"),
     description:
         yup.string()
-        .required('Please write a description'),
+        .required('Please enter a description'),
     amenities:
         yup.string()
-        .required('Please write different amenities'),
+        .required('Please enter different amenities'),
 });
 
 interface Establishment {
@@ -184,219 +187,222 @@ const EditForm: React.FC = () => {
 
 
     // Console Logging
-    console.log("[url]", url);
+    //console.log("[url]", url);
     //console.log("[Match Establishment]", matchEstablishment);
 	//console.log("[Establishments]", establishments);
     console.log("[Selected Establishment]", selectedEstablishment);
+    console.log("[Errors]", errors);
+    if (selectedEstablishment) console.log("[Thumbnail Url]", selectedEstablishment.thumbnail.url);
+    
 
     return (
         <form  onSubmit={handleSubmit(onSubmit)}>
 
-                {/* Select an Establishment */}
-                <Select 
-                    onChange={changeHandler}
-                    name="establishment" 
-                    cssClass="establishment-form__group--establishment"
-                    label="Choose an establishment" 
-                    register={register} 
-                    error={errors.establishment && <span className="form__error"><i className="fas fa-exclamation-circle"></i> {errors.establishment.message}</span>} >
+            {/* Select an Establishment */}
+            <Select 
+                onChange={changeHandler}
+                name="establishment" 
+                cssClass="establishment-form__group--establishment"
+                label="Choose an establishment" 
+                register={register} 
+                error={errors.establishment && <Error>{errors.establishment.message}</Error>} >
 
-                    {establishmentOptions}
+                {establishmentOptions}
+            </Select>
+
+            {/* Feedback on the Update */}
+            {updated && <div className="feedback--success">The Establishment was successfully updated!</div>}
+            {updateError && <div className="feedback--error">{updateError}</div>}
+
+
+            {/* Form: */}
+            <fieldset disabled={updatingEstablishment} className="establishment-form">
+
+                {/* Image 1 (Thumbnail): */}
+                <Input 
+                    register={register}
+                    name="thumbnail.url"
+                    cssClass="establishment-form__group--image-1"
+                    label="Thumbnail"
+                    type="text"
+                    error={errors.thumbnail && <Error>{errors.thumbnail.url ? errors.thumbnail.url.message : null}</Error>}
+                    placeholder="image url"
+                    defaultValue={selectedEstablishment ? selectedEstablishment.thumbnail.url : ""} /> 
+
+                {/* Image 2: */}
+                 <Input 
+                    register={register}
+                    name="imageOne.url"
+                    cssClass="establishment-form__group--image-2"
+                    label="Image 1"
+                    type="text"
+                    error={errors.imageOne && <Error>{errors.imageOne.url ? errors.imageOne.url.message : null}</Error>}
+                    placeholder="image url"
+                    defaultValue={selectedEstablishment ? selectedEstablishment.imageOne.url : ""} />
+
+                {/* Image 3: */}
+                <Input 
+                    register={register}
+                    name="imageTwo.url"
+                    cssClass="establishment-form__group--image-3"
+                    label="Image 2"
+                    type="text"
+                    error={errors.imageTwo && <Error>{errors.imageTwo.url ? errors.imageTwo.url.message : null}</Error>}
+                    placeholder="image url"
+                    defaultValue={selectedEstablishment ? selectedEstablishment.imageTwo.url : ""} /> 
+
+                {/* Hotel Name: */}
+                <Input 
+                    register={register}
+                    name="name"
+                    cssClass="establishment-form__group--name"
+                    label="Establishment Name"
+                    type="text"
+                    error={errors.name && <Error>{errors.name.message}</Error>}
+                    placeholder="Establishment Name"
+                    defaultValue={selectedEstablishment ? selectedEstablishment.name : ""}  />
+
+                {/* Category: */}
+                <Select 
+                    name="category" 
+                    cssClass="establishment-form__group--category"
+                    label="Choose a Category"
+                    register={register} 
+                    error={errors.category && <Error>{errors.category.message}</Error>}
+                    defaultValue={selectedEstablishment ? selectedEstablishment.category : ""} >
+                              
+                    <option value="Hotel">Hotel</option>
+                    <option value="BedAndBreakfast">Bed & Breakfast</option>
+                    <option value="Guesthouse">Guesthouse</option>
                 </Select>
 
-                {/* Feedback on the Update */}
-                {updated && <div className="feedback--success">The Establishment was successfully updated!</div>}
-                {updateError && <div className="feedback--error">{updateError}</div>}
+                {/* Email: */}
+                <Input
+                    register={register}
+                    name="email"
+                    cssClass="establishment-form__group--email"
+                    label="Email"
+                    type="text"
+                    error={errors.email && <Error>{errors.email.message}</Error>}
+                    placeholder="establishment@support.no"
+                    defaultValue={selectedEstablishment ? selectedEstablishment.email : ""} />
+
+                {/* Phone */}
+                <Input
+                    register={register}
+                    name="phone"
+                    cssClass="establishment-form__group--phone"
+                    label="Phone"
+                    type="text"
+                    error={errors.phone && <Error>{errors.phone.message}</Error>}
+                    placeholder="123 45 678"
+                    defaultValue={selectedEstablishment ? selectedEstablishment.phone : ""} />
 
 
-                {/* Form: */}
-                <fieldset disabled={updatingEstablishment} className="establishment-form">
-
-                    {/* Image 1 (Thumbnail): */}
-                    <Input 
-                        register={register}
-                        name="thumbnail.url"
-                        cssClass="establishment-form__group--image-1"
-                        label="Thumbnail"
-                        type="text"
-                        error={errors.imageOne && <span className="form__error"><i className="fas fa-exclamation-circle"></i> {errors.imageOne.message}</span>}
-                        placeholder="image url"
-                        defaultValue={selectedEstablishment ? selectedEstablishment.thumbnail.url : ""} />
-
-                    {/* Image 2: */}
-                    <Input 
-                        register={register}
-                        name="imageOne.url"
-                        cssClass="establishment-form__group--image-2"
-                        label="Image 1"
-                        type="text"
-                        error={errors.imageTwo && <span className="form__error"><i className="fas fa-exclamation-circle"></i> {errors.imageTwo.message}</span>}
-                        placeholder="image url"
-                        defaultValue={selectedEstablishment ? selectedEstablishment.imageOne.url : ""} />
-
-                    {/* Image 3: */}
-                    <Input 
-                        register={register}
-                        name="imageTwo.url"
-                        cssClass="establishment-form__group--image-3"
-                        label="Image 2"
-                        type="text"
-                        error={errors.imageThree && <span className="form__error"><i className="fas fa-exclamation-circle"></i> {errors.imageThree.message}</span>}
-                        placeholder="image url"
-                        defaultValue={selectedEstablishment ? selectedEstablishment.imageTwo.url : ""} />
-
-                    {/* Hotel Name: */}
-                    <Input 
-                        register={register}
-                        name="name"
-                        cssClass="establishment-form__group--name"
-                        label="Establishment Name"
-                        type="text"
-                        error={errors.name && <span className="form__error"><i className="fas fa-exclamation-circle"></i> {errors.name.message}</span>}
-                        placeholder="Establishment Name"
-                        defaultValue={selectedEstablishment ? selectedEstablishment.name : ""}  />
-
-                    {/* Category: */}
-                    <Select 
-                        name="category" 
-                        cssClass="establishment-form__group--category"
-                        label="Choose a Category"
-                        register={register} 
-                        error={errors.category && <Error>{errors.category.message}</Error>}
-                        defaultValue={selectedEstablishment ? selectedEstablishment.category : ""} >
-                              
-                        <option value="Hotel">Hotel</option>
-                        <option value="BedAndBreakfast">Bed & Breakfast</option>
-                        <option value="Guesthouse">Guesthouse</option>
-                    </Select>
-
-                    {/* Email: */}
-                    <Input
-                        register={register}
-                        name="email"
-                        cssClass="establishment-form__group--email"
-                        label="Email"
-                        type="text"
-                        error={errors.email && <span className="form__error"><i className="fas fa-exclamation-circle"></i> {errors.email.message}</span>}
-                        placeholder="establishment@support.no"
-                        defaultValue={selectedEstablishment ? selectedEstablishment.email : ""} />
-
-                    {/* Phone */}
-                    <Input
-                        register={register}
-                        name="phone"
-                        cssClass="establishment-form__group--phone"
-                        label="Phone"
-                        type="text"
-                        error={errors.phone && <span className="form__error"><i className="fas fa-exclamation-circle"></i> {errors.phone.message}</span>}
-                        placeholder="123 45 678"
-                        defaultValue={selectedEstablishment ? selectedEstablishment.phone : ""} />
-
-                    {/* Coordinates */}
-                    <Input
-                        register={register}
-                        name="coordinates"
-                        cssClass="establishment-form__group--coordinates"
-                        label="Coordinates"
-                        type="text"
-                        error={errors.coordinates && <span className="form__error"><i className="fas fa-exclamation-circle"></i> {errors.coordinates.message}</span>}
-                        placeholder="latitude, longitude"
-                        defaultValue={selectedEstablishment ? selectedEstablishment.coordinates : ""} />
+                {/* Coordinates */}
+                <Input
+                    register={register}
+                    name="coordinates"
+                    cssClass="establishment-form__group--coordinates"
+                    label="Coordinates"
+                    type="text"
+                    error={errors.coordinates && <Error>{errors.coordinates.message}</Error>}
+                    placeholder="latitude, longitude"
+                    defaultValue={selectedEstablishment ? selectedEstablishment.coordinates : ""} />
 
 
-                    {/* Street name */}
-                    <Input
-                        register={register}
-                        name="street"
-                        cssClass="establishment-form__group--street"
-                        label="Street"
-                        type="text"
-                        error={errors.street && <span className="form__error"><i className="fas fa-exclamation-circle"></i> {errors.street.message}</span>}
-                        placeholder="Street Name 12"
-                        defaultValue={selectedEstablishment ? selectedEstablishment.street : ""} />
+                {/* Street name */}
+                <Input
+                    register={register}
+                    name="street"
+                    cssClass="establishment-form__group--street"
+                    label="Street"
+                    type="text"
+                    error={errors.street && <Error>{errors.street.message}</Error>}
+                    placeholder="Street Name 12"
+                    defaultValue={selectedEstablishment ? selectedEstablishment.street : ""} />
 
-                    {/* City */}
-                    <Input
-                        register={register}
-                        name="city"
-                        cssClass="establishment-form__group--city"
-                        label="City"
-                        type="text"
-                        error={errors.city && <span className="form__error"><i className="fas fa-exclamation-circle"></i> {errors.city.message}</span>}
-                        placeholder="City Name"
-                        defaultValue={selectedEstablishment ? selectedEstablishment.city : ""} />
+                {/* City */}
+                <Input
+                    register={register}
+                    name="city"
+                    cssClass="establishment-form__group--city"
+                    label="City"
+                    type="text"
+                    error={errors.city && <Error>{errors.city.message}</Error>}
+                    placeholder="City Name"
+                    defaultValue={selectedEstablishment ? selectedEstablishment.city : ""} />
 
-                    {/* Zip Code */}
-                    <Input
-                        register={register}
-                        name="zipCode"
-                        cssClass="establishment-form__group--zip-code"
-                        label="Zip Code"
-                        type="text"
-                        error={errors.zipCode && <span className="form__error"><i className="fas fa-exclamation-circle"></i> {errors.zipCode.message}</span>}
-                        placeholder="1234"
-                        defaultValue={selectedEstablishment ? selectedEstablishment.zipCode : ""} />
+                {/* Zip Code */}
+                <Input
+                    register={register}
+                    name="zipCode"
+                    cssClass="establishment-form__group--zip-code"
+                    label="Zip Code"
+                    type="text"
+                    error={errors.zipCode && <Error>{errors.zipCode.message}</Error>}
+                    placeholder="1234"
+                    defaultValue={selectedEstablishment ? selectedEstablishment.zipCode : ""} />
 
-                    {/* Average User Rating */}
-                    <Input
-                        register={register}
-                        name="rating"
-                        cssClass="establishment-form__group--rating"
-                        label="User Rating"
-                        type="text"
-                        error={errors.rating && <span className="form__error"><i className="fas fa-exclamation-circle"></i> {errors.rating.message}</span>}
-                        placeholder="Ex: 7.9"
-                        defaultValue={selectedEstablishment ? selectedEstablishment.rating : ""} />
+                {/* Average User Rating */}
+                <Input
+                    register={register}
+                    name="rating"
+                    cssClass="establishment-form__group--rating"
+                    label="User Rating"
+                    type="text"
+                    error={errors.rating && <Error>{errors.rating.message}</Error>}
+                    placeholder="Ex: 7.9"
+                    defaultValue={selectedEstablishment ? selectedEstablishment.rating : ""} />
 
-                    {/* Stars */}
-                    <Input
-                        register={register}
-                        name="stars"
-                        cssClass="establishment-form__group--stars"
-                        label="Stars"
-                        type="text"
-                        error={errors.rating && <span className="form__error"><i className="fas fa-exclamation-circle"></i> {errors.rating.message}</span>}
-                        placeholder="4"
-                        defaultValue={selectedEstablishment ? selectedEstablishment.stars : ""} />
+                {/* Stars */}
+                <Input
+                    register={register}
+                    name="stars"
+                    cssClass="establishment-form__group--stars"
+                    label="Stars"
+                    type="text"
+                    error={errors.rating && <Error>{errors.rating.message}</Error>}
+                    placeholder="4"
+                    defaultValue={selectedEstablishment ? selectedEstablishment.stars : ""} />
 
-                    {/* Featured */}
-                    <Input
-                        register={register}
-                        name="featured"
-                        cssClass="establishment-form__group--featured"
-                        label="Featured"
-                        type="text"
-                        error={errors.featured && <span className="form__error"><i className="fas fa-exclamation-circle"></i> {errors.featured.message}</span>}
-                        placeholder="true"
-                        defaultValue={selectedEstablishment ? JSON.stringify(selectedEstablishment.featured) : ""} />
+                {/* Featured */}
+                <Input
+                    register={register}
+                    name="featured"
+                    cssClass="establishment-form__group--featured"
+                    label="Featured"
+                    type="text"
+                    error={errors.featured && <Error>{errors.featured.message}</Error>}
+                    placeholder="true"
+                    defaultValue={selectedEstablishment ? JSON.stringify(selectedEstablishment.featured) : ""} />
 
-                    {/* Description */}
-                    <Textarea
-                        register={register}
-                        name="description"
-                        cssClass="establishment-form__group--description"
-                        label="Description"
-                        placeholder="Establishment Description"
-                        error={errors.description && <span className="form__error"><i className="fas fa-exclamation-circle"></i> {errors.description.message}</span>}
-                        defaultValue={selectedEstablishment ? selectedEstablishment.description : ""} />
+                {/* Description */}
+                <Textarea
+                    register={register}
+                    name="description"
+                    cssClass="establishment-form__group--description"
+                    label="Description"
+                    placeholder="Establishment Description"
+                    error={errors.description && <Error>{errors.description.message}</Error>}
+                    defaultValue={selectedEstablishment ? selectedEstablishment.description : ""} />
 
-                    {/* List of Amenities */}
-                    <Textarea
-                        register={register}
-                        name="amenities"
-                        cssClass="establishment-form__group--amenities"
-                        label="Amenities"
-                        placeholder="Establishment amenities"
-                        error={errors.amenities && <span className="form__error"><i className="fas fa-exclamation-circle"></i> {errors.amenities.message}</span>}
-                        defaultValue={selectedEstablishment ? selectedEstablishment.amenities : ""} />
+                {/* List of Amenities */}
+                <Textarea
+                    register={register}
+                    name="amenities"
+                    cssClass="establishment-form__group--amenities"
+                    label="Amenities"
+                    placeholder="Establishment amenities"
+                    error={errors.amenities && <Error>{errors.amenities.message}</Error>}
+                    defaultValue={selectedEstablishment ? selectedEstablishment.amenities : ""} />
 
-                    <div className="establishment-form__group--advanced">
-                        {/* Advanced Options */}
-                        <Accordion title="Advanced Options">
-                            Delete this establishment
-                        </Accordion>
-                    </div>
-
+                {/* Advanced Options */}
+                <div className="establishment-form__group--advanced">
+                    <Accordion title="Advanced Options">
+                        Delete this establishment
+                    </Accordion>
+                </div>
 
                 {/* Submit Button */}    
                 <div className="establishment-form__group--submit">
@@ -404,6 +410,7 @@ const EditForm: React.FC = () => {
                         update establishment
                     </SubmitButton>
                 </div> 
+
             </fieldset>
         </form>
     );
