@@ -1,13 +1,4 @@
-interface InputProps {
-    register: () => void;
-    name: string;
-    label: string;
-    type: string;
-    placeholder?: string; 
-    error: any;
-    defaultValue?: any;
-    cssClass?: string;
-}
+import { InputProps } from '../../../constants/interfaces';
 
 const Input: React.FC<InputProps> = ({name, label, type, placeholder, register, error, defaultValue, cssClass}) => {
     let cssError = '';
