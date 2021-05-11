@@ -1,32 +1,22 @@
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 import * as regex from '../../../constants/regex';
 import useAxios from "../../../hooks/useAxios";
 import { ESTABLISHMENTS_URL } from "../../../constants/api";
-import { Establishment } from "../../../constants/interfaces";
 import Error from "../../UI/Form/Error";
 import Input from "../../UI/Form/Input";
 import Select from "../../UI/Form/Select";
 import Textarea from "../../UI/Form/Textarea";
 import { SubmitButton } from "../../UI/Button";
-import { addEstablishmentSchema } from '../../../constants/schemas';
-
+import AuthContext from "../../../context/AuthContext";
+import File from '../../UI/Form/File';
 
 interface Schema extends yup.Asserts<typeof schema> {}
 
 const schema = yup.object().shape({
-    thumbnail: yup.object().shape({
-        url: yup.string().required("Please enter an image url"),
-    }),
-    imageOne: yup.object().shape({
-        url: yup.string().required("Please enter an image url"),
-    }),
-    imageTwo: yup.object().shape({
-        url: yup.string().required("Please enter an image url"),
-    }),
     name: 
         yup.string()
         .required('Please enter the name of the establishment'),
@@ -87,8 +77,41 @@ const AddForm: React.FC = () => {
     const [serverError, setServerError] = useState<string | null>(null);
     const [added, setAdded] = useState<boolean>(false);
 
+    const [thumbnailValue, setThumbnailValue] = useState<any>(null);
+    const [thumbnailValueError, setThumbnailValueError] = useState<any>(false);
+
+
+    const [imageOneValue, setImageOneValue] = useState<any>(null);
+    const [imageTwoValue, setImageTwoValue] = useState<any>(null);
+
     // Variables
     const http = useAxios();
+    const [auth] = useContext<any>(AuthContext);
+    const validImageFormats = ["image/jpeg", "image/png"]
+
+    // Image values
+    const changeThumbnailValue = async (event: any) => {
+        setThumbnailValueError(false);
+
+        console.log(event.target.files[0].type);
+
+    
+        if (event.target.files[0].type === "image/jpeg") {
+            setThumbnailValue(event.target.files[0]); 
+        }  else {
+            setThumbnailValueError(true);
+        }
+      
+        
+    }
+
+    const changeImageOneValue = (event: any) => {
+        setImageOneValue(event.target.files[0]); 
+    }
+
+    const changeImageTwoValue = (event: any) => {
+        setImageTwoValue(event.target.files[0]); 
+    }
     
 
     // Onsubmit
@@ -97,13 +120,27 @@ const AddForm: React.FC = () => {
         setServerError(null);
         setAdded(false);
 
-        //data.status = "publish";
+        console.log("[Data Sending]", data);
 
-        console.log("[Data]", data);
+        const formData = new FormData()
+        formData.append("data", JSON.stringify(data));
+        formData.append("files.thumbnail", thumbnailValue);
+        formData.append("files.imageOne", imageOneValue);
+        formData.append("files.imageTwo", imageTwoValue);
 
         try {
-            const response = await http.post(ESTABLISHMENTS_URL, data);
-            console.log("[Response]", response.data);
+            const response = await fetch (ESTABLISHMENTS_URL, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${auth.jwt}`,
+                },
+                body: formData
+            });
+
+            const data = await response.json();
+
+            console.log("[Data Success]", data);
+
             setAdded(true);
         } catch (error) {
             console.log("[Onsubmit Error]", error);
@@ -113,40 +150,41 @@ const AddForm: React.FC = () => {
         }
     }
 
+    // Console Logs
+    //console.log("[Auth Key]", auth.jwt);
+    console.log("[thumbnailValue]", thumbnailValue);
+    console.log("[thumbnailValueError]", thumbnailValueError);
+
+
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
+
+            {/* Feedback: */}
             {serverError && <div className="feedback--error">{serverError}</div>}
             {added && <div className="feedback--success">The Establishment was successfully added!</div>}
+
             <fieldset disabled={submitting} className="add-establishment__fieldset">
 
-                <Input 
-                    register={register}
-                    name="thumbnail.url"
+                {/* Thumbnail */}
+                <File 
+                    name="thumbnail" label="Thumbnail" onChange={changeThumbnailValue} 
                     cssClass="add-establishment__group--thumbnail"
-                    label="Thumbnail"
-                    type="text"
-                    error={errors.thumbnail && <Error>{errors.thumbnail.message}</Error>}
-                    placeholder="Image URL" /> 
+                    error={thumbnailValueError ? "Please use an .jpeg file" : null} />
+
+
+                {/* Image 1: */}
+                <File 
+                    name="imageOne" label="Image 1" onChange={changeThumbnailValue} 
+                    cssClass="add-establishment__group--image-1"
+                    error={errors.imageOne && <Error>{errors.imageOne.message}</Error>} />
+
 
                 {/* Image 2: */}
-                <Input 
-                    register={register}
-                    name="imageOne.url"
-                    cssClass="add-establishment__group--image-1"
-                    label="Image 1"
-                    type="text"
-                    error={errors.imageOne && <Error>{errors.imageOne.message}</Error>}
-                    placeholder="Image URL" /> 
-
-                {/* Image 3: */}
-                <Input 
-                    register={register}
-                    name="imageTwo.url"
+                <File 
+                    name="imageTwo" label="Image 2" onChange={changeThumbnailValue} 
                     cssClass="add-establishment__group--image-2"
-                    label="Image 2"
-                    type="text"
-                    error={errors.imageTwo && <Error>{errors.imageTwo.message}</Error>}
-                    placeholder="Image URL" /> 
+                    error={errors.imageTwo && <Error>{errors.imageTwo.message}</Error>} />
+
 
                 {/* Hotel Name: */}
                 <Input 
@@ -157,6 +195,8 @@ const AddForm: React.FC = () => {
                     type="text"
                     error={errors.name && <Error>{errors.name.message}</Error>}
                     placeholder="My Beautiful Establishment" />
+
+
 
                 {/* Category: */}
                 <Select 
