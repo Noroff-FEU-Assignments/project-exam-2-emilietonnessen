@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect, useState } from "react";
 
-import * as regex from '../../../constants/regex';
 import useAxios from "../../../hooks/useAxios.js";
 import { ESTABLISHMENTS_URL } from "../../../constants/api";
 import Accordion from "../../UI/Accordion";
@@ -13,88 +12,14 @@ import Input from "../../UI/Form/Input";
 import Textarea from "../../UI/Form/Textarea";
 import { SubmitButton } from "../../UI/Button";
 import Error from "../../UI/Form/Error";
+import { editEstablishmentSchema } from '../../../constants/schemas';
+import { Establishment } from '../../../constants/interfaces';
 
 interface Schema extends Asserts<typeof schema> {}
 
-const schema = yup.object().shape({
-    establishment: 
-        yup.string()
-        .required('Please choose an establishment'),
-    thumbnail: yup.object().shape({
-        url: yup.string().required("Please enter an image url"),
-    }),
-    imageOne: yup.object().shape({
-        url: yup.string().required("Please enter an image url"),
-    }),
-    imageTwo: yup.object().shape({
-        url: yup.string().required("Please enter an image url"),
-    }),
-    name: 
-        yup.string()
-        .required('Please enter the name of the establishment'),
-    category: 
-        yup.string()
-        .required('Please choose a category'),
-    email:
-        yup.string()
-        .required('Please enter an email address')
-        .matches(regex.email, 'Please enter a valid email address'),
-    phone:
-        yup.string()
-        .required('Please enter a phone number')
-        .min(8, "Please enter a valid phone number")
-        .max(8, "Please enter a valid phone number"),
-    coordinates:
-        yup.string()
-        .required('Please enter coordinates'),
-    street:
-        yup.string()
-        .required('Please enter a street name'),
-    city:
-        yup.string()
-        .required('Please enter a city'),
-    zipCode:
-        yup.string()
-        .required('Please enter a zip code'),
-    rating:
-        yup.number()
-        .required('Please enter the average user rating')
-        .typeError("Please enter a number"),
-    stars:
-        yup.number()
-        .required('Please enter the amount of stars')
-        .typeError("Please enter a number"),
-    featured:
-        yup.boolean()
-        .required('Please chose of the establishment should be featured')
-        .typeError("Please enter a boolean value"),
-    description:
-        yup.string()
-        .required('Please enter a description'),
-    amenities:
-        yup.string()
-        .required('Please enter different amenities'),
-});
-
-interface Establishment {
-    name: string;
-    length: number;
-    id: number;
-    category: string;
-    description: string;
-    email: string;
-    featured: boolean;
-    rating: number;
-    stars: number;
-    lowestPrice: string;
-    slug: string;
-    reviews: string;
-}
-
-interface Establishments {
-    establishment: Establishment[];
-    length: number;
-}
+const schema = yup.object().shape(
+    editEstablishmentSchema
+);
 
 const EditForm: React.FC = () => {
 

@@ -10,8 +10,8 @@ const index: React.FC = () => (
             <ContactMessages />
         </div>
         <div className="admin-dashboard__group">
-            <Edit />
             <Add />
+            <Edit />
         </div>
     </div>
 );
