@@ -115,8 +115,8 @@ const EditForm: React.FC = () => {
     //console.log("[url]", url);
     //console.log("[Match Establishment]", matchEstablishment);
 	//console.log("[Establishments]", establishments);
-    console.log("[Selected Establishment]", selectedEstablishment);
-    console.log("[Errors]", errors);
+    //console.log("[Selected Establishment]", selectedEstablishment);
+    //console.log("[Errors]", errors);
     if (selectedEstablishment) console.log("[Thumbnail Url]", selectedEstablishment.thumbnail.url);
     
 
