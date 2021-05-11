@@ -23,3 +23,25 @@ export interface Establishment {
     slug: string;
     reviews: string;
 }
+
+
+
+export interface InputProps {
+    register: () => void;
+    name: string;
+    label: string;
+    type: string;
+    placeholder?: string; 
+    error: any;
+    defaultValue?: any;
+    cssClass?: string;
+}
+
+export interface FileProps {
+    register?: () => void;
+    name: string;
+    label: string;
+    error: any;
+    cssClass?: string;
+    onChange: any;
+}
