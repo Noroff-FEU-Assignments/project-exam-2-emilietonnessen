@@ -14,12 +14,59 @@ import { SubmitButton } from "../../UI/Button";
 import Error from "../../UI/Form/Error";
 import { editEstablishmentSchema } from '../../../constants/schemas';
 import { Establishment } from '../../../constants/interfaces';
+import File from "../../UI/Form/File";
+import * as regex from '../../../constants/regex';
+import AdvancedOptions from "./AdvancedOptions";
 
 interface Schema extends Asserts<typeof schema> {}
 
-const schema = yup.object().shape(
-    editEstablishmentSchema
-);
+const schema = yup.object().shape({
+    name: 
+        yup.string()
+        .required('Please enter the name of the establishment'),
+    category: 
+        yup.string()
+        .required('Please choose a category'),
+    email:
+        yup.string()
+        .required('Please enter an email address')
+        .matches(regex.email, 'Please enter a valid email address'),
+    phone:
+        yup.string()
+        .required('Please enter a phone number')
+        .min(8, "Please enter a valid phone number")
+        .max(8, "Please enter a valid phone number"),
+    coordinates:
+        yup.string()
+        .required('Please enter coordinates'),
+    street:
+        yup.string()
+        .required('Please enter a street name'),
+    city:
+        yup.string()
+        .required('Please enter a city'),
+    zipCode:
+        yup.string()
+        .required('Please enter a zip code'),
+    rating:
+        yup.number()
+        .required('Please enter the average user rating')
+        .typeError("Please enter a number"),
+    stars:
+        yup.number()
+        .required('Please enter the amount of stars')
+        .typeError("Please enter a number"),
+    featured:
+        yup.boolean()
+        .required('Please chose of the establishment should be featured')
+        .typeError("Please enter a boolean value"),
+    description:
+        yup.string()
+        .required('Please enter a description'),
+    amenities:
+        yup.string()
+        .required('Please enter different amenities'),
+});
 
 const EditForm: React.FC = () => {
 
@@ -33,8 +80,13 @@ const EditForm: React.FC = () => {
     const [matchEstablishment, setMatchEstablishment] = useState<string | undefined>();
 	const [updated, setUpdated] = useState<boolean>(false);
 	const [updatingEstablishment, setUpdatingEstablishment] = useState<boolean>(false);
-	const [updateError, setUpdateError] = useState(null);
-    
+	const [updateError, setUpdateError] = useState<any>(null);
+    const [thumbnailValue, setThumbnailValue] = useState<any>(null);
+    const [thumbnailValueError, setThumbnailValueError] = useState<any>(false);
+    const [imageOneValue, setImageOneValue] = useState<any>(null);
+    const [imageOneValueError, setImageOneValueError] = useState<any>(null);
+    const [imageTwoValue, setImageTwoValue] = useState<any>(null);
+    const [imageTwoValueError, setImageTwoValueError] = useState<any>(null);
 
 
     // Variables
@@ -55,6 +107,40 @@ const EditForm: React.FC = () => {
             }
         }; fetchData(); 
     }, []);
+
+    // Image values
+    const changeThumbnailValue = async (event: any) => {
+        setThumbnailValueError(false);
+    
+        if (event.target.files[0].type === "image/jpeg") {
+            setThumbnailValue(event.target.files[0]); 
+        }  else {
+            setThumbnailValueError(true);
+            setThumbnailValue(null);
+        }
+    }
+
+    const changeImageOneValue = (event: any) => {
+        setImageOneValueError(false);
+    
+        if (event.target.files[0].type === "image/jpeg") {
+            setImageOneValue(event.target.files[0]); 
+        }  else {
+            setImageOneValueError(true);
+            setImageOneValue(null);
+        }
+    }
+    
+    const changeImageTwoValue = (event: any) => {
+        setImageTwoValueError(false);
+    
+        if (event.target.files[0].type === "image/jpeg") {
+            setImageTwoValue(event.target.files[0]); 
+        }  else {
+            setImageTwoValueError(true);
+            setImageTwoValue(null);
+        }
+    }
 
 
 
@@ -92,15 +178,29 @@ const EditForm: React.FC = () => {
 		setUpdateError(null);
 		setUpdated(false);
 		
-        console.log(data);
-        //console.log("[Url]", url)
+        console.log("[Data Sending]", data);
+
+        const formData = new FormData()
+        formData.append("data", JSON.stringify(data));
+        formData.append("files.thumbnail", thumbnailValue);
+        formData.append("files.imageOne", imageOneValue);
+        formData.append("files.imageTwo", imageTwoValue); 
 
 		try {
-			const response = await http.put(url, data);
+            if (thumbnailValue != null && imageOneValue != null && imageTwoValue != null) {
+                const response = await http.put(url, formData);
 
-            // Console log the data saved in the api
-			console.log("[Response Data]", response.data);
-            setUpdated(true);
+                // Console log the data saved in the api
+                console.log("[Response Data]", response.data);
+                setUpdated(true);
+
+            } else {
+                setThumbnailValueError(true);
+                setImageOneValueError(true);
+                setImageTwoValueError(true);
+                setUpdateError("Please Choose images to be used!");
+            }
+			
 		} catch (error) {
 			console.log("[OnSubmit Error]", error);
 			setUpdateError(error.toString());
@@ -112,16 +212,17 @@ const EditForm: React.FC = () => {
 
 
     // Console Logging
-    //console.log("[url]", url);
+    console.log("[url]", url);
     //console.log("[Match Establishment]", matchEstablishment);
 	//console.log("[Establishments]", establishments);
     //console.log("[Selected Establishment]", selectedEstablishment);
     //console.log("[Errors]", errors);
-    if (selectedEstablishment) console.log("[Thumbnail Url]", selectedEstablishment.thumbnail.url);
+    //if (selectedEstablishment) console.log("[Thumbnail Url]", selectedEstablishment.thumbnail.url);
     
 
     return (
-        <form  onSubmit={handleSubmit(onSubmit)}>
+        <>
+        <form  onSubmit={handleSubmit(onSubmit)} className="establishment-form">
 
             {/* Select an Establishment */}
             <Select 
@@ -141,40 +242,26 @@ const EditForm: React.FC = () => {
 
 
             {/* Form: */}
-            <fieldset disabled={updatingEstablishment} className="establishment-form">
+            <fieldset disabled={updatingEstablishment} className="establishment-form__fieldset">
 
-                {/* Image 1 (Thumbnail): */}
-                <Input 
-                    register={register}
-                    name="thumbnail.url"
-                    cssClass="establishment-form__group--image-1"
-                    label="Thumbnail"
-                    type="text"
-                    error={errors.thumbnail && <Error>{errors.thumbnail.url ? errors.thumbnail.url.message : null}</Error>}
-                    placeholder="image url"
-                    defaultValue={selectedEstablishment ? selectedEstablishment.thumbnail.url : ""} /> 
+                {/* Thumbnail: */}
+                <File 
+                    name="thumbnail" label="Thumbnail"  onChange={changeThumbnailValue}  
+                    cssClass="establishment-form__group--thumbnail"
+                    error={thumbnailValueError ? "Please use an .jpeg file" : null}  />
+
+                {/* Image 1: */}
+                <File 
+                    name="imageOne" label="Image 1" onChange={changeImageOneValue} 
+                    cssClass="establishment-form__group--image-1" /* register={register} */
+                    error={imageOneValueError ? "Please use an .jpeg file" : null}/>
+
 
                 {/* Image 2: */}
-                 <Input 
-                    register={register}
-                    name="imageOne.url"
-                    cssClass="establishment-form__group--image-2"
-                    label="Image 1"
-                    type="text"
-                    error={errors.imageOne && <Error>{errors.imageOne.url ? errors.imageOne.url.message : null}</Error>}
-                    placeholder="image url"
-                    defaultValue={selectedEstablishment ? selectedEstablishment.imageOne.url : ""} />
-
-                {/* Image 3: */}
-                <Input 
-                    register={register}
-                    name="imageTwo.url"
-                    cssClass="establishment-form__group--image-3"
-                    label="Image 2"
-                    type="text"
-                    error={errors.imageTwo && <Error>{errors.imageTwo.url ? errors.imageTwo.url.message : null}</Error>}
-                    placeholder="image url"
-                    defaultValue={selectedEstablishment ? selectedEstablishment.imageTwo.url : ""} /> 
+                <File 
+                    name="imageTwo" label="Image 2" onChange={changeImageTwoValue} 
+                    cssClass="establishment-form__group--image-2" /* register={register} */
+                    error={imageTwoValueError ? "Please use an .jpeg file" : null}/>
 
                 {/* Hotel Name: */}
                 <Input 
@@ -322,22 +409,24 @@ const EditForm: React.FC = () => {
                     error={errors.amenities && <Error>{errors.amenities.message}</Error>}
                     defaultValue={selectedEstablishment ? selectedEstablishment.amenities : ""} />
 
-                {/* Advanced Options */}
-                <div className="establishment-form__group--advanced">
-                    <Accordion title="Advanced Options">
-                        Delete this establishment
-                    </Accordion>
-                </div>
+                
 
                 {/* Submit Button */}    
                 <div className="establishment-form__group--submit">
                     <SubmitButton theme="primary" size="sm">
-                        update establishment
+                        {updatingEstablishment ? "updating.." : "update establishment"}
                     </SubmitButton>
                 </div> 
 
             </fieldset>
+
+            
+
         </form>
+
+        {/* Advanced Options */}
+        <AdvancedOptions url={url} />
+        </>
     );
 }
 
