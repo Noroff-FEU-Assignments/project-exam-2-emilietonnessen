@@ -3,9 +3,9 @@ interface ErrorProps {
 }
 
 const Error: React.FC<ErrorProps> = ({ children }) => (
-    <span className="form__error">
+    <div className="form__error">
         <i className="fas fa-exclamation-circle"></i> {children}
-    </span>
+    </div>
 );
 
 export default Error;
