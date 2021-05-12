@@ -13,7 +13,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ title, description, children,
     <>
         <NextHead title={title} description={description}/>
         
-        <div className="layout">
+        <div className="layout layout--admin">
             <div className="wrapper">
                 <AdminNavigation />
                         
