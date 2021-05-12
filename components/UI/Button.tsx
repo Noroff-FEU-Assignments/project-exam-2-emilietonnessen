@@ -24,7 +24,7 @@ export default Button;
 
 interface ModalButtonProps {
     children: React.ReactNode;
-    theme: 'primary' | 'light-grey' | 'dark-grey';
+    theme: 'primary' | 'light-grey' | 'dark-grey' | 'danger';
     size: 'cta' | 'lg' | 'md' | 'sm';
     type?: "button" | "submit" | "reset" | undefined;
     name: string;
@@ -50,6 +50,23 @@ interface SubmitButtonProps {
 export const SubmitButton: React.FC<SubmitButtonProps> = ({children, theme, size}) => {
     return (
         <button className={'btn ' + `btn--${theme} ` + `btn--${size}`} type="submit">
+            {children}
+        </button>
+    );
+}
+
+
+interface SimpleButtonProps {
+    children: React.ReactNode;
+    theme: 'primary' | 'light-grey' | 'dark-grey' | 'danger';
+    size: 'cta' | 'lg' | 'md' | 'sm';
+    type?: "button" | "submit" | "reset" | undefined;
+    onClick?: any;
+}
+
+export const SimpleButton: React.FC<SimpleButtonProps> = ({children, theme, size, type, onClick}) => {
+    return (
+        <button className={'btn ' + `btn--${theme} ` + `btn--${size}`} type={type} onClick={onClick}>
             {children}
         </button>
     );
