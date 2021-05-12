@@ -71,6 +71,24 @@
         }
     }
 
+    &--danger {
+        background-color: $color-error;
+        color: $color-white;
+        font-weight: 600;
+
+        &:hover,
+        &:focus {
+            background-color: darken($color-error, 10);
+            box-shadow: $boxshadow-hover;
+            transform: translateY(-.5rem);
+        }
+
+        &:active {
+            transform: translateY(.5rem); 
+            box-shadow: $boxshadow-active;
+        }
+    }
+
     
     &--cta {
         font-size: 3rem;

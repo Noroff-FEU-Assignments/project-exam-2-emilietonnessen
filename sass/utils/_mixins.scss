@@ -22,6 +22,10 @@
     @if $breakpoint == lap-lg {
         @media only screen and (max-width: $lap-lg) { @content; }
     }
+
+    @if $breakpoint == desk {
+        @media only screen and (max-width: $desk) { @content; }
+    }
 }
 
 @mixin centerElement {
