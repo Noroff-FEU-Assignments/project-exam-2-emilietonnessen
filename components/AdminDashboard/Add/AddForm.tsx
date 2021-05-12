@@ -17,6 +17,12 @@ import File from '../../UI/Form/File';
 interface Schema extends yup.Asserts<typeof schema> {}
 
 const schema = yup.object().shape({
+    thumbnail: 
+        yup.mixed()
+        .test('type', "We only support jpeg", value => {
+            console.log("Value", value);
+            return value && ["image/jpg", "image/jpeg"].includes(value.type)
+        } ),
     name: 
         yup.string()
         .required('Please enter the name of the establishment'),
@@ -79,10 +85,10 @@ const AddForm: React.FC = () => {
 
     const [thumbnailValue, setThumbnailValue] = useState<any>(null);
     const [thumbnailValueError, setThumbnailValueError] = useState<any>(false);
-
-
     const [imageOneValue, setImageOneValue] = useState<any>(null);
+    const [imageOneValueError, setImageOneValueError] = useState<any>(null);
     const [imageTwoValue, setImageTwoValue] = useState<any>(null);
+    const [imageTwoValueError, setImageTwoValueError] = useState<any>(null);
 
     // Variables
     const http = useAxios();
@@ -92,25 +98,33 @@ const AddForm: React.FC = () => {
     // Image values
     const changeThumbnailValue = async (event: any) => {
         setThumbnailValueError(false);
-
-        console.log(event.target.files[0].type);
-
-    
         if (event.target.files[0].type === "image/jpeg") {
             setThumbnailValue(event.target.files[0]); 
         }  else {
             setThumbnailValueError(true);
+            setThumbnailValue(null);
         }
-      
-        
     }
 
+
     const changeImageOneValue = (event: any) => {
-        setImageOneValue(event.target.files[0]); 
+        setImageOneValueError(false);
+        if (event.target.files[0].type === "image/jpeg") {
+            setImageOneValue(event.target.files[0]); 
+        }  else {
+            setImageOneValueError(true);
+            setImageOneValue(null);
+        }
     }
 
     const changeImageTwoValue = (event: any) => {
-        setImageTwoValue(event.target.files[0]); 
+        setImageTwoValueError(false);
+        if (event.target.files[0].type === "image/jpeg") {
+            setImageTwoValue(event.target.files[0]); 
+        }  else {
+            setImageTwoValueError(true);
+            setImageTwoValue(null);
+        } 
     }
     
 
@@ -122,26 +136,45 @@ const AddForm: React.FC = () => {
 
         console.log("[Data Sending]", data);
 
+        /* if (thumbnailValue === null && imageOneValue === null && imageTwoValue === null) {
+            setThumbnailValueError(true);
+            setImageOneValueError(true);
+            setImageTwoValueError(true);
+
+
+        } */
+
         const formData = new FormData()
         formData.append("data", JSON.stringify(data));
+        
         formData.append("files.thumbnail", thumbnailValue);
         formData.append("files.imageOne", imageOneValue);
         formData.append("files.imageTwo", imageTwoValue);
 
+        
+
         try {
-            const response = await fetch (ESTABLISHMENTS_URL, {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${auth.jwt}`,
-                },
-                body: formData
-            });
+            if (thumbnailValue != null && imageOneValue != null && imageTwoValue != null) {
+                const response = await fetch (ESTABLISHMENTS_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${auth.jwt}`,
+                    },
+                    body: formData
+                });
 
-            const data = await response.json();
+                const data = await response.json();
 
-            console.log("[Data Success]", data);
+                console.log("[Data Success]", data);
 
-            setAdded(true);
+                setAdded(true);
+            } else {
+                setThumbnailValueError(true);
+                setImageOneValueError(true);
+                setImageTwoValueError(true);
+                setServerError("Please Choose images to be used!");
+            }
+            
         } catch (error) {
             console.log("[Onsubmit Error]", error);
             setServerError(error.toString());
@@ -153,7 +186,7 @@ const AddForm: React.FC = () => {
     // Console Logs
     //console.log("[Auth Key]", auth.jwt);
     console.log("[thumbnailValue]", thumbnailValue);
-    console.log("[thumbnailValueError]", thumbnailValueError);
+    //console.log("[thumbnailValueError]", thumbnailValueError);
 
 
     return (
@@ -167,23 +200,24 @@ const AddForm: React.FC = () => {
 
                 {/* Thumbnail */}
                 <File 
-                    name="thumbnail" label="Thumbnail" onChange={changeThumbnailValue} 
+                    name="thumbnail" label="Thumbnail" /* onChange={changeThumbnailValue}  */
                     cssClass="add-establishment__group--thumbnail"
-                    error={thumbnailValueError ? "Please use an .jpeg file" : null} />
+                    /* error={thumbnailValueError ? "Please choose a .jpeg file" : null} */
+                    error={errors.thumbnail && <Error>{errors.thumbnail.message}</Error>} />
 
 
                 {/* Image 1: */}
                 <File 
                     name="imageOne" label="Image 1" onChange={changeThumbnailValue} 
                     cssClass="add-establishment__group--image-1"
-                    error={errors.imageOne && <Error>{errors.imageOne.message}</Error>} />
+                    error={imageOneValueError ? "Please choose a .jpeg file" : null}  />
 
 
                 {/* Image 2: */}
                 <File 
                     name="imageTwo" label="Image 2" onChange={changeThumbnailValue} 
                     cssClass="add-establishment__group--image-2"
-                    error={errors.imageTwo && <Error>{errors.imageTwo.message}</Error>} />
+                    error={imageTwoValueError ? "Please choose a .jpeg file" : null}  />
 
 
                 {/* Hotel Name: */}

@@ -43,5 +43,5 @@ export interface FileProps {
     label: string;
     error: any;
     cssClass?: string;
-    onChange: any;
+    onChange?: any;
 }
