@@ -125,9 +125,9 @@ const AddForm: React.FC = () => {
 
         const formData = new FormData()
         formData.append("data", JSON.stringify(data));
-        formData.append("files.thumbnail", thumbnailValue);
-        formData.append("files.imageOne", imageOneValue);
-        formData.append("files.imageTwo", imageTwoValue);
+        formData.append("files.thumbnail", thumbnailValue[0]);
+        formData.append("files.imageOne", imageOneValue[0]);
+        formData.append("files.imageTwo", imageTwoValue[0]);
 
         try {
 
@@ -189,22 +189,16 @@ const AddForm: React.FC = () => {
 
                 {/* Hotel Name: */}
                 <Input 
-                    register={register}
-                    name="name"
-                    cssClass="add-establishment__group--name"
-                    label="Establishment Name"
-                    type="text"
-                    error={errors.name && <Error>{errors.name.message}</Error>}
-                    placeholder="My Beautiful Establishment" />
-
+                    name="name" label="Establishment Name" register={register}
+                    cssClass="add-establishment__group--name" type="text"
+                    placeholder="My Beautiful Establishment"
+                    error={errors.name && <Error>{errors.name.message}</Error>} />
 
 
                 {/* Category: */}
                 <Select 
-                    name="category" 
+                    name="category" label="Choose a Category" register={register} 
                     cssClass="add-establishment__group--category"
-                    label="Choose a Category"
-                    register={register} 
                     error={errors.category && <Error>{errors.category.message}</Error>} >
                               
                     <option value="Hotel">Hotel</option>
@@ -214,56 +208,41 @@ const AddForm: React.FC = () => {
 
                 {/* Email: */}
                 <Input
-                    register={register}
-                    name="email"
-                    cssClass="add-establishment__group--email"
-                    label="Email"
-                    type="text"
-                    error={errors.email && <Error>{errors.email.message}</Error>}
-                    placeholder="establishment@support.no" />
+                    name="email" label="Email" register={register}
+                    cssClass="add-establishment__group--email" type="text"
+                    placeholder="establishment@support.no"
+                    error={errors.email && <Error>{errors.email.message}</Error>} />
 
                 {/* Phone */}
                 <Input
-                    register={register}
-                    name="phone"
-                    cssClass="add-establishment__group--phone"
-                    label="Phone"
-                    type="text"
-                    error={errors.phone && <Error>{errors.phone.message}</Error>}
-                    placeholder="123 45 678" />
+                    name="phone" label="Phone" register={register}
+                    cssClass="add-establishment__group--phone" type="text"
+                    placeholder="123 45 678"
+                    error={errors.phone && <Error>{errors.phone.message}</Error>} />
 
 
                 {/* Coordinates */}
                 <Input
-                    register={register}
-                    name="coordinates"
+                    name="coordinates" label="Coordinates" register={register}
                     cssClass="add-establishment__group--coordinates"
-                    label="Coordinates"
-                    type="text"
-                    error={errors.coordinates && <Error>{errors.coordinates.message}</Error>}
-                    placeholder="latitude, longitude" />
-
+                    placeholder="latitude, longitude" type="text"
+                    error={errors.coordinates && <Error>{errors.coordinates.message}</Error>} />
 
 
                 {/* Street name */}
                 <Input
-                    register={register}
-                    name="street"
-                    cssClass="add-establishment__group--street"
-                    label="Street"
-                    type="text"
-                    error={errors.street && <Error>{errors.street.message}</Error>}
-                    placeholder="Street Name 12" />
+                    name="street" label="Street" register={register}
+                    cssClass="add-establishment__group--street" type="text"
+                    placeholder="Street Name 12"
+                    error={errors.street && <Error>{errors.street.message}</Error>} />
+
 
                 {/* City */}
                 <Input
-                    register={register}
-                    name="city"
-                    cssClass="add-establishment__group--city"
-                    label="City"
-                    type="text"
-                    error={errors.city && <Error>{errors.city.message}</Error>}
-                    placeholder="City Name" />
+                    name="city" label="City" register={register}
+                    cssClass="add-establishment__group--city" type="text"
+                    placeholder="City Name"
+                    error={errors.city && <Error>{errors.city.message}</Error>} />
 
                 {/* Zip Code */}
                 <Input
