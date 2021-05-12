@@ -4,10 +4,10 @@ import { Chevron } from "../UI/Icons";
 interface AccordionProps {
     title: string;
     children: React.ReactNode;
+    closed?: boolean;
 }
 
-const Accordion: React.FC<AccordionProps> = ({ title, children }) => {
-
+const Accordion: React.FC<AccordionProps> = ({ title, children, closed }) => {
     const [isActive, setActive] = useState(false);
 
     const toggleOpenCloseHandler = () => {
@@ -20,11 +20,12 @@ const Accordion: React.FC<AccordionProps> = ({ title, children }) => {
                 <h2 className="accordion__title">
                     {title}
                 </h2>
-                <button className={!isActive ? "accordion__button accordion__button--open" : "accordion__button"}>
+                <button className={closed ? !isActive ? "accordion__button" : "accordion__button accordion__button--open" : !isActive ? "accordion__button accordion__button--open" : "accordion__button " }>
                     <Chevron color="#141414" />
                 </button>
             </div>
-            <div className={!isActive ? "accordion__body accordion__open" : "accordion__body accordion__close"}>
+
+            <div className={closed ? !isActive ? "accordion__body accordion__close"  :"accordion__body accordion__open" : !isActive ? "accordion__body accordion__open" : "accordion__body accordion__close" }>
                 {children}
             </div>
         </div>
