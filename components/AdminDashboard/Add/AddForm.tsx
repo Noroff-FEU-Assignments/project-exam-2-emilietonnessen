@@ -84,7 +84,11 @@ const AddForm: React.FC = () => {
     const { register, handleSubmit, errors } = useForm({
         resolver: yupResolver(schema)
     });
-
+    
+    // Variables
+    const http = useAxios();
+    const [auth] = useContext<any>(AuthContext);
+    const validImageFormats = ["image/jpeg", "image/png"]
 
     // State
     const [submitting, setSubmitting] = useState<boolean>(false);
@@ -95,10 +99,7 @@ const AddForm: React.FC = () => {
     const [imageOneValue, setImageOneValue] = useState<any>(null);
     const [imageTwoValue, setImageTwoValue] = useState<any>(null);
 
-    // Variables
-    const http = useAxios();
-    const [auth] = useContext<any>(AuthContext);
-    const validImageFormats = ["image/jpeg", "image/png"]
+    
 
     // Image values
     const changeThumbnailValue = async (event: any) => {
@@ -128,8 +129,6 @@ const AddForm: React.FC = () => {
         formData.append("files.imageOne", imageOneValue);
         formData.append("files.imageTwo", imageTwoValue);
 
-        
-
         try {
 
             const response = await fetch (ESTABLISHMENTS_URL, {
@@ -146,7 +145,6 @@ const AddForm: React.FC = () => {
 
             setAdded(true);
            
-            
         } catch (error) {
             console.log("[Onsubmit Error]", error);
             setServerError(error.toString());
