@@ -4,7 +4,7 @@ import AddForm from './AddForm';
 const AddEstablishments: React.FC = () => {
     return (
         <section className="add-establishments">
-            <Accordion title="Add Establishment">
+            <Accordion title="Add New Establishment">
                 <AddForm />
             </Accordion>     
         </section>
