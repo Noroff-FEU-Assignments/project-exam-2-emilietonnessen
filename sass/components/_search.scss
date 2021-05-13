@@ -17,7 +17,7 @@
     }
 
     &__input {
-        border: none;
+        border: 1px solid transparent;
         outline: none;
         border-radius: 2rem;
         padding: 1rem 1.5rem;
@@ -34,8 +34,8 @@
         }
 
         &:focus {
-            //border: 1px solid black;
-            transform: scale(1.1);
+            border: 1px solid $color-black;
+            transform: scaleX(1.025);
         }
 
         &--white {
@@ -69,6 +69,13 @@
         transition: all .3s;
         padding: 0 1rem;
         border-radius: 100%;
+        z-index: 999;
+        position: relative;
+
+        & > svg {
+            width: 1.5rem;
+            height: 1.5rem;
+        }
 
         &:hover {
             transform: scale(1.2);
@@ -85,7 +92,7 @@
 
 .search-results {
     position: absolute;
-    z-index: 1000;
+    z-index: 10000;
     top: 5rem;
 
     width: max-content;

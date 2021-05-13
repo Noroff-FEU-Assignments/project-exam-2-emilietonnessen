@@ -20,6 +20,10 @@
     display: grid;
     grid-template-columns: minmax(7rem, 1fr) minmax(max-content, 170rem) minmax(7rem, 1fr) ; 
     grid-template-rows: 8rem 1fr;
+
+    @include respond(desk) {
+        grid-template-columns: minmax(7rem, 1fr) minmax(max-content, 130rem) minmax(7rem, 1fr);
+    } 
     
     @include respond(lap) {
         grid-template-columns: 3rem 1fr 3rem;
@@ -53,6 +57,10 @@
     display: grid;
     grid-template-columns: minmax(7rem, 1fr) minmax(max-content, 170rem) minmax(7rem, 1fr);
 
+    @include respond(desk) {
+        grid-template-columns: minmax(7rem, 1fr) minmax(max-content, 130rem) minmax(7rem, 1fr);
+    } 
+    
     @include respond(lap) {
         grid-template-columns: 3rem 1fr 3rem;
     } 
@@ -115,12 +123,20 @@
     grid-template-columns: minmax(7rem, 1fr) minmax(100rem, 170rem) minmax(7rem, 1fr);
     row-gap: 0rem;
     padding: 0;
+
+    @include respond(desk) {
+        grid-template-columns: minmax(7rem, 1fr) minmax(100rem, 130rem) minmax(7rem, 1fr);
+    } 
 }
 
 .contact {
     grid-template-rows: 1fr;
     grid-template-columns: minmax(7rem, 1fr) minmax(100rem, 170rem) minmax(7rem, 1fr);
     grid-template-rows: 1fr;
+
+    @include respond(desk) {
+        grid-template-columns: minmax(7rem, 1fr) minmax(100rem, 130rem) minmax(7rem, 1fr);
+    } 
 }
 
 .admin {

@@ -6,6 +6,10 @@
     gap: 3rem;
     align-self: flex-start;
 
+    @include respond(desk) {
+        gap: 2rem;
+    }
+
     &__photo {
         width: 80%;
     }
@@ -14,6 +18,10 @@
         justify-self: flex-end;
         font-size: 2.5rem;
         font-weight: 600;
+
+        @include respond(desk) {
+            font-size: 1.9rem;
+        }
     }
 
     &__offer {

@@ -6,6 +6,10 @@
     padding: 3rem;
     position: relative;
 
+    @include respond(desk) {
+        grid-template-rows: max-content max-content max-content;
+    }
+
     &__description {
         grid-column: 1 / 2;
         grid-row: 1 / 2;
@@ -25,6 +29,10 @@
         height: 100%;
         width: 100%;
         border: none;
+
+        @include respond(desk) {
+            max-height: 20rem;
+        }
     }
 
     &__amenities {
@@ -38,6 +46,8 @@
         
         display: flex;
         flex-wrap: wrap;
+
+        
 
         & > li {
             flex: 0 0 33%;
