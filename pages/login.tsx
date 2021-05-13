@@ -7,8 +7,6 @@ import { useRouter, NextRouter } from 'next/router';
 import { useState, useContext } from "react";
 import axios from "axios";
 
-
-
 import {SubmitButton} from '../components/UI/Button';
 import Input from '../components/UI/Form/Input';
 import { TITLE_LOGIN, META_LOGIN } from '../constants/meta';
@@ -17,6 +15,7 @@ import { ModalError, ModalSuccess } from '../components/UI/Modal';
 import AuthContext, { AuthProvider } from "../context/AuthContext";
 import { BASE_URL } from '../constants/api';
 import OuterLayout from '../components/Layout/OuterLayout';
+import useAxios from '../hooks/useAxios';
 
 const url: string = BASE_URL + "auth/local";
 
@@ -28,14 +27,13 @@ const schema = yup.object().shape({
 });
 
 
-
-
 const login = () => {
     const [submitting, setSubmitting] = useState(false);
 	const [loginError, setLoginError] = useState(null);
     
     
     const router: NextRouter = useRouter();
+    const http = useAxios;
 
     const { register, handleSubmit, errors } = useForm({
         resolver: yupResolver(schema)
@@ -67,8 +65,7 @@ const login = () => {
             <div className="login" id="login">
                 <form onSubmit={handleSubmit(onSubmit)}>
 
-                    
-
+                
                     <fieldset disabled={submitting} className="form__fieldset login__box">
                         <div className="login__brand">
                             <div className="login__logo-icon">
@@ -121,9 +118,7 @@ const login = () => {
             </div>
 
             <ModalError link="#login" errorMessage="Please try again!" errorTitle="An error occured" />
-        </OuterLayout>
-        
-        
+        </OuterLayout>  
     );
 }
 
