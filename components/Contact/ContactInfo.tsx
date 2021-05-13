@@ -1,4 +1,4 @@
-import { Envelope, Location, Phone } from '../UI/Icons';
+import * as icons from '../UI/Icons';
 
 const ContactInfo: React.FC = () => {
 
@@ -9,7 +9,7 @@ const ContactInfo: React.FC = () => {
             <div className="contact-info__info-box">
                 <div className="contact-info__box">
                     <div className="contact-info__icon">
-                        <Location color={primaryColor} />
+                        <icons.Location color={primaryColor} />
                     </div>
                     
                     <h6 className="contact-info__title">Address</h6>
@@ -21,7 +21,7 @@ const ContactInfo: React.FC = () => {
                 </div>
                 <div className="contact-info__box">
                     <div className="contact-info__icon">
-                        <Phone color={primaryColor} />
+                        <icons.Phone color={primaryColor} />
                     </div>
                     <h6 className="contact-info__title">Phone</h6>
                     <p className="contact-info__text">
@@ -30,7 +30,7 @@ const ContactInfo: React.FC = () => {
                 </div>
                 <div className="contact-info__box">
                     <div className="contact-info__icon">
-                        <Envelope color={primaryColor} />
+                        <icons.Envelope color={primaryColor} />
                     </div>
                     <h6 className="contact-info__title">Email</h6>
                     <p className="contact-info__text">
