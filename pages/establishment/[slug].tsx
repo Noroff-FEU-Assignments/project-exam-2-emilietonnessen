@@ -59,21 +59,21 @@ const establishmentDetails: React.FC<EstablishmentDetailsProps> = ({est}) => {
 			<Layout page="establishment" title={`${est.name} | Holidaze`} description={est.description}>
 
 				{/* Gallery: */}
-				<EstablishmentGallery gallery={est.gallery} />
+				{/* <EstablishmentGallery gallery={est.gallery} /> */}
 
 				{/* Header: */}
-				<EstablishmentHeader 
+				{/* <EstablishmentHeader 
 					name={est.name}
 					street={est.address.street}
 					stars={est.stars}
 					reviews={est.reviews}
-					rating={est.rating} />
+					rating={est.rating} /> */}
 
 				{/* Information: */}
-				<EstablishmentInfo
+				{/* <EstablishmentInfo
 					coordinates={est.address.coordinates} 
 					description={est.description}
-					amenities={est.amenities} />  
+					amenities={est.amenities} />   */}
 
 				{/* Booking */}
 				<EstablishmentCTA />
@@ -82,13 +82,13 @@ const establishmentDetails: React.FC<EstablishmentDetailsProps> = ({est}) => {
 
 
 			{/* Booking Enquiry Modal: */}
-			<Booking
+			{/* <Booking
 				email={est.email}
 				phone={est.phone}
 				street={est.address.street}
 				city={est.address.city}
 				zipcode={est.address.zipcode}
-				establishment={est.name} />
+				establishment={est.name} /> */}
 
 			{/* Booking Feedback */}
 			<BookingFeedbackSuccess />
@@ -158,19 +158,13 @@ export const getStaticProps: GetStaticProps = async ({ params }: Params) => {
 				phone
 				category
 				amenities
-				address {
-					coordinates
-					street
-					zipcode
-					city
-				}
-				gallery {
-					id
-					alternativeText
-					url
-					width
-					height
-				}
+				
+				coordinates
+				street
+				zipcode
+				city
+				
+				
                     
             }                   
     	}`
