@@ -3,7 +3,7 @@
 // Array of Establishments
 export interface Establishments {
     establishment: Establishment[];
-    length: number;
+    length?: number;
 }
 
 
@@ -21,8 +21,13 @@ export interface Establishment {
     stars: number;
     lowestPrice: string;
     slug: string;
-    reviews: string;
+    reviews: number;
+    thumbnail: {
+        url: string;
+    };
 }
+
+
 
 
 
@@ -44,4 +49,21 @@ export interface FileProps {
     error: any;
     cssClass?: string;
     onChange?: any;
+}
+
+export interface HomeProps {
+    establishments: EstablishmentCardProps[];
+}
+
+export interface EstablishmentCardProps {
+    id: number;
+    slug: string;
+    featured: boolean;
+    reviews: number;
+    name: string;
+    lowestPrice: number;
+    stars: number;
+    thumbnail: {
+        url: string;
+    }
 }
