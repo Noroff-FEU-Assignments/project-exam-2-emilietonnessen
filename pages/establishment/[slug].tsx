@@ -23,21 +23,18 @@ const establishmentDetails: React.FC<interfaces.EstablishmentDetailsProps> = ({e
 			<Layout page="establishment" title={`${est.name} | Holidaze`} description={est.description}>
 
 				{/* Gallery: */}
-				{/* <EstablishmentGallery gallery={est.gallery} /> */}
+				<EstablishmentGallery thumbnail={est.thumbnail} imageOne={est.imageOne} imageTwo={est.imageTwo} /> 
 
 				{/* Header: */}
-				{/* <EstablishmentHeader 
+				 <EstablishmentHeader 
 					name={est.name}
-					street={est.address.street}
+					street={est.street}
 					stars={est.stars}
 					reviews={est.reviews}
-					rating={est.rating} /> */}
+					rating={est.rating} /> 
 
 				{/* Information: */}
-				{/* <EstablishmentInfo
-					coordinates={est.address.coordinates} 
-					description={est.description}
-					amenities={est.amenities} />   */}
+				 <EstablishmentInfo coordinates={est.coordinates} description={est.description} amenities={est.amenities} />   
 
 				{/* Booking */}
 				<EstablishmentCTA />
@@ -46,13 +43,13 @@ const establishmentDetails: React.FC<interfaces.EstablishmentDetailsProps> = ({e
 
 
 			{/* Booking Enquiry Modal: */}
-			{/* <Booking
+			 <Booking
 				email={est.email}
 				phone={est.phone}
-				street={est.address.street}
-				city={est.address.city}
-				zipcode={est.address.zipcode}
-				establishment={est.name} /> */}
+				street={est.street}
+				city={est.city}
+				zipcode={est.zipCode}
+				establishment={est.name} /> 
 
 			{/* Booking Feedback */}
 			<BookingFeedbackSuccess />
@@ -98,8 +95,6 @@ export const getStaticProps: GetStaticProps = async ({ params }: Params) => {
 		slug = params.slug;
 	}
 
-	let establishment: Establishment[] = [];
-
 	const client = new ApolloClient({
         uri: GRAPHQL_URL,
         cache: new InMemoryCache
@@ -122,24 +117,31 @@ export const getStaticProps: GetStaticProps = async ({ params }: Params) => {
 				phone
 				category
 				amenities
-				
 				coordinates
 				street
-				zipcode
+				zipCode
 				city
-				
-				
-                    
+				thumbnail {
+					url
+					alternativeText
+					width
+					height
+				}
+				imageOne {
+					url
+					alternativeText
+					width
+					height
+				}
+				imageTwo {
+					url
+					alternativeText
+					width
+					height
+				}
             }                   
     	}`
 	});
 
-	establishment = data.establishments;
-
-
-	return {
-		props: { 
-            est: establishment[0]
-        },
-	};
+	return { props: { est: data.establishments[0] } };
 } 
