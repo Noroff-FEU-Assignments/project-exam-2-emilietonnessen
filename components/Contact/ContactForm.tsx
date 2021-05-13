@@ -76,7 +76,7 @@ const ContactForm: React.FC = () => {
         <form className="contact-form" onSubmit={handleSubmit(onSubmit)}>
 
             {/* Title: */}
-            <h3 className="booking-form__title">Send us a message</h3>
+            <h3 className="contact-form__title">Send us a message</h3>
 
             {/* Full Name: */}
             <Input
