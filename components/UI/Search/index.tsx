@@ -1,77 +1,87 @@
-
-import SearchBar from './SearchBar';
-import SearchResult from './SearchResult';
-import { ESTABLISHMENTS_URL } from '../../../constants/api';
 import { useState, useEffect } from 'react';
 
-interface SearchProps {
-    theme: 'white' | 'grey';
-}
+import * as interfaces from '../../../constants/interfaces';
+import { ESTABLISHMENTS_URL } from '../../../constants/api';
+import SearchBar from './SearchBar';
+import SearchResult from './SearchResult';
+import useAxios from '../../../hooks/useAxios';
  
-const Search: React.FC<SearchProps> = ({theme}) => {
-    
-    const [establishments, setEstablishments] = useState([]);
-    const [searchValue, setSearchValue] = useState('');
-    const [searchIcon, setSearchIcon] = useState();
+const Search: React.FC<interfaces.SearchProps> = ({theme}) => {
 
+    // Declaring State 
+    const [establishments, setEstablishments] = useState<interfaces.Establishment[]>([]);
+    const [searchValue, setSearchValue] = useState<string>('');
+    const [searchIcon, setSearchIcon] = useState<boolean>(false);
+
+
+    // Variables
+    let esta: interfaces.Establishment[] = establishments;
+    let searchDisplay: boolean = false;
+    const http = useAxios();
+
+
+    // Fetching all the Establishment from the API
     useEffect(() => {
         async function fetchData() {
             try {
-                const response = await fetch(ESTABLISHMENTS_URL);
-                const json = await response.json();
-                //console.log('JSON', json);
-                setEstablishments(json);
-                
+                const response = await http.get(ESTABLISHMENTS_URL);
+                setEstablishments(response.data);
             } catch (error) {
                 console.log(error)
             }
         }; fetchData(); 
     }, []);
 
-    const searchHandler = (event: any) => {
-        setSearchValue(event.target.value);
+
+    // Setting the Search Value to the input value and Icon
+    const searchHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchValue(event.target.value.trim().toLowerCase());
+        setSearchIcon(true);
+
+        if (event.target.value.length === 0) {
+            esta = [];
+            setSearchIcon(false);
+        }
     }
 
-    const clearSearchHandler = (event: any) => {
-        setSearchValue(event.target.value);
+
+    // Clearing the search
+    const clearSearchHandler = () => {
+        console.log("Clear search!!");
+        setSearchValue("");
+        setSearchIcon(false);
     }
 
-    let est: any[] = establishments;
-    let searchDisplay = false;
-    let search: string = searchValue.trim().toLowerCase();
 
-    if (search.length > 0 ) {
-        est = est.filter(est => {
-            return est.name.toLowerCase().match(search);
+    // Searching through matching results from the api 
+    if (searchValue.length > 0 ) {
+        esta = esta.filter(est => {
+            return est.name.toLowerCase().match(searchValue);
         });
-        searchDisplay = true;
-    }
 
-    if(search.length === 0) {
-        est = [];
-        searchDisplay = false;
-    }
+        searchDisplay = true;
+    } 
+
 
     // Map through search Results
-    const filteredSearchResults = est.map(est => (
+    const filteredSearchResults = esta.map(est => (
         <SearchResult key={est.id} name={est.name} thumbnail={est.thumbnail.url} stars={est.stars} slug={est.slug} />
     ));
     
+
     return (
         <div className="search" >
-
             <SearchBar 
                 theme={theme}
                 search={searchHandler}
                 value={searchValue}
                 clearSearch={clearSearchHandler}
                 iconType={searchIcon} />
-                
+
             <div className={!searchDisplay ? 'search-results u-display-none' : 'search-results u-display-block'} >
                 {filteredSearchResults}
             </div>
         </div>
-        
     );
 }
 
