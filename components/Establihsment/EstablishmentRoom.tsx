@@ -66,8 +66,7 @@ const EstablishmentRoom = () => {
 				</div>
 				
 				<div className="room__price">
-					1599 NOK
-					<span className="room__offer">1899 NOK</span>
+					1899 NOK
 				</div>
 				
 				<div className="room__info">
