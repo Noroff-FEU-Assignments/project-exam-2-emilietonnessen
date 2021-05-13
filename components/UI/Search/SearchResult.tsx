@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+
 import { Star } from '../Icons';
 import * as interfaces from '../../../constants/interfaces';
 
@@ -7,8 +8,8 @@ import * as interfaces from '../../../constants/interfaces';
 const SearchResult: React.FC<interfaces.SearchResultProps> = ({ name, thumbnail, stars, slug }) => {
 
     // Calculate the amount of stars that shall be displayed
-	const n: number = stars;
-    const calculatedStars: JSX.Element[] = [...Array(n)].map((e, i) => <Star key={i} />);
+	const amountOfStars: number = stars;
+    const calculatedStars: JSX.Element[] = [...Array(amountOfStars)].map((e, i) => <Star key={i} />);
 
     return (
         <Link href={`/establishment/${slug}`}>
