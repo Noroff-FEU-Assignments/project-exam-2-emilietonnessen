@@ -1,12 +1,8 @@
-
-
 // Array of Establishments
 export interface Establishments {
     establishment: Establishment[];
     length?: number;
 }
-
-
 
 // Single object of a Establishment
 export interface Establishment {
@@ -19,16 +15,37 @@ export interface Establishment {
     featured: boolean;
     rating: number;
     stars: number;
-    lowestPrice: string;
+    lowestPrice: number;
     slug: string;
     reviews: number;
-    thumbnail: {
-        url: string;
-    };
+    street: string;
+    coordinates: string;
+    zipCode: number;
+    city: string;
+    amenities: string;
+    phone: number;
+    thumbnail: GalleryProps;
+	imageOne: GalleryProps;
+	imageTwo: GalleryProps;
+}
+
+export interface EstablishmentGalleryProps {
+	thumbnail: GalleryProps;
+	imageOne: GalleryProps;
+	imageTwo: GalleryProps;
+}
+
+interface GalleryProps {
+    alternativeText: string;
+    height: number;
+    width: number;
+    url: string;
 }
 
 
-
+export interface SearchProps {
+    theme: 'white' | 'grey';
+}
 
 
 export interface InputProps {
@@ -66,4 +83,44 @@ export interface EstablishmentCardProps {
     thumbnail: {
         url: string;
     }
+}
+
+export interface EstablishmentDetailsProps {
+	est: Establishment;
+}
+
+export interface SearchBarProps {
+    theme: 'white' | 'grey';
+    search: any;
+    value: any;
+    clearSearch: any;
+    iconType: any;
+}
+
+export interface SearchResultProps {
+    name: string;
+    thumbnail: string;
+    stars: number;
+    slug: any;
+}
+
+export interface EstablishmentsProps {
+    est: Establishment[];
+}
+
+export interface FilterProps {
+    activeHotels: any;
+    activeBnBs: any;
+    activeGuesthouses: any;
+    activeExplore: any;
+    onClickHotels: any;
+    onClickBnBs: any;
+    onClickGuesthouses: any;
+    onClickAll: any;
+}
+
+
+// ICONS: ------------------------------------------------
+export interface IconProps {
+    color?: string;
 }

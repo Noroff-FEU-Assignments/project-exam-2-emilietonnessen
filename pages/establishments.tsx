@@ -6,23 +6,8 @@ import { META_ESTABLISHMENTS, TITLE_ESTABLISHMENTS } from '../constants/meta';
 import { useEffect, useState } from 'react';
 
 
-interface EstablishmentsProps {
-    est: Establishments[];
-}
+const establishments: React.FC<interfaces.EstablishmentsProps> = ({est}) => {
 
-interface Establishments {
-    id: number;
-    slug: string;
-    category: string;
-    featured: boolean;
-    reviews: number;
-    name: string;
-    lowestPrice: number;
-    stars: number;
-    thumbnail: {
-        url: string;
-    };
-}
 
 const establishments: React.FC<EstablishmentsProps> = ({est}) => {
     

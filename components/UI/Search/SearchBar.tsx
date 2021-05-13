@@ -1,14 +1,8 @@
 import Image from "next/image"
+import * as interfaces from '../../../constants/interfaces';
 
-interface SearchBarProps {
-    theme: 'white' | 'grey';
-    search: any;
-    value: any;
-    clearSearch: any;
-    iconType: any;
-}
+const SearchBar: React.FC<interfaces.SearchBarProps> = ({theme, search, value, clearSearch, iconType}) => (
 
-const SearchBar: React.FC<SearchBarProps> = ({theme, search, value, clearSearch, iconType}) => {
     
     return (
         <div className="search__bar">

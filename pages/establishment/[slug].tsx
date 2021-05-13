@@ -11,48 +11,12 @@ import EstablishmentGallery from '../../components/Establihsment/EstablishmentGa
 import EstablishmentHeader from '../../components/Establihsment/EstablishmentHeader';
 import EstablishmentInfo from '../../components/Establihsment/EstablishmentInfo';
 import EstablishmentCTA from '../../components/Establihsment/EstablishmentCTA';
-
-// Interfaces
-interface Address {
-	coordinates: string;
-	street: string;
-	city: string;
-	zipcode: number;
-}
-
-interface Gallery {
-	alternativeText: string;
-    height: number;
-    width: number;
-    url: string;
-    id: string;
-}
-
-interface Establishment {
-	id: number;
-    slug: string;
-    name: string;
-	email: string;
-	phone: number;
-    stars: number;
-	rating: number;
-    featured: boolean;
-    reviews: number;
-    lowestPrice: string;
-	description: string;
-	amenities: string;
-	address: Address;
-	gallery: Gallery[];
-}
-
-interface EstablishmentDetailsProps {
-	est: Establishment;
-}
+import * as interfaces from '../../constants/interfaces';
 
 
+const establishmentDetails: React.FC<interfaces.EstablishmentDetailsProps> = ({est}) => {
 
-
-const establishmentDetails: React.FC<EstablishmentDetailsProps> = ({est}) => {
+	//console.log(est.thumbnail);
 
     return (
 		<>

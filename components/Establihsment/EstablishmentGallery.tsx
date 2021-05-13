@@ -1,34 +1,32 @@
 import Image from 'next/image';
+import * as interfaces from '../../constants/interfaces';
 
-interface EstablishmentGalleryProps {
-    gallery: Gallery[];
-}
-
-interface Gallery {
-    alternativeText: string;
-    height: number;
-    width: number;
-    url: string;
-    id: string;
-}
-
-const EstablishmentGallery: React.FC<EstablishmentGalleryProps> = ({gallery}) => {
-
-	const formattedGallery: JSX.Element[] = gallery.map(img => (
-		<div className="establishment-gallery__box" key={img.id}>
-			<Image 
-				className="establishment-gallery__img"
-				src={img.url} 
-				alt={img.alternativeText} 
-				layout="responsive" 
-				width={img.width} 
-				height={img.height}  />
-		</div>
-	)); 
-
+const EstablishmentGallery: React.FC<interfaces.EstablishmentGalleryProps> = ({thumbnail, imageOne, imageTwo}) => {
     return (
         <section className="establishment-gallery">
-			{formattedGallery} 
+			 <Image 
+				className="establishment-gallery__img"
+				src={thumbnail.url} 
+				alt={thumbnail.alternativeText} 
+				layout="responsive" 
+				width={thumbnail.width} 
+				height={thumbnail.height}  />
+
+			<Image 
+				className="establishment-gallery__img"
+				src={imageOne.url} 
+				alt={imageOne.alternativeText} 
+				layout="responsive" 
+				width={imageOne.width} 
+				height={imageOne.height}  />
+
+			<Image 
+				className="establishment-gallery__img"
+				src={imageTwo.url} 
+				alt={imageTwo.alternativeText} 
+				layout="responsive" 
+				width={imageTwo.width} 
+				height={imageTwo.height}  /> 
 		</section>
     );
 }
