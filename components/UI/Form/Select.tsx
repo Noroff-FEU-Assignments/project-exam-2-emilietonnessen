@@ -21,30 +21,20 @@ const Select: React.FC<SelectProps> = ({ name, children, label, register, error,
         cssError = 'form__input--error';
     }
 
-    const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-        value = event.target.value;
-        console.log("[Target]", event.target.value);
-        console.log("[new value]", value);
-    }
+    const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => value = event.target.value;
 
     return (
         <div className={`form__group booking-form__group--${name} ` + cssClass}>
-            <label 
-                htmlFor={name} 
-                className="form__label">
-                {label}
-            </label>
+            <label htmlFor={name} className="form__label">{label}</label>
 
             <select 
-                
                 onChange={onChange ? onChange : onChangeHandler}
                 name={name} 
                 id={name} 
                 className={"form__input " + cssError }
                 placeholder="Choose a Room" 
                 ref={register}
-                value={value}
-                 >
+                value={value} >
                 
                 <option value="" hidden></option>
                 {children}
