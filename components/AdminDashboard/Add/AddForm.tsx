@@ -15,70 +15,12 @@ import Textarea from "../../UI/Form/Textarea";
 import { SubmitButton } from "../../UI/Button";
 import AuthContext from "../../../context/AuthContext";
 import File from '../../UI/Form/File';
+import RadioFeatured from "../../UI/Form/RadioFeatured";
+import {addEstablishmentSchema} from '../../../constants/schemas';
 
 interface Schema extends yup.Asserts<typeof schema> {}
 
-const schema = yup.object().shape({
-    /* thumbnail: 
-        yup.mixed()
-        .test('type', "Please choose an image with .png, .jpg, .jpeg extension", value => (
-            value[0] && ["image/jpeg", "image/png"].includes(value[0].type)
-        )), */
-    /* imageOne: 
-        yup.mixed()
-        .test('type', "Please choose an image with .png, .jpg, .jpeg extension", value => (
-            value[0] && ["image/jpeg", "image/png"].includes(value[0].type)
-        )),
-    imageTwo: yup.mixed()
-        .test('type', "Please choose an image with .png, .jpg, .jpeg extension", value => (
-            value[0] && ["image/jpeg", "image/png"].includes(value[0].type)
-        )), */
-    name: 
-        yup.string()
-        .required('Please enter the name of the establishment'),
-    category: 
-        yup.string()
-        .required('Please choose a category'),
-    email:
-        yup.string()
-        .required('Please enter an email address')
-        .matches(regex.email, 'Please enter a valid email address'),
-    phone:
-        yup.string()
-        .required('Please enter a phone number')
-        .min(8, "Please enter a valid phone number")
-        .max(8, "Please enter a valid phone number"),
-    coordinates:
-        yup.string()
-        .required('Please enter coordinates'),
-    street:
-        yup.string()
-        .required('Please enter a street name'),
-    city:
-        yup.string()
-        .required('Please enter a city'),
-    zipCode:
-        yup.string()
-        .required('Please enter a zip code'),
-    rating:
-        yup.number()
-        .required('Please enter the average user rating')
-        .typeError("Please enter a number"),
-    stars:
-        yup.number()
-        .required('Please enter the amount of stars')
-        .typeError("Please enter a number"),
-    featured:
-        yup.boolean()
-        .required('Please chose of the establishment should be featured')
-        .typeError("Please enter a boolean value"),
-    description:
-        yup.string()
-        .required('Please enter a description'),
-    amenities:
-        yup.string()
-        .required('Please enter different amenities'),
-});
+const schema = yup.object().shape(addEstablishmentSchema);
 
 const AddForm: React.FC = () => {
 
@@ -88,9 +30,7 @@ const AddForm: React.FC = () => {
     });
     
     // Variables
-    const http = useAxios();
     const [auth] = useContext<any>(AuthContext);
-    const router: NextRouter = useRouter();
 
     // State
     const [submitting, setSubmitting] = useState<boolean>(false);
@@ -147,15 +87,12 @@ const AddForm: React.FC = () => {
         setServerError(null);
         setAdded(false);
 
-        console.log("[Data Sending]", data);
-
+        // Append the Images to the data with formData
         const formData = new FormData()
         formData.append("data", JSON.stringify(data));
         formData.append("files.thumbnail", thumbnailValue);
         formData.append("files.imageOne", imageOneValue);
         formData.append("files.imageTwo", imageTwoValue); 
-
-
 
         try {
 
@@ -165,25 +102,20 @@ const AddForm: React.FC = () => {
                     headers: {
                         'Authorization': `Bearer ${auth.jwt}`,
                     },
+                    
                     body: formData
                 });
 
                 const data = await response.json();
 
-                console.log("[Data Success]", data);
-
                 setAdded(true);
-                //router.push("/admin");
-                //window.location.reload(false); // Refreshing ??
             } else {
                 setThumbnailValueError(true);
                 setImageOneValueError(true);
                 setImageTwoValueError(true);
                 setServerError("Please Choose images to be used!");
             }
-           
         } catch (error) {
-            console.log("[Onsubmit Error]", error);
             setServerError(error.toString());
         } finally {
             setSubmitting(false);
@@ -262,7 +194,7 @@ const AddForm: React.FC = () => {
                 <Input
                     name="coordinates" label="Coordinates" register={register}
                     cssClass="establishment-form__group--coordinates"
-                    placeholder="latitude, longitude" type="text"
+                    placeholder="60.10000, 65.2000" type="text"
                     error={errors.coordinates && <Error>{errors.coordinates.message}</Error>} />
 
 
@@ -308,18 +240,64 @@ const AddForm: React.FC = () => {
                     cssClass="establishment-form__group--stars"
                     label="Stars"
                     type="text"
-                    error={errors.rating && <Error>{errors.rating.message}</Error>}
+                    error={errors.stars && <Error>{errors.stars.message}</Error>}
                     placeholder="4" />
 
-                {/* Featured */}
+                {/* Lowest Price: */}
                 <Input
                     register={register}
-                    name="featured"
-                    cssClass="establishment-form__group--featured"
-                    label="Featured"
+                    name="lowestPrice"
+                    cssClass="establishment-form__group--lowest-price"
+                    label="Lowest Room Price"
                     type="text"
-                    error={errors.featured && <Error>{errors.featured.message}</Error>}
-                    placeholder="true" />
+                    error={errors.lowestPrice && <Error>{errors.lowestPrice.message}</Error>}
+                    placeholder="499" />
+
+                {/* Reviews: */}
+                <Input
+                    register={register}
+                    name="reviews"
+                    cssClass="establishment-form__group--reviews"
+                    label="Amount of reviews"
+                    type="text"
+                    error={errors.reviews && <Error>{errors.reviews.message}</Error>}
+                    placeholder="456" />
+
+                {/* Featured */}
+                <div className="form__group establishment-form__group--featured">
+
+                    {/* Form Label: */}
+                    <label className="form__label">Featured</label>
+
+                    {/* True/Featured Option */}
+                    <div className="form__radio-group">
+                        <input 
+                            ref={register} 
+                            name="featured" 
+                            type="radio" 
+                            id="radio-true" 
+                            className="form__radio "
+                            //checked
+                            value="true" />
+                        <label htmlFor="radio-true" className="form__radio-label">Yes</label>
+                    </div>
+
+                    {/* False/Not Featured Option */}
+                    <div className="form__radio-group">
+                        <input 
+                            ref={register} 
+                            name="featured" 
+                            type="radio" 
+                            id="radio-false" 
+                            className="form__radio "
+                            //checked={checked} 
+                            value="false" />
+                        <label htmlFor="radio-false" className="form__radio-label">No</label>
+                    </div>
+                    
+                    {/* Error: */}
+                    {errors.featured && <Error>{errors.featured.message}</Error>}
+                </div>
 
                 {/* Description */}
                 <Textarea
