@@ -20,7 +20,7 @@ export interface Establishment {
     reviews: number;
     street: string;
     coordinates: string;
-    zipCode: number;
+    zipCode: string;
     city: string;
     amenities: string;
     phone: number;
@@ -66,6 +66,17 @@ export interface FileProps {
     error: any;
     cssClass?: string;
     onChange?: any;
+    
+}
+
+export interface RadioProps {
+    register: () => void;
+    name: string;
+    label: string;
+    error: any;
+    cssClass: string;
+    onChange?: any;
+    checked: boolean | undefined;
 }
 
 export interface HomeProps {
