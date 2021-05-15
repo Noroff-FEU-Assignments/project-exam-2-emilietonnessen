@@ -47,8 +47,10 @@ const AddForm: React.FC = () => {
     
 
     // Image values
-    const changeThumbnailValue = async (event: any) => {
+    const changeThumbnailValue = async (event: React.ChangeEvent<HTMLInputElement>) => {
         setThumbnailValueError(false);
+
+        if (!event.target.files) return;
     
         if (event.target.files[0].type === "image/jpeg") {
             setThumbnailValue(event.target.files[0]); 
@@ -58,8 +60,10 @@ const AddForm: React.FC = () => {
         }
     }
 
-    const changeImageOneValue = (event: any) => {
+    const changeImageOneValue = (event: React.ChangeEvent<HTMLInputElement>) => {
         setImageOneValueError(false);
+
+        if (!event.target.files) return;
     
         if (event.target.files[0].type === "image/jpeg") {
             setImageOneValue(event.target.files[0]); 
@@ -69,8 +73,10 @@ const AddForm: React.FC = () => {
         }
     }
     
-    const changeImageTwoValue = (event: any) => {
+    const changeImageTwoValue = (event: React.ChangeEvent<HTMLInputElement>) => {
         setImageTwoValueError(false);
+
+        if (!event.target.files) return;
     
         if (event.target.files[0].type === "image/jpeg") {
             setImageTwoValue(event.target.files[0]); 
@@ -133,27 +139,30 @@ const AddForm: React.FC = () => {
             {serverError && <div className="feedback--error">{serverError}</div>}
             {added && <div className="feedback--success">The Establishment was successfully added!</div>}
 
-            <fieldset disabled={submitting} className="establishment-form__fieldset">
+            <fieldset disabled={submitting} className="form__fieldset establishment-form__fieldset">
 
                 {/* Thumbnail */}
                 <File 
                     name="thumbnail" label="Thumbnail"  onChange={changeThumbnailValue}  
-                    cssClass="establishment-form__group--thumbnail" /* register={register} */
-                    error={thumbnailValueError ? "Please use an .jpeg file" : null}  />
+                    cssClass="establishment-form__group--thumbnail"
+                    added={thumbnailValue ? thumbnailValue.name : null}
+                    error={thumbnailValueError ? <Error>Please use an .jpeg file</Error> : null} />
 
 
                 {/* Image 1: */}
                 <File 
                     name="imageOne" label="Image 1" onChange={changeImageOneValue} 
-                    cssClass="establishment-form__group--image-1" /* register={register} */
-                    error={imageOneValueError ? "Please use an .jpeg file" : null}/>
+                    cssClass="establishment-form__group--image-1"
+                    added={imageOneValue ? imageOneValue.name : null}
+                    error={imageOneValueError ? <Error>Please use an .jpeg file</Error> : null} />
 
 
                 {/* Image 2: */}
                 <File 
                     name="imageTwo" label="Image 2" onChange={changeImageTwoValue} 
-                    cssClass="establishment-form__group--image-2" /* register={register} */
-                    error={imageTwoValueError ? "Please use an .jpeg file" : null}/>
+                    cssClass="establishment-form__group--image-2"
+                    added={imageTwoValue ? imageTwoValue.name : null}
+                    error={imageTwoValueError ? <Error>Please use an .jpeg file</Error> : null} />
 
 
                 {/* Hotel Name: */}
@@ -264,12 +273,20 @@ const AddForm: React.FC = () => {
                     placeholder="456" />
 
                 {/* Featured */}
-                <div className="form__group establishment-form__group--featured">
+                <RadioFeatured 
+                    label="Featured"
+                    name="featured"
+                    register={register}
+                    cssClass="establishment-form__group--featured"
+                    error={errors.featured && <Error>{errors.featured.message}</Error>}
+                    checked={undefined} />
 
-                    {/* Form Label: */}
+                {/* <div className="form__group establishment-form__group--featured">
+
+                    
                     <label className="form__label">Featured</label>
 
-                    {/* True/Featured Option */}
+                    
                     <div className="form__radio-group">
                         <input 
                             ref={register} 
@@ -280,10 +297,10 @@ const AddForm: React.FC = () => {
                             //checked
                             value="true" />
                         <label htmlFor="radio-true" className="form__radio-label">Yes</label>
-                    </div>
+                    
 
-                    {/* False/Not Featured Option */}
-                    <div className="form__radio-group">
+                    
+                    
                         <input 
                             ref={register} 
                             name="featured" 
@@ -295,9 +312,9 @@ const AddForm: React.FC = () => {
                         <label htmlFor="radio-false" className="form__radio-label">No</label>
                     </div>
                     
-                    {/* Error: */}
+                    
                     {errors.featured && <Error>{errors.featured.message}</Error>}
-                </div>
+                </div> */}
 
                 {/* Description */}
                 <Textarea
