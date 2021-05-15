@@ -1,9 +1,6 @@
 import { FileProps } from '../../../constants/interfaces';
-import Error from './Error';
 
-const File: React.FC<FileProps> = ({ name, label, error, cssClass, onChange, register }) => {
-
-    //console.log("[File Error]", error);
+const File: React.FC<FileProps> = ({ name, label, error, cssClass, onChange, register, added }) => {
 
     let cssError = '';
 
@@ -15,8 +12,23 @@ const File: React.FC<FileProps> = ({ name, label, error, cssClass, onChange, reg
 
     return (
         <div className={"form__group " + cssClass}>
-            <label htmlFor={name} className="form__label">{label}</label>
-            <input type="file" name={name} id={name} className={"form__file " + cssError} onChange={onChange} ref={register} />
+            <label htmlFor={name} className="form__label">
+                {label}
+            </label>
+
+            <label className={"form__file-upload " + cssError}>
+                <input 
+                    type="file" 
+                    name={name} 
+                    id={name} 
+                    //</div>className={"form__file-upload " + cssError} 
+                    onChange={onChange} 
+                    ref={register} />
+                    
+                    {added ? added : "choose an image"}
+            </label>
+            
+
             {error}
         </div>
     );
