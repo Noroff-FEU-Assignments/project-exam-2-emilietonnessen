@@ -54,7 +54,7 @@ export interface InputProps {
     label: string;
     type: string;
     placeholder?: string; 
-    error: any;
+    error: JSX.Element | undefined;
     defaultValue?: any;
     cssClass?: string;
 }
@@ -63,19 +63,18 @@ export interface FileProps {
     register?: () => void;
     name: string;
     label: string;
-    error: any;
-    cssClass?: string;
-    onChange?: any;
-    
+    error: JSX.Element | null;
+    cssClass: string;
+    onChange: any;
+    added: string;
 }
 
 export interface RadioProps {
     register: () => void;
     name: string;
     label: string;
-    error: any;
+    error: JSX.Element | undefined;
     cssClass: string;
-    onChange?: any;
     checked: boolean | undefined;
 }
 
