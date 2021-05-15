@@ -1,4 +1,14 @@
 .form {
+
+    // Fieldset -------------------------------------
+    &__fieldset {
+        border: none;
+        outline: none;
+    }
+
+
+
+    // Label ----------------------------------------
     &__label {
         display: block;
         font-size: 1.2rem;
@@ -7,6 +17,9 @@
         font-weight: 400;
     }
 
+
+
+    // Common styles --------------------------------
     &__input,
     &__textarea {
         width: 100%;
@@ -27,6 +40,9 @@
         }
     }
 
+
+
+    // Input -------------------------------------
     &__input {
         @include respond(desk){
             height: 3rem;
@@ -34,20 +50,68 @@
         }
     }
 
+
+
+    // Textarea ----------------------------------------
     &__textarea {
         height: 20rem;
     }
 
+
+
+    // Radio Input ---------------------------------------
+    &__radio-group {
+        display: flex;
+        align-items: center;
+    }
+
+    &__radio {
+        margin-right: .3rem;
+        
+        &:not(:first-child) {
+            margin-left: 2rem;
+        }
+    }
+
+    &__radio-label {
+        font-size: 1.5rem;
+    }
+
+
+    // File upload
+    &__file-upload {
+        background-color: $color-grey-light-2;
+        display: inline-block;
+        width: unset;
+        cursor: pointer;
+        padding: .5rem 1rem;
+        color: black;
+        transition: all .3s;
+        font-size: 1.2rem;
+
+        & input[type="file"] {
+            display: none;
+        }
+
+        &:hover,
+        &:focus {
+            background-color: $color-grey-light-1;
+            //transform: translateY(-3px);
+        }
+
+        &:active {
+            background-color: lighten($color-grey-dark-1, 8); 
+            //transform: translateY(3px);
+        }
+    }
+
+
+    // Error ---------------------------------------------
     &__error {
         color: $color-error;
         font-weight: 400;
         font-size: 1.4rem;
         display: block;
-    }
-
-    &__fieldset {
-        border: none;
-        outline: none;
     }
 
     &__input--error,
