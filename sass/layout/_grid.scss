@@ -143,9 +143,9 @@
     grid-template-columns: minmax(7rem, 1fr) minmax(100rem, 170rem) minmax(7rem, 1fr);
     grid-template-rows: auto;
 
-    @include respond(desk) {
+    /* @include respond(desk) {
         grid-template-columns: minmax(7rem, 1fr) minmax(100rem, 120rem) minmax(7rem, 1fr);
-    }
+    } */
 
     @include respond(tab-land) {
         grid-template-columns: minmax(3rem, 1fr) minmax(90rem, 120rem) minmax(3rem, 1fr);
