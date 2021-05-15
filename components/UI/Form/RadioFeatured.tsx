@@ -16,33 +16,35 @@ const RadioFeatured: React.FC<RadioProps> = ({name, label, register, error, chec
             {/* Form Label: */}
             <label className="form__label">{label}</label>
 
-            {/* True/Featured Option */}
-            <div className="form__radio-group">
+            
+            
+
+                {/* True/Featured Option */}
                 <input 
                     ref={register} 
-                    name={"radio-boolean " + name} 
+                    name={name} 
                     type="radio" 
                     id="radio-true" 
-                    className={"form__radio " + cssError} 
-                    checked={checked} 
+                    className="form__radio "
+                    checked={checked}
                     value="true" />
                 <label htmlFor="radio-true" className="form__radio-label">Yes</label>
-            </div>
+                    
 
-            {/* False/Not Featured Option */}
-            <div className="form__radio-group">
+                {/* False/Not Featured Option */}
+                    
                 <input 
                     ref={register} 
-                    name={"radio-boolean " + name} 
+                    name={name} 
                     type="radio" 
                     id="radio-false" 
-                    className={"form__radio " + cssError} 
-                    checked={checked} 
+                    className="form__radio "
+                    checked={checked}
                     value="false" />
                 <label htmlFor="radio-false" className="form__radio-label">No</label>
-            </div>
             
-            {/* Error: */}
+                    
+                
             {error}
         </div>
     );
