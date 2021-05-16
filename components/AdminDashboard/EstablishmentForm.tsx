@@ -3,10 +3,7 @@ import Error from '../UI/Form/Error';
 import File from '../UI/Form/File';
 import Input from '../UI/Form/Input';
 import RadioFeatured from '../UI/Form/RadioFeatured';
-import Select from '../UI/Form/Select';
 import Textarea from '../UI/Form/Textarea';
-
-
 
 const EstablishmentForm: React.FC<EstablishmentFormProps> = ({register, selectedEstablishment, errors,
 changeThumbnailValue, thumbnailValue, thumbnailValueError, changeImageOneValue, imageOneValue,imageOneValueError,changeImageTwoValue, imageTwoValue,imageTwoValueError}) => (

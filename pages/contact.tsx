@@ -13,10 +13,9 @@ const contact: React.FC = () => (
                 <ContactInfo />
                 <ContactForm />
             </div>
-                
         </Layout>
+
         <ContactFeedbackSuccess />
-        <ContactFeedbackError />
     </>
 );
 

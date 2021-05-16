@@ -6,7 +6,7 @@ import { GetStaticProps } from 'next';
 import { ESTABLISHMENTS_URL, GRAPHQL_URL } from "../../constants/api";
 import Layout from '../../components/Layout';
 import Booking from '../../components/Booking';
-import { BookingFeedbackSuccess, BookingFeedbackError } from '../../components/Booking/BookingFeedback';
+import BookingFeedbackSuccess from '../../components/Booking/BookingFeedback';
 import EstablishmentGallery from '../../components/Establihsment/EstablishmentGallery';
 import EstablishmentHeader from '../../components/Establihsment/EstablishmentHeader';
 import EstablishmentInfo from '../../components/Establihsment/EstablishmentInfo';
@@ -15,8 +15,6 @@ import * as interfaces from '../../constants/interfaces';
 
 
 const establishmentDetails: React.FC<interfaces.EstablishmentDetailsProps> = ({est}) => {
-
-	//console.log(est.thumbnail);
 
     return (
 		<>
@@ -34,7 +32,11 @@ const establishmentDetails: React.FC<interfaces.EstablishmentDetailsProps> = ({e
 					rating={est.rating} /> 
 
 				{/* Information: */}
-				 <EstablishmentInfo coordinates={est.coordinates} description={est.description} amenities={est.amenities} />   
+				 <EstablishmentInfo 
+				 	coordinates={est.coordinates} 
+					description={est.description} 
+					amenities={est.amenities}
+					lowestPrice={est.lowestPrice} />   
 
 				{/* Booking */}
 				<EstablishmentCTA />
@@ -48,12 +50,11 @@ const establishmentDetails: React.FC<interfaces.EstablishmentDetailsProps> = ({e
 				phone={est.phone}
 				street={est.street}
 				city={est.city}
-				zipcode={est.zipCode}
-				establishment={est.name} /> 
+				zipCode={est.zipCode}
+				establishmentName={est.name} /> 
 
 			{/* Booking Feedback */}
 			<BookingFeedbackSuccess />
-			<BookingFeedbackError />
 		</>
     );
 }

@@ -1,27 +1,20 @@
 import Image from "next/image"
+import { primary } from "../../constants/colors";
+import { EstablishmentInfoProps } from "../../constants/interfaces";
+import * as icons from '../UI/Icons';
 
-interface DetailsProps {
-    description: string;
-    coordinates: string;
-    amenities: string;
-}
 
-const EstablishmentDetails: React.FC<DetailsProps> = ({description, coordinates, amenities}) => {
-    const arrayAmenities = amenities.split('\n');
+const EstablishmentDetails: React.FC<EstablishmentInfoProps> = ({description, coordinates, amenities}) => {
 
-    const finalAmenities: JSX.Element[] = arrayAmenities.map(am => {
-        return (
-            <li  key={am}>
-                <Image 
-                    src="/assets/icons/list-decoration.svg" 
-                    alt="List Decoration" 
-                    height={15} 
-                    width={15}  
-                />
-                {am}
-            </li>
-        );
-    });
+    // Splitting the amenities by every line break into an array
+    const splitAmenities: string[] = amenities.split('\n');
+
+    const finalAmenities: JSX.Element[] = splitAmenities.map(amenities => (
+        <li  key={amenities}>
+            <icons.Chevron color={primary} />
+            {amenities}
+        </li>
+    ));
 
     return (
         <div className="establishment-details__info details">

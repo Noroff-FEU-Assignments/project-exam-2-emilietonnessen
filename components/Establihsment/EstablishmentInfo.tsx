@@ -1,17 +1,13 @@
+import { EstablishmentInfoProps } from '../../constants/interfaces';
 import EstablishmentDetails from './EstablishmentDetails';
 import EstablishmentReview from './EstablishmentReview';
 import EstablishmentRoom from './EstablishmentRoom';
 
-interface EstablishmentInfoProps {
-    coordinates: string;
-    description: string;
-    amenities: string;
-}
 
-const EstablishmentInfo: React.FC<EstablishmentInfoProps> = ({ coordinates, description, amenities }) => {
+
+const EstablishmentInfo: React.FC<EstablishmentInfoProps> = ({ coordinates, description, amenities, lowestPrice }) => {
 
     // Removing any spaces in the coordinates
-	//const coordinates: string = est.address.coordinates;
 	const filteredCoordinates: string = coordinates.replace(/ /g,'');
 
     return (
@@ -21,7 +17,7 @@ const EstablishmentInfo: React.FC<EstablishmentInfoProps> = ({ coordinates, desc
 				description={description}
 				amenities={amenities} />
 			
-            <EstablishmentRoom />
+            <EstablishmentRoom lowestPrice={lowestPrice} />
 			
             <EstablishmentReview />
 		</section>
@@ -29,3 +25,12 @@ const EstablishmentInfo: React.FC<EstablishmentInfoProps> = ({ coordinates, desc
 }
 
 export default EstablishmentInfo;
+
+
+/* 
+
+    TO DO LIST
+
+    [X] - Move the interface to interface.tsx
+
+*/

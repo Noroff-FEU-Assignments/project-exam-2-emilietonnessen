@@ -1,9 +1,9 @@
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
 import { useEffect, useState } from 'react';
 
-import * as interfaces from '../constants/interfaces';
 import { GRAPHQL_URL } from "../constants/api";
 import { META_ESTABLISHMENTS, TITLE_ESTABLISHMENTS } from '../constants/meta';
+import * as interfaces from '../constants/interfaces';
 import Layout from '../components/Layout';
 import EstablishmentCard from "../components/Establihsment/EstablishmentCard";
 import Filter from '../components/Filter';
@@ -62,13 +62,14 @@ const establishments: React.FC<interfaces.EstablishmentsProps> = ({est}) => {
     // Setting the filtered establishment as a variable
     const filteredResult: JSX.Element[] = establishments.map(est => (
         <EstablishmentCard 
+            id={2}
+            lowestPrice={est.lowestPrice}
+            thumbnail={est.thumbnail}
             key={est.id}
             slug={est.slug}
             name={est.name}
             reviews={est.reviews}
-            price={est.lowestPrice}
-            stars={est.stars}
-            image={est.thumbnail.url} />
+            stars={est.stars} />
     ));
 
  

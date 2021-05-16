@@ -3,22 +3,9 @@ import Accordion from "../../UI/Accordion";
 import { AxiosInstance } from "axios";
 import useAxios from "../../../hooks/useAxios";
 import BookingCard from "./BookingCard";
+import { Booking } from "../../../constants/interfaces";
 
-interface Booking {
-    id: number;
-    firstName: string;
-    lastName: string;
-    room: string;
-    message: string;
-    startDate: string;
-    endDate: string;
-    phone: string;
-    email: string;
-    created_at: string;
-    updated_at: string;
-    published_at: string;
-    establishment: string;
-}
+
 
 const BookingNotifications: React.FC = () => {
     const [enquiries, setEnquiries] = useState<Booking[]>([]);
@@ -37,8 +24,7 @@ const BookingNotifications: React.FC = () => {
 
     //console.log("[Enquiries]", enquiries);
 
-    const bookingEnquiries: JSX.Element[]= enquiries.map(enq => {
-        return (
+    const bookingEnquiries: JSX.Element[]= enquiries.map(enq =>  (
             <BookingCard
                 key={enq.id}
                 establishment={enq.establishment}
@@ -50,8 +36,7 @@ const BookingNotifications: React.FC = () => {
                 endDate={enq.endDate}
                 room={enq.room}
                 message={enq.message} />
-        )
-    })
+    ));
 
     return (
         <section className="booking-notifications">

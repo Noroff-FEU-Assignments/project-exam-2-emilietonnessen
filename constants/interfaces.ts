@@ -43,6 +43,14 @@ export interface GalleryProps {
     name: string;
 }
 
+export interface ContactMessage {
+    id: number;
+    name: string;
+    email: string;
+    topic: string;
+    message: string;
+}
+
 
 export interface SearchProps {
     theme: 'white' | 'grey';
@@ -86,7 +94,7 @@ export interface HomeProps {
 export interface EstablishmentCardProps {
     id: number;
     slug: string;
-    featured: boolean;
+    featured?: boolean;
     reviews: number;
     name: string;
     lowestPrice: number;
@@ -130,6 +138,10 @@ export interface FilterProps {
     onClickAll: any;
 }
 
+export interface AdvancedOptionsProps {
+    url: string;
+}
+
 
 export interface EstablishmentFormProps {
     register: () => void;
@@ -166,8 +178,86 @@ export interface Auth {
     }
 }
 
+export interface EstablishmentHeaderProps {
+    name: string;
+    stars: number;
+    street: string;
+    rating: number;
+    reviews: number;
+}
+
+export interface EstablishmentInfoProps {
+    coordinates: string;
+    description: string;
+    amenities: string;
+    lowestPrice?: number | undefined;
+}
+
+
+export interface RoomProps {
+	lowestPrice: number | undefined;
+}
+
+export interface BookingModalProps {
+    email: string;
+    phone: number;
+    street: string;
+    zipCode: string;
+    city: string;
+    establishmentName: string;
+}
+
+export interface BookingInfoProps {
+    street: string;
+    zipCode: string;
+    city: string;
+    phone: number;
+    email: string;
+}
+
+export interface BookingFormProps {
+    establishmentName: string;
+}
+
+export interface Booking {
+    id: number;
+    firstName: string;
+    lastName: string;
+    room: string;
+    message: string;
+    startDate: string;
+    endDate: string;
+    phone: string;
+    email: string;
+    created_at: string;
+    updated_at: string;
+    published_at: string;
+    establishment: string;
+}
+
+export interface BookingCardProps {
+    establishment: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    phone: string;
+    startDate: string;
+    endDate: string;
+    room: string;
+    message: string;
+}
+
+interface ContactMessages {
+    id: number;
+    name: string;
+    message: string;
+    email: string;
+    topic: string;
+}
+
 
 // ICONS: ------------------------------------------------
 export interface IconProps {
     color?: string;
+    classes?: string;
 }

@@ -1,14 +1,13 @@
 import { useState } from 'react';
 import { NextRouter, useRouter } from "next/router";
 
-
+import { AdvancedOptionsProps } from "../../../constants/interfaces";
 import useAxios from '../../../hooks/useAxios';
 import Accordion from '../../UI/Accordion';
 import { SimpleButton } from '../../UI/Button';
+import Error from '../../UI/Form/Error';
 
-interface AdvancedOptionsProps {
-    url: string;
-}
+
 
 const AdvancedOptions: React.FC<AdvancedOptionsProps> = ({url}) => {
     const [error, setError] = useState(null);
@@ -26,7 +25,7 @@ const AdvancedOptions: React.FC<AdvancedOptionsProps> = ({url}) => {
 				await http.delete(url);
                 router.push("/admin");
 			} catch (error) {
-				setError(error);
+				setError(error.toString());
 			}
 		}
     }
@@ -34,6 +33,7 @@ const AdvancedOptions: React.FC<AdvancedOptionsProps> = ({url}) => {
     return (
         <div className="establishment-form__group--advanced">
             <Accordion title="Advanced Options" closed={true}>
+                {error ? <Error>{error}</Error> : null}
                 <SimpleButton theme="danger" size="sm" onClick={deleteEstablishment}>
                     delete
                 </SimpleButton>

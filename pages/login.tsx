@@ -1,39 +1,34 @@
-import Head from 'next/head';
 import * as yup from "yup";
 import { Asserts } from 'yup';
 import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup.d";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useRouter, NextRouter } from 'next/router';
 import { useState, useContext } from "react";
 import axios from "axios";
 
 import {SubmitButton} from '../components/UI/Button';
-import Input from '../components/UI/Form/Input';
 import { TITLE_LOGIN, META_LOGIN } from '../constants/meta';
 import { Logo } from '../components/UI/Icons';
-import { ModalError, ModalSuccess } from '../components/UI/Modal';
-import AuthContext, { AuthProvider } from "../context/AuthContext";
-import { BASE_URL } from '../constants/api';
-import OuterLayout from '../components/Layout/OuterLayout';
-import useAxios from '../hooks/useAxios';
+import { ModalError } from '../components/UI/Modal';
+import { AUTH_URL } from '../constants/api';
+import { loginSchema } from "../constants/schemas";
 
-const url: string = BASE_URL + "auth/local";
+import Input from '../components/UI/Form/Input';
+import AuthContext from "../context/AuthContext";
+import OuterLayout from '../components/Layout/OuterLayout';
+import Error from "../components/UI/Form/Error";
+
+
+
 
 interface Schema extends Asserts<typeof schema> {}
-
-const schema = yup.object().shape({
-    identifier: yup.string().required('Please a username'),
-    password: yup.string().required('Please a password'),
-});
+const schema = yup.object().shape(loginSchema);
 
 
-const login = () => {
-    const [submitting, setSubmitting] = useState(false);
-	const [loginError, setLoginError] = useState(null);
-    
-    
+const login: React.FC = () => {
+    const [submitting, setSubmitting] = useState<boolean>(false);
+	const [loginError, setLoginError] = useState<string | null>(null);
     const router: NextRouter = useRouter();
-    const http = useAxios;
 
     const { register, handleSubmit, errors } = useForm({
         resolver: yupResolver(schema)
@@ -48,7 +43,7 @@ const login = () => {
         setLoginError(null);
 
         try {
-			const response = await axios.post(url, data);
+			const response = await axios.post(AUTH_URL, data);
 			setAuth(response.data);
 			router.push("/admin");
 		} catch (error) {
@@ -84,7 +79,7 @@ const login = () => {
                                 name="identifier"
                                 label="Username"
                                 type="text"
-                                error={errors.username && <span className="form__error"><i className="fas fa-exclamation-circle"></i> {errors.username.message}</span>}
+                                error={errors.identifier && <span className="form__error"><i className="fas fa-exclamation-circle"></i> <Error>{errors.identifier.message}</Error></span>}
                                 placeholder="noranordmann" />
 
                             <Input
@@ -92,10 +87,10 @@ const login = () => {
                                 name="password"
                                 label="Password"
                                 type="password"
-                                error={errors.password && <span className="form__error"><i className="fas fa-exclamation-circle"></i> {errors.password.message}</span>}
+                                error={errors.password && <span className="form__error"><i className="fas fa-exclamation-circle"></i> <Error>{errors.password.message}</Error></span>}
                                 placeholder="********" />
 
-                            <div className="login__essentials">
+                            {/* <div className="login__essentials">
                                 <div className="login__remember">
                                     <input type="checkbox" name="remember" id="remember"/>
                                     <label htmlFor="checkbox">Remember me</label>
@@ -103,7 +98,7 @@ const login = () => {
                                 <a className="login__forgot" href="#forgot">
                                     Forgot Password?
                                 </a>
-                            </div>
+                            </div> */}
                         </div>
 
                         <div className="login__button">

@@ -43,6 +43,11 @@
         display: flex;
         column-gap: .5rem;
         //align-items: flex-start;
+
+        & > svg {
+            width: 2rem;
+            height: 2rem;
+        }
     }
 
     &__reviews {

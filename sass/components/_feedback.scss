@@ -18,12 +18,12 @@
     }
 }
 
-// Error
+
 .feedback {
 
     // Error
     &--error {
-        min-width: 50rem;
+        max-width: 50rem;
         background-color: rgba($color-error, .3);
         border: 1px solid $color-error;
         margin: 2rem 0;

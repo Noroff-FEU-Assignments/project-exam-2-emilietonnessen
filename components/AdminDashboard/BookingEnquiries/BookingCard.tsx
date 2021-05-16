@@ -1,16 +1,6 @@
 import { useState } from "react";
+import { BookingCardProps } from "../../../constants/interfaces";
 
-interface BookingCardProps {
-    establishment: string;
-    firstName: string;
-    lastName: string;
-    email: string;
-    phone: string;
-    startDate: string;
-    endDate: string;
-    room: string;
-    message: string;
-}
 
 const BookingCard: React.FC<BookingCardProps> = ({establishment, firstName, lastName, email, phone, startDate, endDate, room, message}) => {
     const [newMessage, setNewMessage] = useState(true);
@@ -49,7 +39,16 @@ const BookingCard: React.FC<BookingCardProps> = ({establishment, firstName, last
                 {message}
             </p>
         </div>
-    )
+    );
 }
 
-export default BookingCard
+export default BookingCard;
+
+
+/* 
+
+    NEED TO DO LIST:
+    
+    [] - Find another way with the "new" function 
+
+*/

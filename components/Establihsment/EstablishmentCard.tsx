@@ -1,22 +1,15 @@
 import Image from "next/image"
 import Link from "next/link";
+import { greyDarkOne } from "../../constants/colors";
+import { EstablishmentCardProps } from "../../constants/interfaces";
+import * as icons from '../UI/Icons';
 
-interface EstablishmentCardProps {
-    image: string;
-    name: string;
-    reviews: number;
-    stars: number;
-    price: number;
-    slug: string;
-}
 
-const EstablishmentCard: React.FC<EstablishmentCardProps> = ({image, name, reviews, stars, price, slug }) => {
+const EstablishmentCard: React.FC<EstablishmentCardProps> = ({thumbnail, name, reviews, stars, lowestPrice, slug }) => {
 
     // Loop through the correct amount of stars
     const n: number = stars;
-    const calculatedStars: JSX.Element[] = [...Array(n)].map((e, i) => (
-        <Image key={i} src="/assets/icons/star-solid-grey.svg" alt={name} layout="intrinsic" width={22} height={22} />
-    ));
+    const calculatedStars: JSX.Element[] = [...Array(n)].map((e, i) => <icons.Star key={i} color={greyDarkOne} /> );
 
 
     return (
@@ -24,7 +17,7 @@ const EstablishmentCard: React.FC<EstablishmentCardProps> = ({image, name, revie
             <a>
                 <div className="establishment-card">
                     <div className="establishment-card__img">
-                        <Image src={image} alt={name} layout="responsive" width={600} height={450} /> 
+                        <Image src={thumbnail.url} alt={name} layout="responsive" width={600} height={450} /> 
                     </div>
                     <div className="establishment-card__name">
                         {name}
@@ -35,7 +28,7 @@ const EstablishmentCard: React.FC<EstablishmentCardProps> = ({image, name, revie
                             <span className="establishment-card__reviews">{reviews} Reviews</span>
                         </div>
                         <div className="establishment-card__price-box">
-                            from <span className="establishment-card__price">{price} NOK</span>
+                            from <span className="establishment-card__price">{lowestPrice} NOK</span>
                         </div>
                     </div>
                 </div>

@@ -3,17 +3,12 @@ import Accordion from "../../UI/Accordion";
 import { AxiosInstance } from "axios";
 import useAxios from "../../../hooks/useAxios";
 import ContactCard from "./ContactCard";
+import { ContactMessage } from "../../../constants/interfaces";
 
-interface ContactMessages {
-    id: number;
-    name: string;
-    message: string;
-    email: string;
-    topic: string;
-}
+
 
 const ContactNotifications: React.FC = () => {
-    const [enquiries, setEnquiries] = useState<ContactMessages[]>([]);
+    const [enquiries, setEnquiries] = useState<ContactMessage[]>([]);
     const http: AxiosInstance = useAxios();
 
     useEffect(() => {

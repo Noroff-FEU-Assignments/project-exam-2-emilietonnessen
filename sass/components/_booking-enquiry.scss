@@ -51,11 +51,15 @@
 .booking-form {
     padding: 6rem 3rem;
 
-    display: grid;
-    grid-template-columns: repeat(2, 27rem);
-    grid-template-rows: repeat(7, max-content);
-    column-gap: 2rem;
-    row-gap: 2rem;
+    &__fieldset {
+        display: grid;
+        grid-template-columns: repeat(2, 27rem);
+        grid-template-rows: repeat(7, max-content);
+        column-gap: 2rem;
+        row-gap: 2rem;
+    }
+
+    
 
 
     &__title {
