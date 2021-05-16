@@ -2,21 +2,17 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { useContext, useState } from "react";
-import { NextRouter, useRouter } from "next/router";
 
-
-import * as regex from '../../../constants/regex';
-import useAxios from "../../../hooks/useAxios";
 import { ESTABLISHMENTS_URL } from "../../../constants/api";
-import Error from "../../UI/Form/Error";
-import Input from "../../UI/Form/Input";
-import Select from "../../UI/Form/Select";
-import Textarea from "../../UI/Form/Textarea";
 import { SubmitButton } from "../../UI/Button";
-import AuthContext from "../../../context/AuthContext";
-import File from '../../UI/Form/File';
-import RadioFeatured from "../../UI/Form/RadioFeatured";
 import {addEstablishmentSchema} from '../../../constants/schemas';
+import AuthContext from "../../../context/AuthContext";
+import EstablishmentForm from "../EstablishmentForm";
+import { Establishment } from "../../../constants/interfaces";
+import Select from "../../UI/Form/Select";
+import Error from "../../UI/Form/Error";
+
+
 
 interface Schema extends yup.Asserts<typeof schema> {}
 
@@ -46,7 +42,7 @@ const AddForm: React.FC = () => {
 
     
 
-    // Image values
+    // Image Value Handlers
     const changeThumbnailValue = async (event: React.ChangeEvent<HTMLInputElement>) => {
         setThumbnailValueError(false);
 
@@ -88,7 +84,7 @@ const AddForm: React.FC = () => {
     
 
     // Onsubmit
-    async function onSubmit(data: any) {
+    async function onSubmit(data: Establishment) {
         setSubmitting(true);
         setServerError(null);
         setAdded(false);
@@ -102,7 +98,7 @@ const AddForm: React.FC = () => {
 
         try {
 
-            if (thumbnailValue != null && imageOneValue != null && imageTwoValue != null) {
+            if (thumbnailValue != null && imageOneValue != null && imageTwoValue != null && auth != null) {
                 const response = await fetch (ESTABLISHMENTS_URL, {
                     method: 'POST',
                     headers: {
@@ -141,203 +137,36 @@ const AddForm: React.FC = () => {
 
             <fieldset disabled={submitting} className="form__fieldset establishment-form__fieldset">
 
-                {/* Thumbnail */}
-                <File 
-                    name="thumbnail" label="Thumbnail"  onChange={changeThumbnailValue}  
-                    cssClass="establishment-form__group--thumbnail"
-                    added={thumbnailValue ? thumbnailValue.name : null}
-                    error={thumbnailValueError ? <Error>Please use an .jpeg file</Error> : null} />
-
-
-                {/* Image 1: */}
-                <File 
-                    name="imageOne" label="Image 1" onChange={changeImageOneValue} 
-                    cssClass="establishment-form__group--image-1"
-                    added={imageOneValue ? imageOneValue.name : null}
-                    error={imageOneValueError ? <Error>Please use an .jpeg file</Error> : null} />
-
-
-                {/* Image 2: */}
-                <File 
-                    name="imageTwo" label="Image 2" onChange={changeImageTwoValue} 
-                    cssClass="establishment-form__group--image-2"
-                    added={imageTwoValue ? imageTwoValue.name : null}
-                    error={imageTwoValueError ? <Error>Please use an .jpeg file</Error> : null} />
-
-
-                {/* Hotel Name: */}
-                <Input 
-                    name="name" label="Establishment Name" register={register}
-                    cssClass="establishment-form__group--name" type="text"
-                    placeholder="My Beautiful Establishment"
-                    error={errors.name && <Error>{errors.name.message}</Error>} />
-
+                <EstablishmentForm 
+                    register={register}
+                    errors={errors}
+                    changeThumbnailValue={changeThumbnailValue} 
+                    thumbnailValue={thumbnailValue} 
+                    thumbnailValueError={thumbnailValueError}
+                    changeImageOneValue={changeImageOneValue}
+                    imageOneValue={imageOneValue}
+                    imageOneValueError={imageOneValueError}
+                    changeImageTwoValue={changeImageTwoValue} 
+                    imageTwoValue={imageTwoValue}
+                    imageTwoValueError={imageTwoValueError} />
 
                 {/* Category: */}
                 <Select 
-                    name="category" label="Choose a Category" register={register} 
+                    name="category" 
                     cssClass="establishment-form__group--category"
+                    label="Choose a Category"
+                    register={register} 
                     error={errors.category && <Error>{errors.category.message}</Error>} >
-                              
+                                    
                     <option value="Hotel">Hotel</option>
                     <option value="BedAndBreakfast">Bed & Breakfast</option>
                     <option value="Guesthouse">Guesthouse</option>
                 </Select>
 
-                {/* Email: */}
-                <Input
-                    name="email" label="Email" register={register}
-                    cssClass="establishment-form__group--email" type="text"
-                    placeholder="establishment@support.no"
-                    error={errors.email && <Error>{errors.email.message}</Error>} />
-
-                {/* Phone */}
-                <Input
-                    name="phone" label="Phone" register={register}
-                    cssClass="establishment-form__group--phone" type="text"
-                    placeholder="123 45 678"
-                    error={errors.phone && <Error>{errors.phone.message}</Error>} />
-
-
-                {/* Coordinates */}
-                <Input
-                    name="coordinates" label="Coordinates" register={register}
-                    cssClass="establishment-form__group--coordinates"
-                    placeholder="60.10000, 65.2000" type="text"
-                    error={errors.coordinates && <Error>{errors.coordinates.message}</Error>} />
-
-
-                {/* Street name */}
-                <Input
-                    name="street" label="Street" register={register}
-                    cssClass="establishment-form__group--street" type="text"
-                    placeholder="Street Name 12"
-                    error={errors.street && <Error>{errors.street.message}</Error>} />
-
-
-                {/* City */}
-                <Input
-                    name="city" label="City" register={register}
-                    cssClass="establishment-form__group--city" type="text"
-                    placeholder="City Name"
-                    error={errors.city && <Error>{errors.city.message}</Error>} />
-
-                {/* Zip Code */}
-                <Input
-                    register={register}
-                    name="zipCode"
-                    cssClass="establishment-form__group--zip-code"
-                    label="Zip Code"
-                    type="text"
-                    error={errors.zipCode && <Error>{errors.zipCode.message}</Error>}
-                    placeholder="1234" />
-
-                {/* Average User Rating */}
-                <Input
-                    register={register}
-                    name="rating"
-                    cssClass="establishment-form__group--rating"
-                    label="User Rating"
-                    type="text"
-                    error={errors.rating && <Error>{errors.rating.message}</Error>}
-                    placeholder="Ex: 7.9" />
-
-                {/* Stars */}
-                <Input
-                    register={register}
-                    name="stars"
-                    cssClass="establishment-form__group--stars"
-                    label="Stars"
-                    type="text"
-                    error={errors.stars && <Error>{errors.stars.message}</Error>}
-                    placeholder="4" />
-
-                {/* Lowest Price: */}
-                <Input
-                    register={register}
-                    name="lowestPrice"
-                    cssClass="establishment-form__group--lowest-price"
-                    label="Lowest Room Price"
-                    type="text"
-                    error={errors.lowestPrice && <Error>{errors.lowestPrice.message}</Error>}
-                    placeholder="499" />
-
-                {/* Reviews: */}
-                <Input
-                    register={register}
-                    name="reviews"
-                    cssClass="establishment-form__group--reviews"
-                    label="Amount of reviews"
-                    type="text"
-                    error={errors.reviews && <Error>{errors.reviews.message}</Error>}
-                    placeholder="456" />
-
-                {/* Featured */}
-                <RadioFeatured 
-                    label="Featured"
-                    name="featured"
-                    register={register}
-                    cssClass="establishment-form__group--featured"
-                    error={errors.featured && <Error>{errors.featured.message}</Error>}
-                    checked={undefined} />
-
-                {/* <div className="form__group establishment-form__group--featured">
-
-                    
-                    <label className="form__label">Featured</label>
-
-                    
-                    <div className="form__radio-group">
-                        <input 
-                            ref={register} 
-                            name="featured" 
-                            type="radio" 
-                            id="radio-true" 
-                            className="form__radio "
-                            //checked
-                            value="true" />
-                        <label htmlFor="radio-true" className="form__radio-label">Yes</label>
-                    
-
-                    
-                    
-                        <input 
-                            ref={register} 
-                            name="featured" 
-                            type="radio" 
-                            id="radio-false" 
-                            className="form__radio "
-                            //checked={checked} 
-                            value="false" />
-                        <label htmlFor="radio-false" className="form__radio-label">No</label>
-                    </div>
-                    
-                    
-                    {errors.featured && <Error>{errors.featured.message}</Error>}
-                </div> */}
-
-                {/* Description */}
-                <Textarea
-                    register={register}
-                    name="description"
-                    cssClass="establishment-form__group--description"
-                    label="Description"
-                    placeholder="Establishment Description"
-                    error={errors.description && <Error>{errors.description.message}</Error>} />
-
-                {/* List of Amenities */}
-                <Textarea
-                    register={register}
-                    name="amenities"
-                    cssClass="establishment-form__group--amenities"
-                    label="Amenities"
-                    placeholder="Establishment amenities"
-                    error={errors.amenities && <Error>{errors.amenities.message}</Error>} />
-
                 {/* Submit Button */}    
                 <div className="establishment-form__group--submit">
                     <SubmitButton theme="primary" size="sm">
-                        {submitting ? "Adding..." : "Add Establishment"}
+                        {submitting ? "adding..." : "add establishment"}
                     </SubmitButton>
                 </div>
 
