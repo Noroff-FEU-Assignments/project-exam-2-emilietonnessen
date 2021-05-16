@@ -35,11 +35,12 @@ export interface EstablishmentGalleryProps {
 	imageTwo: GalleryProps;
 }
 
-interface GalleryProps {
+export interface GalleryProps {
     alternativeText: string;
     height: number;
     width: number;
     url: string;
+    name: string;
 }
 
 
@@ -63,10 +64,10 @@ export interface FileProps {
     register?: () => void;
     name: string;
     label: string;
-    error: JSX.Element | null;
+    fileError: JSX.Element | null;
     cssClass: string;
     onChange: any;
-    added: string;
+    added: string | null;
 }
 
 export interface RadioProps {
@@ -75,7 +76,7 @@ export interface RadioProps {
     label: string;
     error: JSX.Element | undefined;
     cssClass: string;
-    checked: boolean | undefined;
+    defaultValue?: boolean | undefined | null;
 }
 
 export interface HomeProps {
@@ -127,6 +128,42 @@ export interface FilterProps {
     onClickBnBs: any;
     onClickGuesthouses: any;
     onClickAll: any;
+}
+
+
+export interface EstablishmentFormProps {
+    register: () => void;
+    selectedEstablishment?: Establishment;
+    errors: any;
+
+    changeThumbnailValue: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    thumbnailValue: GalleryProps;
+    thumbnailValueError: string;
+
+    changeImageOneValue: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    imageOneValue: GalleryProps;
+    imageOneValueError: string;
+
+    changeImageTwoValue: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    imageTwoValue: GalleryProps;
+    imageTwoValueError: string;
+}
+
+
+export interface Auth {
+    jwt: string;
+    user: {
+        blocked: boolean;
+        confirmed: boolean;
+        email: string;
+        id: number;
+        role: {
+            type: string;
+            name: string
+            description: string;
+            id: number;
+        }
+    }
 }
 
 
