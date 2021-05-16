@@ -11,8 +11,11 @@ interface SelectProps {
     cssClass?: string;
 }
 const Select: React.FC<SelectProps> = ({ name, children, label, register, error, onChange, defaultValue, cssClass }) => {
+
+    //console.log(defaultValue);
     
-    let value= defaultValue;
+    const [value, setValue] = useState<string>(defaultValue)
+    
     let cssError = '';
 
     if (error === undefined) {
@@ -21,20 +24,24 @@ const Select: React.FC<SelectProps> = ({ name, children, label, register, error,
         cssError = 'form__input--error';
     }
 
-    const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => value = event.target.value;
+    const onChangeHandler = (event: any) => {
+        setValue(event.target.value)
+    }
+
+    console.log("[value]", value);
 
     return (
         <div className={`form__group booking-form__group--${name} ` + cssClass}>
             <label htmlFor={name} className="form__label">{label}</label>
 
             <select 
-                onChange={onChange ? onChange : onChangeHandler}
+                onChange={onChange ? onChange: onChangeHandler}
                 name={name} 
                 id={name} 
                 className={"form__input " + cssError }
                 placeholder="Choose a Room" 
                 ref={register}
-                value={value} >
+                value={value ? value : defaultValue} >
                 
                 <option value="" hidden></option>
                 {children}
