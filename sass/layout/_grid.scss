@@ -1,3 +1,4 @@
+// Contains the footer and the rest of the layout in the .wrapper
 .layout {
     min-height: 100%;
     position: relative;
@@ -12,17 +13,19 @@
     }
 }
 
+
+
+// Contains the Navigation and Main content
 .wrapper {
     justify-content: center;
-
     width: 100%;
 
     display: grid;
-    grid-template-columns: minmax(7rem, 1fr) minmax(max-content, 170rem) minmax(7rem, 1fr) ; 
+    grid-template-columns: minmax(8rem, 1fr) minmax(max-content, 170rem) minmax(8rem, 1fr) ; 
     grid-template-rows: 8rem 1fr;
 
     @include respond(desk) {
-        grid-template-columns: minmax(7rem, 1fr) minmax(max-content, 130rem) minmax(7rem, 1fr);
+        grid-template-columns: minmax(8rem, 1fr) minmax(max-content, 160rem) minmax(8rem, 1fr);
     } 
     
     @include respond(lap) {
@@ -43,42 +46,13 @@
     }
 }
 
+
+
+// Navigation Component ---------------------------------------
 .navigation {
     grid-column: 2 / 3;
     grid-row: 1 / 2;
-}
 
-.main { 
-    grid-column: 1 / 4;
-    grid-row: 2 / 3;
-
-    width: 100%;
-
-    display: grid;
-    grid-template-columns: minmax(7rem, 1fr) minmax(max-content, 170rem) minmax(7rem, 1fr);
-
-    @include respond(desk) {
-        grid-template-columns: minmax(7rem, 1fr) minmax(max-content, 130rem) minmax(7rem, 1fr);
-    } 
-    
-    @include respond(lap) {
-        grid-template-columns: 3rem 1fr 3rem;
-    } 
-    
-    @include respond(tab-land) {
-        grid-template-columns: minmax(4rem, 1fr) minmax(max-content, 170rem) minmax(4rem, 1fr);
-    }
-    
-    @include respond(tab-port) {
-        grid-template-columns: minmax(3rem, 1fr) minmax(max-content, 170rem) minmax(3rem, 1fr);
-    }
-
-    @include respond(mobile) {
-        grid-template-columns: minmax(1.5rem, 1fr) minmax(max-content, 170rem) minmax(1.5rem, 1fr);
-    }
-}
-
-.navigation {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     justify-content: space-between;
@@ -100,6 +74,40 @@
     }
 }
 
+
+
+// Main Component -----------------------------------------------
+.main { 
+    grid-column: 1 / 4;
+    grid-row: 2 / 3;
+
+    display: grid;
+    grid-template-columns: minmax(8rem, 1fr) minmax(50rem, 170rem) minmax(8rem, 1fr);
+
+    @include respond(desk) {
+        grid-template-columns: minmax(8rem, 1fr) minmax(50rem, 160rem) minmax(8rem, 1fr);
+    } 
+    
+    @include respond(lap) {
+        grid-template-columns: 3rem 1fr 3rem;
+    } 
+    
+    @include respond(tab-land) {
+        grid-template-columns: minmax(4rem, 1fr) minmax(10rem, 170rem) minmax(4rem, 1fr);
+    }
+    
+    @include respond(tab-port) {
+        grid-template-columns: minmax(3rem, 1fr) minmax(10rem, 170rem) minmax(3rem, 1fr);
+    }
+
+    @include respond(mobile) {
+        grid-template-columns: minmax(1.5rem, 1fr) minmax(10rem, 170rem) minmax(1.5rem, 1fr);
+    }
+}
+
+
+
+// Homepage ----------------------------------------------------
 .home {
     grid-template-rows: 50vh max-content 70rem repeat(2, max-content);
     row-gap: 20rem;
@@ -111,6 +119,9 @@
     }
 }
 
+
+
+// Establishments Results page ----------------------------------
 .establishments {
     grid-template-rows: max-content 1fr;
     row-gap: 10rem;
@@ -118,40 +129,18 @@
     
 }
 
+
+
+// Establishment Details Page ------------------------------------
 .establishment {
     grid-template-rows: max-content 8rem 1fr max-content;
-    grid-template-columns: minmax(7rem, 1fr) minmax(100rem, 170rem) minmax(7rem, 1fr);
-    row-gap: 0rem;
-    padding: 0;
-
-    @include respond(desk) {
-        grid-template-columns: minmax(7rem, 1fr) minmax(100rem, 130rem) minmax(7rem, 1fr);
-    } 
 }
 
+
+
+// Contact Page --------------------------------------------------
 .contact {
     grid-template-rows: 1fr;
     grid-template-columns: minmax(7rem, 1fr) minmax(100rem, 170rem) minmax(7rem, 1fr);
     grid-template-rows: 1fr;
-
-    @include respond(desk) {
-        grid-template-columns: minmax(7rem, 1fr) minmax(100rem, 130rem) minmax(7rem, 1fr);
-    } 
-}
-
-.admin {
-    grid-template-columns: minmax(7rem, 1fr) minmax(100rem, 170rem) minmax(7rem, 1fr);
-    grid-template-rows: auto;
-
-    /* @include respond(desk) {
-        grid-template-columns: minmax(7rem, 1fr) minmax(100rem, 120rem) minmax(7rem, 1fr);
-    } */
-
-    @include respond(tab-land) {
-        grid-template-columns: minmax(3rem, 1fr) minmax(90rem, 120rem) minmax(3rem, 1fr);
-    }
-
-    @include respond(tab-port) {
-        grid-template-columns: minmax(1.5rem, 1fr) auto minmax(1.5rem, 1fr);
-    }
 }
