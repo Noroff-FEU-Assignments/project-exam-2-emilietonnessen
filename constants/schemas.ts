@@ -107,7 +107,7 @@ export const editEstablishmentSchema = {
 export const contactFormSchema = {
     name: 
         yup.string()
-        .required('Please enter your first name')
+        .required('Please enter your full name')
         .min(2, 'Please enter 5 or more letters'),
     email:
         yup.string()
