@@ -139,7 +139,7 @@ const BookingForm: React.FC<BookingFormProps> = ({establishmentName}) => {
                 <Textarea 
                     name="message"
                     label="Message"
-                    placeholder="What can we do for you?"
+                    placeholder="How many adults, children will you bring with you?"
                     register={register}
                     error={errors.message && <span className="form__error"><i className="fas fa-exclamation-circle"></i> {errors.message.message}</span>} />
 
