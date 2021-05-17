@@ -79,7 +79,7 @@ const Search: React.FC<interfaces.SearchProps> = ({theme}) => {
                 iconType={searchIcon} />
 
             <div className={!searchDisplay ? 'search-results u-display-none' : 'search-results u-display-block'} >
-                {filteredSearchResults}
+                {filteredSearchResults.length === 0 ? "No matching results.." : filteredSearchResults}
             </div>
         </div>
     );
