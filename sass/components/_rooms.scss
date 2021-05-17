@@ -5,14 +5,15 @@
     grid-template-rows: max-content max-content;
     gap: 3rem;
     align-self: flex-start;
+    height: 100%;
 
     @include respond(desk) {
         gap: 2rem;
     }
 
-    @include respond(tab-land) {
+/*     @include respond(tab-land) {
         height: 100%;
-    }
+    } */
 
     @include respond(mobile) {
         grid-template-columns: repeat(2, 1fr);

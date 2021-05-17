@@ -19,7 +19,7 @@
     &__img {
         justify-self: flex-end;
         display: block;
-        width: 90%;
+        width: 95%;
         position: relative;
         z-index: 10;
         transition: all .3s;
@@ -58,7 +58,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        width: 90%;
+        width: 95%;
         justify-self: flex-end;
 
         @include respond(mobile-lg) {
