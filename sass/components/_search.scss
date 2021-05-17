@@ -106,6 +106,10 @@
     overflow-x: hidden;
     overflow-y: auto;
     max-height: 70vh;
+
+    @include respond(mobile) {
+        padding: 1.5rem;
+    }
 }
 
 
@@ -117,7 +121,11 @@
     cursor: pointer;
     transition: all .3s;
 
-    
+    @include respond(mobile) {
+        //column-gap: 2rem;
+        grid-template-columns: 1fr;
+        width: 100%;
+    }
 
     &:hover,
     &:focus {

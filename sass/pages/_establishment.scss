@@ -2,31 +2,61 @@
     grid-column: 2 / 3;
     grid-row: 1 / 2;
 
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: 1fr;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch; 
 
-    &__box div {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: inline-block;
-        overflow: hidden;
+    &::-webkit-scrollbar {
+        display: none;
     }
+
+     &__overflow {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(25rem, 1fr));
+        grid-template-rows: 1fr;
+    } 
+    
+    &__box {
+        //flex: 0 0 auto;
+        //width: 20rem;
+
+
+        & div {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: inline-block;
+            overflow: hidden;
+        }
+    }
+
+  
+
 }
 
 .establishment-header {
     grid-column: 2 / 3;
     grid-row: 2 / 3;
-    background-color: $color-white;
+
+    //background-color: $color-white;
 
     display: flex;
     justify-content: space-between;
+
+    @include respond(mobile) {
+        display: grid;
+        grid-template-columns: repeat(2, max-content);
+    }
 
     &__box {
         display: flex;
         gap: 1rem;
         align-items: center;
+
+        @include respond(mobile) {
+            gap: .5rem
+        }
     }
 
     &__title {
@@ -35,6 +65,11 @@
         font-weight: 500;
         letter-spacing: 1px;
         font-size: 3rem;
+
+        @include respond(mobile) {
+            font-size: 1.8rem;
+            padding: 0;
+        }
     }
 
     &__stars {
@@ -44,20 +79,41 @@
         gap: .5rem;
         margin-left: 1rem;
 
+        @include respond(mobile) {
+            gap: .2rem;
+            margin-left: 0;
+        }
+
         & > svg {
             height: 2.2rem;
             width: 2.2rem;
+
+            @include respond(mobile) {
+                height: 1rem;
+                width: 1rem;
+            }
         }
     }
 
     &__address {
         color: $color-primary;
         margin-right: 2rem;
+
+        @include respond(mobile) {
+            font-size: 1.2rem;
+            margin: 0;
+            display: none;
+        }
         
         & > svg {
             width: 2rem;
             height: 2rem;
             margin-right: .5rem !important;
+
+            @include respond(mobile) {
+                height: 1rem;
+                width: 1rem;
+            }
         }
     }
 
@@ -70,6 +126,11 @@
 
         padding: 0 1rem;
         align-self: stretch;
+
+        @include respond(mobile) {
+            padding: 0 .5rem;
+            width: 7rem;
+        }
 
         & > div {
             white-space: nowrap;
@@ -88,10 +149,18 @@
         font-size: 3rem;
         line-height: 1;
         margin-bottom: .5rem;
+
+        @include respond(mobile) {
+            font-size: 1.8rem;
+        }
     }
 
     &__reviews {
         font-size: 1.2rem;
+
+        @include respond(mobile) {
+            font-size: 1rem;
+        }
     }
 }
 
@@ -107,14 +176,25 @@
     gap: 5rem;
     //align-items: flex-start;
 
+    @include respond(mobile) {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        gap: 0;
+        row-gap: 1.5rem;
+        padding: 1.5rem;
+    }
+
    
-
-
     &__info {
         grid-column: 1 / 3;
         grid-row: 1 / 3;
+
         background-color: $color-white;
-        
+
+        @include respond(mobile) {
+            grid-column: 1 / 2;
+            grid-row: 1 / 2;
+        }
     }
 
     &__rooms {
@@ -125,6 +205,12 @@
         grid-template-columns: 1fr;
         grid-template-rows: repeat(3, 1fr);
         gap: 5rem;
+
+        @include respond(mobile) {
+            grid-column: 1 / 2;
+            grid-row: 2 / 3;
+        }
+    
 
         & > * {
             background-color: $color-white;
@@ -140,6 +226,13 @@
         grid-template-columns: repeat(2, 1fr);
         grid-template-rows: 1fr;
         gap: 5rem;
+
+        @include respond(mobile) {
+            grid-column: 1 / 2;
+            grid-row: 3 / 4;
+
+            grid-template-columns: 1fr;
+        }
 
         & > * {
             background-color: $color-white;
@@ -166,5 +259,10 @@
         font-size: 4rem;
         margin-bottom: 3rem;
         letter-spacing: 3px;
+
+        @include respond(mobile) {
+            font-size: 3rem;
+            text-align: center;
+        }
     }
 }

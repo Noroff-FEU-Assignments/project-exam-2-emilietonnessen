@@ -1,21 +1,26 @@
 .details {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: 1fr 1fr max-content;
+    grid-template-rows: 1fr minmax(max-content, 1.5fr) max-content;
     gap: 3rem;
     padding: 3rem;
     position: relative;
 
-    @include respond(desk) {
-        grid-template-rows: max-content max-content max-content;
+    @include respond(mobile) {
+        grid-template-columns: 1fr;
+        grid-row: repeat(5, max-content);
+        gap: 0;
+        row-gap: 3rem;
+        padding: 1.5rem;
     }
 
     &__description {
         grid-column: 1 / 2;
         grid-row: 1 / 2;
 
-        //max-width: 45rem;
-        //word-break: break-all;
+        @include respond(mobile) {
+           grid-column: 1 / 2;
+        }
     }
 
     &__map {
@@ -23,6 +28,11 @@
         grid-row: 1 / 2;
 
         position: relative;
+
+        @include respond(mobile) {
+           grid-column: 1 / 2;
+           grid-row: 2 / 3;
+        }
     }
 
     &__iframe {
@@ -46,7 +56,14 @@
         
         display: flex;
         flex-wrap: wrap;
+        align-items: center;
 
+        @include respond(mobile) {
+            grid-column: 1 / 2;
+            grid-row: 3 / 4;
+            display: block;
+            padding: 3rem 0;
+        }
         
 
         & > li {
@@ -70,15 +87,29 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+
+        @include respond(mobile) {
+            grid-column: 1 / 2;
+            grid-row: 4 / 5;
+            flex-direction: column;
+        }
     }
 
     &__recommendation-text {
         font-size: 1.4rem;
+
+        @include respond(mobile) {
+            font-size: 1.2rem;
+        }
     }
 
     &__recommendation-images {
         justify-self: center;
         align-self: center;
+
+        @include respond(mobile) {
+            align-self: flex-end;
+        }
 
         & > * {
             //margin-left: -1rem;

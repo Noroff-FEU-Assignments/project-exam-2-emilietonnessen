@@ -12,6 +12,10 @@
         display: flex;
         flex-direction: column;
         row-gap: 3rem;
+
+        @include respond(mobile) {
+            width: 90vw;
+        }
     }
 
     &__brand {

@@ -6,6 +6,11 @@
     color: $color-black;
     text-decoration: none;
     backface-visibility: hidden;
+    position: relative;
+
+    @include respond(mobile) {
+        grid-template-rows: max-content 5rem max-content;
+    }
 
     &:hover > &__img {
         transform: scale(1.07);
@@ -18,6 +23,10 @@
         position: relative;
         z-index: 10;
         transition: all .3s;
+
+        @include respond(mobile) {
+            width: 100%;
+        }
     }
 
     &__name {
@@ -28,7 +37,21 @@
         font-size: 2rem;
         margin-top: -4rem;
         position: relative;
-        z-index: 100;
+        z-index: 400;
+
+        @include respond(mobile) {
+            font-size: 1.7rem;
+            padding: 1rem 2rem;
+            //margin-top: -3.5rem;
+            //margin-left: 5rem;
+            
+            height: 4.7rem;
+            position: absolute;
+            bottom: 2.35rem;
+            left: 50%;
+            white-space: nowrap;
+            transform: translate(-50%, -50%);
+        }
     }
 
     &__info {
@@ -37,16 +60,29 @@
         align-items: center;
         width: 90%;
         justify-self: flex-end;
+
+        @include respond(mobile) {
+            width: 100%;
+            align-self: flex-end;
+        }
     }
 
     &__stars {
         display: flex;
         column-gap: .5rem;
-        //align-items: flex-start;
+
+        @include respond(mobile) {
+            column-gap: .25rem;
+        }
 
         & > svg {
             width: 2rem;
             height: 2rem;
+
+            @include respond(mobile) {
+                width: 1.5rem;
+                height: 1.5rem;
+            }
         }
     }
 
@@ -64,5 +100,10 @@
         font-size: 2rem;
         font-weight: 700;
         padding-left: .5rem;
+
+        @include respond(mobile) {
+            font-size: 1.6rem;
+            font-weight: 600;
+        }
     }
 }

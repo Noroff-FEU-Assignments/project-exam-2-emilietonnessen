@@ -127,6 +127,10 @@
     row-gap: 10rem;
     padding: 10rem 0;
     
+    @include respond(mobile) {
+        row-gap: 5rem;
+        padding: 5rem 0;
+    }
 }
 
 
@@ -134,13 +138,15 @@
 // Establishment Details Page ------------------------------------
 .establishment {
     grid-template-rows: max-content 8rem 1fr max-content;
+
+    @include respond(mobile) {
+        grid-template-rows: max-content 6rem repeat(2, max-content);
+    }
 }
 
 
 
 // Contact Page --------------------------------------------------
 .contact {
-    grid-template-rows: 1fr;
-    grid-template-columns: minmax(7rem, 1fr) minmax(100rem, 170rem) minmax(7rem, 1fr);
     grid-template-rows: 1fr;
 }

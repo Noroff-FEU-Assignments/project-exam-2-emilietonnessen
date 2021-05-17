@@ -99,9 +99,7 @@ export interface EstablishmentCardProps {
     name: string;
     lowestPrice: number;
     stars: number;
-    thumbnail: {
-        url: string;
-    }
+    thumbnail: GalleryProps;
 }
 
 export interface EstablishmentDetailsProps {

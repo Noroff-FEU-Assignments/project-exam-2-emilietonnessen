@@ -25,6 +25,10 @@
         margin: 0;
         height: 100%;
     }
+
+    @include respond(mobile) {
+        width: 100vw;
+    }
 }
 
 .contact-container {
@@ -35,8 +39,22 @@
     width: 100rem;
     position: absolute;
     top: 50%;
-    lefT: 50%;
+    left: 50%;
     transform: translate(-50%, -50%);
+
+    @include respond(mobile) {
+        width: 95vw;
+        height: unset;
+        position: relative;
+        transform: translate(0, 0);
+        top: 0;
+        left: 0;
+
+        display: flex;
+        flex-direction: column;
+        row-gap: 5rem;
+        padding: 5rem 0;
+    }
 }
 
 .contact-info {
@@ -46,6 +64,15 @@
     position: absolute;
     top: -6rem;
     left: 14rem;
+
+    @include respond(mobile) {
+        grid-column: 2 / 3;
+        grid-row: 1 / 2;
+
+        position: relative;
+        top: 0;
+        left: 0;
+    }
 }
 
 .contact-form {
@@ -55,4 +82,10 @@
     position: absolute;
     bottom: 15rem;
     right: -5rem;
+
+    @include respond(mobile) {
+        position: relative;
+        top: 0;
+        left: 0;
+    }
 }

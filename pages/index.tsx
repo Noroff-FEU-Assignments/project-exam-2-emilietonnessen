@@ -68,7 +68,11 @@ export async function getStaticProps() {
                 featured
                 reviews
                 lowestPrice
-                thumbnail {url}
+                thumbnail {
+                    url
+                    width
+                    height
+                }
             }                   
         }`
     });

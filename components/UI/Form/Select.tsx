@@ -31,7 +31,7 @@ const Select: React.FC<SelectProps> = ({ name, children, label, register, error,
     console.log("[value]", value);
 
     return (
-        <div className={`form__group booking-form__group--${name} ` + cssClass}>
+        <div className={`form__group  ` + cssClass}>
             <label htmlFor={name} className="form__label">{label}</label>
 
             <select 

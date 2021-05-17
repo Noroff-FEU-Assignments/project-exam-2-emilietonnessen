@@ -2,6 +2,11 @@
     display: flex;
     gap: 2rem;
 
+    @include respond(mobile) {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
     &__btn {
         border: 1px solid $color-black;
         border-radius: 0;
@@ -14,6 +19,11 @@
         font-weight: 300;
         cursor: pointer;
         transition: all .3s;
+
+        @include respond(mobile) {
+            font-size: 1.4rem;
+            padding: 1rem 1rem;
+        }
 
         &:hover,
         &:active {

@@ -6,11 +6,19 @@ body {
     line-height: 1.6;
     font-style: normal;
     font-weight: 300;
+
+    @include respond(mobile) {
+        font-size: 1.4rem;
+    }
 }
 
 .paragraph {
     &:not(:last-child) {
         margin-bottom: 2.5rem;
+
+        @include respond(mobile) {
+            margin-bottom: 1.5rem;
+        }
     }
 }
 

@@ -57,6 +57,11 @@
         grid-template-columns: auto;
         gap: 3rem;
     }
+
+    @include respond(tab-port) {
+        grid-template-rows: repeat(4, max-content);
+        gap: 3rem;
+    }
 }
 
 /* .booking-notifications {

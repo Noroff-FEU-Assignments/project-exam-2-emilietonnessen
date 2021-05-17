@@ -10,7 +10,7 @@ const Input: React.FC<InputProps> = ({name, label, type, placeholder, register, 
     }
 
     return (
-        <div className={"form__group " + `booking-form__group--${name} ` + cssClass}>
+        <div className={"form__group " + cssClass}>
             <label 
                 htmlFor={name} 
                 className="form__label" >

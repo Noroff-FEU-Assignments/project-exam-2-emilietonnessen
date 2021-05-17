@@ -5,6 +5,12 @@
     box-shadow: .5rem .5rem 1.5rem rgba(#000, .07);
     width: 40rem;
 
+    @include respond(mobile) {
+        width: 31rem;
+        padding: 3rem 2rem;
+        align-self: center;
+    }
+
     &__fieldset {
         display: flex;
         flex-direction: column;
@@ -25,6 +31,10 @@
 
         @include respond(desk) {
             font-size: 3.5rem;
+        }
+
+        @include respond(mobile) {
+            font-size: 3rem;
         }
     }
 }

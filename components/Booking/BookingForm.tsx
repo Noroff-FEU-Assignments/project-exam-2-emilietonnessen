@@ -1,7 +1,7 @@
 import * as yup from "yup";
 import { Asserts } from 'yup';
 import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup.d";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
 
 import useAxios from "../../hooks/useAxios.js";
@@ -69,6 +69,7 @@ const BookingForm: React.FC<BookingFormProps> = ({establishmentName}) => {
                 {/* Choose a room: */}
                 <Select 
                     name="room" 
+                    cssClass="booking-form__group--room"
                     label="Choose a room" 
                     register={register} 
                     error={errors.room && <span className="form__error"><i className="fas fa-exclamation-circle"></i> {errors.room.message}</span>} >
@@ -80,6 +81,7 @@ const BookingForm: React.FC<BookingFormProps> = ({establishmentName}) => {
                 {/* First Name */}
                 <Input
                     name="firstName"
+                    cssClass="booking-form__group--first-name"
                     label="First Name"
                     type="text"
                     placeholder="Nora"
@@ -90,6 +92,7 @@ const BookingForm: React.FC<BookingFormProps> = ({establishmentName}) => {
                 {/* Last Name */}
                 <Input
                     name="lastName"
+                    cssClass="booking-form__group--last-name"
                     label="Last Name"
                     type="text"
                     placeholder="Nordmann"
@@ -100,6 +103,7 @@ const BookingForm: React.FC<BookingFormProps> = ({establishmentName}) => {
                 {/* Email: */}
                 <Input
                     name="email"
+                    cssClass="booking-form__group--email"
                     label="Email"
                     type="text"
                     placeholder="nora@nordmann.no"
@@ -110,6 +114,7 @@ const BookingForm: React.FC<BookingFormProps> = ({establishmentName}) => {
                 {/* Phone Number: */}
                 <Input
                     name="phone"
+                    cssClass="booking-form__group--phone"
                     label="Phone Number"
                     type="text"
                     placeholder="123 45 678"
@@ -120,6 +125,7 @@ const BookingForm: React.FC<BookingFormProps> = ({establishmentName}) => {
                 {/* Start Date: */}
                 <Input 
                     name="startDate"
+                    cssClass="booking-form__group--start-date"
                     label="Start Date"
                     type="date"
                     register={register} 
@@ -129,6 +135,7 @@ const BookingForm: React.FC<BookingFormProps> = ({establishmentName}) => {
                 {/* End Date: */}
                 <Input 
                     name="endDate"
+                    cssClass="booking-form__group--end-date"
                     label="End Date"
                     type="date"
                     register={register} 
@@ -138,6 +145,7 @@ const BookingForm: React.FC<BookingFormProps> = ({establishmentName}) => {
                 {/* Message: */}
                 <Textarea 
                     name="message"
+                    cssClass="booking-form__group--message"
                     label="Message"
                     placeholder="How many adults, children will you bring with you?"
                     register={register}

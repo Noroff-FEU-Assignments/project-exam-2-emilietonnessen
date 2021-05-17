@@ -3,6 +3,10 @@
     max-width: 50rem;
     text-align: center;
 
+    @include respond(mobile) {
+        padding: 5rem 1.5rem;
+        max-width: 90vw;
+    }
 
     &__title {
         font-size: 4rem;
@@ -11,10 +15,18 @@
         font-style: italic;
         margin-bottom: 1rem;
         color: $color-primary;
+
+        @include respond(mobile) {
+            font-size: 3rem;
+        }
     }
 
     &__text {
         font-size: 1.8rem;
+
+        @include respond(mobile) {
+            font-size: 1.5rem;
+        }
     }
 }
 
