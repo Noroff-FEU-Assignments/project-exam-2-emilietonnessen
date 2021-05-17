@@ -21,12 +21,13 @@ const home: React.FC<HomeProps> = ({establishments}) => {
     const featuredEstablishments: JSX.Element[] = filteredEstablishments.map(esta => (
         <EstablishmentCard 
             key={esta.id}
+            id={esta.id}
             slug={esta.slug}
             name={esta.name}
             reviews={esta.reviews}
-            price={esta.lowestPrice}
+            lowestPrice={esta.lowestPrice}
             stars={esta.stars}
-            image={esta.thumbnail.url}
+            thumbnail={esta.thumbnail}
         />
     ));
     
