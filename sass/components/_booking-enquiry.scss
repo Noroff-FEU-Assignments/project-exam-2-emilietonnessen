@@ -3,7 +3,14 @@
     grid-template-columns: 1fr 1.3fr;
     grid-template-rows: max-content;
 
-    @include respond(mobile) {
+    @include respond(tab-land) {
+        max-width: 90vw;
+        max-height: 90vh;
+
+        overflow: auto;
+    }
+
+    @include respond(mobile-lg) {
         grid-template-columns: 1fr;
         grid-template-rows: repeat(2, max-content);
     }
@@ -25,7 +32,11 @@
     justify-content: center;
     padding: 8rem;
 
-    @include respond(mobile) {
+    @include respond(tab-land) {
+        padding: 5rem;
+    }
+    
+    @include respond(mobile-lg) {
         display: none;
     }
 
@@ -65,6 +76,10 @@
     padding: 6rem 3rem;
     position: relative;
 
+    @include respond(tab-land) {
+        padding: 3rem;
+    }
+
     @include respond(mobile) {
         padding: 3rem 1.5rem;
         max-width: 90vw;
@@ -75,10 +90,14 @@
 
     &__fieldset {
         display: grid;
-        grid-template-columns: repeat(2, 27rem);
+        grid-template-columns: repeat(2, minmax(20rem, 27rem));
         grid-template-rows: repeat(7, max-content);
         column-gap: 2rem;
         row-gap: 2rem;
+
+        @include respond(tab-land) {
+            row-gap: 1.5rem;
+        }
 
         @include respond(mobile) {
             grid-template-columns: 1fr;
@@ -195,6 +214,10 @@
             grid-row: 7 / 8;
 
             margin-top: 2rem;
+
+            @include respond(tab-land) {
+                margin-top: 1rem;
+            }
 
             @include respond(mobile) {
                 grid-column: 1 / 2;

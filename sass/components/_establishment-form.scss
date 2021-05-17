@@ -13,8 +13,9 @@
 
         @include respond(tab-land) {
             grid-template-columns: repeat(4, 1fr);
-            grid-template-rows: repeat(9, max-content);
+            grid-template-rows: repeat(11, max-content);
         }
+
 
         @include respond(mobile) {
             display: flex;
@@ -164,7 +165,7 @@
 
             @include respond(tab-land) {
                 grid-column: 2 / 3;
-                grid-row: 9 / 10;
+                grid-row: 10 / 11;
             }
         }
 
@@ -173,8 +174,8 @@
             grid-row: 3 / 4;
 
             @include respond(tab-land) {
-                grid-column: 2 / 3;
-                grid-row: 9 / 10;
+                grid-column: 1 / 2;
+                grid-row: 10 / 11;
             }
         }
 
@@ -208,7 +209,7 @@
 
             @include respond(tab-land) {
                 grid-column: 3 / 5;
-                grid-row: 7 / span 3;
+                grid-row: 7 / span 4;
             }
 
             & textarea {
@@ -223,7 +224,7 @@
 
             @include respond(tab-land) {
                 grid-column: 1 / 5;
-                grid-row: 10 / 11;
+                grid-row: 11 / 12;
             }
         }
 

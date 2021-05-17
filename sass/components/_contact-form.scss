@@ -5,6 +5,12 @@
     box-shadow: .5rem .5rem 1.5rem rgba(#000, .07);
     width: 40rem;
 
+    @include respond(mobile-lg) {
+        width: 35rem;
+        padding: 3rem;
+        align-self: center;
+    }
+
     @include respond(mobile) {
         width: 31rem;
         padding: 3rem 2rem;
@@ -33,7 +39,7 @@
             font-size: 3.5rem;
         }
 
-        @include respond(mobile) {
+        @include respond(mobile-lg) {
             font-size: 3rem;
         }
     }

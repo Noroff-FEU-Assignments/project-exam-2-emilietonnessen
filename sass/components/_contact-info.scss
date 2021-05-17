@@ -13,7 +13,7 @@
         flex-direction: column;
         row-gap: 3rem;
 
-        @include respond(mobile) {
+        @include respond(tab-land) {
             padding: 3rem;
             width: max-content;
         }
