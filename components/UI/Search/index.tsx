@@ -47,7 +47,6 @@ const Search: React.FC<interfaces.SearchProps> = ({theme}) => {
 
     // Clearing the search
     const clearSearchHandler = () => {
-        console.log("Clear search!!");
         setSearchValue("");
         setSearchIcon(false);
     }
@@ -67,8 +66,8 @@ const Search: React.FC<interfaces.SearchProps> = ({theme}) => {
     const filteredSearchResults = esta.map(est => (
         <SearchResult key={est.id} name={est.name} thumbnail={est.thumbnail.url} stars={est.stars} slug={est.slug} />
     ));
-    
 
+    
     return (
         <div className="search" >
             <SearchBar 
