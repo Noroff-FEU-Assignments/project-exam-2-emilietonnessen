@@ -21,8 +21,8 @@
     grid-template-columns: repeat(auto-fit, minmax(40rem, 1fr));
     gap: 5rem;
 
-    @include respond(mobile) {
-        grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    @include respond(mobile-lg) {
+        grid-template-columns: repeat(auto-fit, minmax(26rem, 1fr));
         
     }
 

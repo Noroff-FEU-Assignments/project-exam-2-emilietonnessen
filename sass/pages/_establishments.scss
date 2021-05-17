@@ -11,10 +11,13 @@
     grid-template-columns: repeat(auto-fit, minmax(40rem, 1fr));
     gap: 5rem;
 
-
-    @include respond(mobile) {
-        grid-template-columns: 1fr;
+    @include respond(tab-port) {
+        grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+        column-gap: 2rem;
+        row-gap: 4rem;
     }
+
+    
 
     & > a {
         color: inherit;

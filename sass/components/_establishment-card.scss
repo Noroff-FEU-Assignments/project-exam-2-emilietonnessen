@@ -8,7 +8,7 @@
     backface-visibility: hidden;
     position: relative;
 
-    @include respond(mobile) {
+    @include respond(mobile-lg) {
         grid-template-rows: max-content 5rem max-content;
     }
 
@@ -24,7 +24,7 @@
         z-index: 10;
         transition: all .3s;
 
-        @include respond(mobile) {
+        @include respond(mobile-lg) {
             width: 100%;
         }
     }
@@ -39,7 +39,7 @@
         position: relative;
         z-index: 400;
 
-        @include respond(mobile) {
+        @include respond(mobile-lg) {
             font-size: 1.7rem;
             padding: 1rem 2rem;
             //margin-top: -3.5rem;
@@ -61,7 +61,7 @@
         width: 90%;
         justify-self: flex-end;
 
-        @include respond(mobile) {
+        @include respond(mobile-lg) {
             width: 100%;
             align-self: flex-end;
         }
@@ -71,7 +71,7 @@
         display: flex;
         column-gap: .5rem;
 
-        @include respond(mobile) {
+        @include respond(mobile-lg) {
             column-gap: .25rem;
         }
 
@@ -79,7 +79,7 @@
             width: 2rem;
             height: 2rem;
 
-            @include respond(mobile) {
+            @include respond(mobile-lg) {
                 width: 1.5rem;
                 height: 1.5rem;
             }
@@ -101,7 +101,7 @@
         font-weight: 700;
         padding-left: .5rem;
 
-        @include respond(mobile) {
+        @include respond(mobile-lg) {
             font-size: 1.6rem;
             font-weight: 600;
         }
