@@ -5,6 +5,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useRouter, NextRouter } from 'next/router';
 import { useState, useContext } from "react";
 import axios from "axios";
+import Link from "next/link";
+
 
 import {SubmitButton} from '../components/UI/Button';
 import { TITLE_LOGIN, META_LOGIN } from '../constants/meta';
@@ -12,12 +14,11 @@ import { Logo } from '../components/UI/Icons';
 import { ModalError } from '../components/UI/Modal';
 import { AUTH_URL } from '../constants/api';
 import { loginSchema } from "../constants/schemas";
-
 import Input from '../components/UI/Form/Input';
 import AuthContext from "../context/AuthContext";
 import OuterLayout from '../components/Layout/OuterLayout';
 import Error from "../components/UI/Form/Error";
-import Link from "next/link";
+
 
 
 
@@ -48,7 +49,7 @@ const login: React.FC = () => {
 			setAuth(response.data);
 			router.push("/admin");
 		} catch (error) {
-			console.log("[onSubmit Error]", error);
+			//console.log("[onSubmit Error]", error);
 			setLoginError(error.toString());
 		} finally {
 			setSubmitting(false);
