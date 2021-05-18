@@ -1,7 +1,7 @@
 import Modal from '../UI/Modal';
 
 export const ContactFeedbackSuccess = () => (
-    <Modal link="#contact" id="feedback-success" name="modal-feedback">
+    <Modal link="#contact" id="feedback-success" classes="modal-feedback">
         <div className="feedback">
             <h3 className="feedback__title">
                 Thank you!
@@ -14,7 +14,7 @@ export const ContactFeedbackSuccess = () => (
 );
 
 export const ContactFeedbackError = () => (
-    <Modal link="#contact" id="feedback-error" name="modal-feedback">
+    <Modal link="#contact" id="feedback-error" classes="modal-feedback">
         <div className="feedback feedback--error">
             <h3 className="feedback__title feedback__title--error">
                 An error occurred!
