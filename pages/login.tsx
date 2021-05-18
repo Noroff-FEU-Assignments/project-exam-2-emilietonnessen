@@ -17,6 +17,7 @@ import Input from '../components/UI/Form/Input';
 import AuthContext from "../context/AuthContext";
 import OuterLayout from '../components/Layout/OuterLayout';
 import Error from "../components/UI/Form/Error";
+import Link from "next/link";
 
 
 
@@ -62,12 +63,17 @@ const login: React.FC = () => {
 
                 
                     <fieldset disabled={submitting} className="form__fieldset login__box">
-                        <div className="login__brand">
-                            <div className="login__logo-icon">
-                                <Logo color="#ff1447" />
-                            </div>
-                            <h1 className="login__logo">Holidaze</h1>
-                        </div>
+                        <Link href="/">
+                            <a>
+                                <div className="login__brand">
+                                    <div className="login__logo-icon">
+                                        <Logo color="#ff1447" />
+                                    </div>
+                                    <h1 className="login__logo">Holidaze</h1>
+                                </div>
+                            </a>
+                        </Link>
+                        
 
                         <div className="login__fields">
 
