@@ -111,12 +111,12 @@
     z-index: 10000;
     top: 5rem;
     min-width: 100%;
-    //background-color: rgba($color-white, .85); 
     padding: 3rem;
     border-radius: 2rem;
     box-shadow: 0 .5rem 1.5rem rgba($color-black, .08);
     transition: all .3s;
 
+    // If the browser does not support backdrop-filter this will be shown:
     background-color: rgba($color-white, .96); 
 
     @supports (backdrop-filter: blur(5px)) or (-webkit-backdrop-filter: blur(5px)) {
@@ -125,13 +125,10 @@
         background-color: rgba($color-white, .85); 
     }
 
-
     // If the search results gets to long - active scroll
     overflow-x: hidden;
     overflow-y: auto;
     max-height: 70vh;
-
-
 
     @include respond(mobile) {
         padding: 1.5rem;
