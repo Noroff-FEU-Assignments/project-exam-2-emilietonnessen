@@ -14,8 +14,8 @@ const RadioBoolean: React.FC<RadioProps> = ({name, label, register, error, cssCl
     // If defaultValue returns false - then trueIsCheck should be false, and falseIsChecked should be true
 
     // Setting the state whether they are checked or not based on the default value
-    const [trueIsChecked, setTrueIsChecked] = useState<boolean>(defaultValue === true ? true : false); 
-    const [falseIsChecked, setFalseIsChecked] = useState<boolean>(defaultValue === false ? true : false); 
+    const [trueIsChecked, setTrueIsChecked] = useState<boolean>(false); 
+    const [falseIsChecked, setFalseIsChecked] = useState<boolean>(false); 
 
     const trueChangeHandler = () => {      
         setTrueIsChecked(true);
