@@ -6,7 +6,7 @@ import {SearchResultProps} from '../../../constants/interfaces';
 import { primary, greyLightThree } from "../../../constants/colors";
 
 
-const SearchResult: React.FC<SearchResultProps> = ({ name, thumbnail, stars, slug }) => {
+const SearchResult: React.FC<SearchResultProps> = ({ name, thumbnail, stars, slug, onClick }) => {
 
     // Calculate the amount of stars that shall be displayed
 	const amountOfStars: number = stars;
@@ -33,8 +33,8 @@ const SearchResult: React.FC<SearchResultProps> = ({ name, thumbnail, stars, slu
     </>;
 
     return (
-        <Link href={`/establishment/${slug}`}>
-            <a className="search-result__link">
+        <Link href={`/establishment/${slug}`} >
+            <a className="search-result__link" onClick={onClick}>
                 <div className="search-result">
 
                     <Image 
