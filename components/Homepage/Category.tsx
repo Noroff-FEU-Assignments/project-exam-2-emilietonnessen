@@ -1,13 +1,13 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useContext } from 'react';
-import CategoryContext from '../../context/state';
+import CategoryContext from '../../context/CategoryContext';
 
 const Category: React.FC = () => {
 
     const [activeCategory, setActiveCategory]: any = useContext(CategoryContext)
 
-    console.log(activeCategory);
+    console.log("[Homepage Category]", activeCategory);
 
 
     
@@ -25,6 +25,7 @@ const Category: React.FC = () => {
 
 
     return (
+        
         <section className="category">
             <div className="category__scroll">
                 <div className="category__grid">
@@ -60,6 +61,7 @@ const Category: React.FC = () => {
                 
             </div>
         </section>
+        
     );
 }
 

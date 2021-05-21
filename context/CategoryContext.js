@@ -1,10 +1,6 @@
 import { createContext, useContext, useState } from 'react';
 
- const CategoryContext = createContext();
-
-/* interface CategoryContext {
-    children: React.ReactNode;
-} */
+const CategoryContext = createContext();
 
 
 export const CategoryProvider = ({ children }) => {
@@ -18,9 +14,3 @@ export const CategoryProvider = ({ children }) => {
 }
 
 export default CategoryContext;
-
-/* export function useAppContext() {
-    return useContext(CategoryContext);
-};  */
-
-//const CategoryContext = createContext(null);
