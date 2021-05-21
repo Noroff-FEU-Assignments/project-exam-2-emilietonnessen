@@ -1,5 +1,5 @@
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import * as interfaces from '../constants/interfaces';
 import Layout from '../components/Layout';
@@ -7,9 +7,14 @@ import EstablishmentCard from "../components/Establihsment/EstablishmentCard";
 import Filter from '../components/Filter';
 import { GRAPHQL_URL } from "../constants/api";
 import { META_ESTABLISHMENTS, TITLE_ESTABLISHMENTS } from '../constants/meta';
+import CategoryContext from '../context/state';
 
 
 const establishments: React.FC<interfaces.EstablishmentsProps> = ({est}) => {
+
+    const [activeCategory, setActiveCategory]: any = useContext(CategoryContext)
+
+    console.log(activeCategory);
 
     // Const Variables
     const hotel: string = 'hotel';
@@ -19,7 +24,7 @@ const establishments: React.FC<interfaces.EstablishmentsProps> = ({est}) => {
 
     // State
     const [establishments, setEstablishments] = useState<interfaces.Establishment[]>([]);
-    const [active, setActive] = useState<string>(explore);
+    const [active, setActive] = useState<string>(activeCategory);
 
     // Let Variables
     let activeHotels: boolean = false;
@@ -37,25 +42,25 @@ const establishments: React.FC<interfaces.EstablishmentsProps> = ({est}) => {
     const hotelFilterHandler = () => {
         filterEstablishments = est.filter(est => est.category.toLowerCase().match(hotel));
         setEstablishments(filterEstablishments);
-        setActive(hotel);
+        setActiveCategory(hotel);
     }
 
     const guesthouseFilterHandler = () => {
         filterEstablishments = est.filter(est => est.category.toLowerCase().match(guesthouse));
         setEstablishments(filterEstablishments);
-        setActive(guesthouse);
+        setActiveCategory(guesthouse);
     }
 
     const bnbFilterHandler = () => {
         filterEstablishments = est.filter(est => est.category.toLowerCase().match(bnb));
         setEstablishments(filterEstablishments);
-        setActive(bnb);
+        setActiveCategory(bnb);
     }
 
     const exploreAllFilterHandler = () => {
         filterEstablishments = est;
         setEstablishments(filterEstablishments);
-        setActive(explore);
+        setActiveCategory(explore);
     }
     
 
@@ -73,10 +78,10 @@ const establishments: React.FC<interfaces.EstablishmentsProps> = ({est}) => {
     ));
 
  
-    if (active === hotel) { activeHotels = true; } else { activeHotels = false; }
-    if (active === bnb) { activeBnBs = true; } else { activeBnBs = false; }
-    if (active === guesthouse) { activeGuesthouses = true; } else { activeGuesthouses = false; }
-    if (active === explore) { activeExplore = true; } else { activeExplore = false; }
+    if (activeCategory === hotel) { activeHotels = true; } else { activeHotels = false; }
+    if (activeCategory === bnb) { activeBnBs = true; } else { activeBnBs = false; }
+    if (activeCategory === guesthouse) { activeGuesthouses = true; } else { activeGuesthouses = false; }
+    if (activeCategory === explore) { activeExplore = true; } else { activeExplore = false; }
 
 
     return (

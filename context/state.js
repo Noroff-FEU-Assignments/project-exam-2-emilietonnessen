@@ -1,17 +1,26 @@
-import { createContext, useContext } from 'react';
+import { createContext, useContext, useState } from 'react';
 
-const AppContext = createContext();
+ const CategoryContext = createContext();
 
-export function AppWrapper({ children }) {
-  let sharedState = {/* whatever you want */}
+/* interface CategoryContext {
+    children: React.ReactNode;
+} */
 
-  return (
-    <AppContext.Provider value={sharedState}>
-      {children}
-    </AppContext.Provider>
-  );
+
+export const CategoryProvider = ({ children }) => {
+    const [activeCategory, setActiveCategory] = useState("explore");
+
+    return (
+        <CategoryContext.Provider value={[activeCategory, setActiveCategory]}>
+            {children}
+        </CategoryContext.Provider>
+    );
 }
 
-export function useAppContext() {
-  return useContext(AppContext);
-}
+export default CategoryContext;
+
+/* export function useAppContext() {
+    return useContext(CategoryContext);
+};  */
+
+//const CategoryContext = createContext(null);
