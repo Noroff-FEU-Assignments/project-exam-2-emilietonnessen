@@ -24,6 +24,9 @@
         box-shadow: $boxshadow-default;
         display: inline-block;
         justify-self: flex-start;
+
+        animation-duration: 2s;
+        transform-origin: bottom;
     }
 
     &:hover {
@@ -36,6 +39,8 @@
     &:focus-visible {
         outline: none;
         border: 1px solid $color-black;
+        animation-name: bounce;
+        animation-timing-function: ease;
     }
 
     &:active {
@@ -81,7 +86,7 @@
 
         &:hover,
         &:focus {
-            background-color: lighten($color-grey-dark-1, 10);    
+            background-color: lighten($color-grey-dark-1, 15);    
         }
     }
 

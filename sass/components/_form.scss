@@ -124,7 +124,7 @@
 
 
 
-    // Radio Input ---------------------------------------
+    // Radio Input / Featured  ------------------------------
     &__radio-group {
         width: 40%;
         display: inline-block;
@@ -150,6 +150,12 @@
         display: inline-block; 
         position: relative;
         margin-right: .5rem;
+        outline: none;
+        background-color: transparent;
+
+        &:focus-visible {
+            border: 1px solid $color-primary;
+        }
 
         &::after {
             content: "";
