@@ -1,6 +1,8 @@
 .accordion {
     max-width: 100%;
 
+
+    
     // Header ------------------------
     &__header {
         padding: 1rem 2rem;
@@ -32,6 +34,7 @@
     }
 
 
+
     // Body: ----------------------------
     &__body {
         padding: 3rem;
@@ -46,6 +49,7 @@
             padding: 2rem 1.5rem;
         }
     }
+
 
 
     // Functionality: ----------------------

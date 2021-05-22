@@ -55,9 +55,15 @@
 
     // Input -------------------------------------
     &__input {
+        border-bottom: 1px solid transparent;
+
         @include respond(desk){
             height: 3rem;
             padding: 0 1rem;
+        }
+
+        &:focus {
+            border-bottom: 1px solid black;
         }
     }
 
@@ -69,10 +75,11 @@
         resize: vertical;
         min-height: 10rem;
         max-height: 35rem;
+        border-bottom: 1px solid transparent;
         
-        /* @include respond(mobile-lg) {
-            resize: none;
-        } */
+        &:focus-visible {
+            border-bottom: 1px solid black;
+        }
     }
 
     &__group--textarea {
@@ -88,10 +95,20 @@
             height: 3rem;
             padding: 0 1rem;
         }
+
+        &:focus-visible {
+            border: 1px solid black;
+        }
     }
 
     &__select-box {
         position: relative;
+        border: 1px solid transparent;
+
+        &:focus-visible {
+            border: 1px solid black;
+            outline: none;
+        } 
     }
 
     &__select-icon {
