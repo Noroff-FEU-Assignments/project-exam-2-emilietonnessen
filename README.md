@@ -20,3 +20,7 @@ npm run dev
 ## Admin Access
 - **Username:** testuser
 - **password:** test1234
+
+
+## Live Link
+https://holidaze-theta.vercel.app/
